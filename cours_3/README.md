@@ -75,6 +75,26 @@ Ces syntaxes doivent produire des boutons intégrant une icône à gauche du tex
 
 ![home_add_buttons](./home_add_buttons.png)
 
+#### **2.5. Le boutton doit supportter n'importe quelles props**
+
+```jsx
+<p>
+   <Button mode="filled" disabled>
+   Disabled
+   </Button>
+</p>
+<p>
+   <Button onClick={() => console.log('Clicked!')}>Click me</Button>
+</p>
+```
+
+Le composant Button doit être également capable par défaut de prendre en compte les autres arguments passés au composant, comme avec l'exemple ci-dessus.
+
+Les boutons résultants du code jsx ci-dessus devront avoir cet aspect : 
+
+![disabled_button](./disabled_button.png)
+
+
 **Astuce** :
 - Pour que l’icône soit correctement affichée, enveloppez-la dans une balise `<span>` avec la classe **"button-icon"**.
 - Enveloppez également la prop **children** (le texte du bouton) dans une balise `<span>`.
