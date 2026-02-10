@@ -1,8 +1,4 @@
 /*#### Burger Menu ####*/
-
-/* ============================================
-   BOUTON BURGER (icône 3 barres)
-   ============================================ */
 .menu-btn {
     display: none;
     flex-direction: column;
@@ -47,9 +43,7 @@
     top: 8px;
 }
 
-/* ============================================
-   ANIMATION X quand menu ouvert
-   ============================================ */
+/*#### Animation X ####*/
 .menu--open .menu-icon {
     background: transparent;
 }
@@ -64,9 +58,7 @@
     transform: rotate(-45deg);
 }
 
-/* ============================================
-   MENU NAVIGATION (caché par défaut sur mobile)
-   ============================================ */
+/*#### Menu Navigation ####*/
 #menu {
     display: flex;
 }
@@ -89,9 +81,7 @@
     text-align: center;
 }
 
-/* ============================================
-   RESPONSIVE - Affichage du burger sur mobile
-   ============================================ */
+/*#### Responsive ####*/
 @media (max-width: 767px) {
 
     /* Afficher le bouton burger */

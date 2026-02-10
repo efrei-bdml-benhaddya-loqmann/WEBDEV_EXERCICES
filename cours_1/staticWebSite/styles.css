@@ -1,6 +1,4 @@
-/* ============================================
-   STYLES.CSS - Mon Site Personnel
-   ============================================ */
+/*#### Styles.css - Mon Site Personnel ####*/
 /* Use public css files*/
 @import url('public/css/menu.css');
 
@@ -22,9 +20,7 @@ body {
     font-size: 16px;
 }
 
-/* ============================================
-   3. HEADER - Nouvelle Navbar avec Flexbox
-   ============================================ */
+/*#### Header ####*/
 header {
     background-color: #228B22;
     color: white;
@@ -66,9 +62,7 @@ nav ul li a:hover {
     color: #87CEEB;
 }
 
-/* ============================================
-   4. MAIN - Contenu principal
-   ============================================ */
+/*#### Main ####*/
 main {
     margin: 0 auto;
     padding: 20px;
@@ -96,9 +90,7 @@ section h3 {
     font-weight: 500;
 }
 
-/* ============================================
-   5. PHOTO DE PROFIL - Ronde avec ombre
-   ============================================ */
+/*#### Photo de profil ####*/
 .profile-photo {
     width: 120px;
     height: 120px;
@@ -109,9 +101,7 @@ section h3 {
     display: block;
 }
 
-/* ============================================
-   6. CITATION - Italique
-   ============================================ */
+/*#### Citation ####*/
 blockquote {
     font-style: italic;
     color: #666;
@@ -120,9 +110,7 @@ blockquote {
     max-width: 700px;
 }
 
-/* ============================================
-   7. COMPÉTENCES - Badges/Tags avec Flexbox
-   ============================================ */
+/*#### Compétences ####*/
 #competences h3 {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -174,9 +162,7 @@ blockquote {
     background-color: #5f5d57;
 }
 
-/* ============================================
-   8. SECTION CODE
-   ============================================ */
+/*#### Section Code ####*/
 #code-fun p {
     font-style: italic;
     color: #666;
@@ -199,9 +185,7 @@ code {
     font-family: 'Consolas', 'Monaco', monospace;
 }
 
-/* ============================================
-   9. TABLEAU - Études
-   ============================================ */
+/*#### Tableau ####*/
 table {
     width: auto;
     margin: 20px auto;
@@ -229,9 +213,7 @@ tbody tr:hover {
     display: table-cell;
 }
 
-/* ============================================
-   10. DETAILS/SUMMARY
-   ============================================ */
+/*#### Details/Summary ####*/
 details {
     margin: 20px auto;
     max-width: 400px;
@@ -253,9 +235,7 @@ details li {
     margin: 5px 0;
 }
 
-/* ============================================
-   11. ARTICLES - Expériences
-   ============================================ */
+/*#### Articles ####*/
 #experiences article {
     margin: 25px 0;
     text-align: center;
@@ -282,9 +262,7 @@ details li {
     margin: 5px 0;
 }
 
-/* ============================================
-   12. PROJETS - CSS Grid
-   ============================================ */
+/*#### Projets ####*/
 #projets h2 {
     margin-bottom: 25px;
 }
@@ -353,9 +331,7 @@ details li {
     background-color: #f5f5f5;
 }
 
-/* ============================================
-   13. FORMULAIRE DE CONTACT
-   ============================================ */
+/*#### Formulaire de Contact ####*/
 form {
     max-width: 400px;
     margin: 0 auto;
@@ -406,9 +382,7 @@ form button:hover {
     background-color: #e0e0e0;
 }
 
-/* ============================================
-   14. RÉSEAUX SOCIAUX
-   ============================================ */
+/*#### Réseaux Sociaux ####*/
 #reseaux ul {
     list-style: none;
     padding: 0;
@@ -430,18 +404,14 @@ form button:hover {
     text-decoration: underline;
 }
 
-/* ============================================
-   15. LOCALISATION - iFrame
-   ============================================ */
+/*#### Localisation ####*/
 #localisation iframe {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     max-width: 100%;
 }
 
-/* ============================================
-   16. FOOTER
-   ============================================ */
+/*#### Footer ####*/
 footer {
     background-color: #e8e8e8;
     text-align: center;
@@ -454,11 +424,9 @@ footer p {
     font-size: 0.9rem;
 }
 
-/* ============================================
-   17. RESPONSIVE - MEDIA QUERIES
-   ============================================ */
+/*#### Responsive ####*/
 
-/* ========== DESKTOP (≥ 1024px) ========== */
+/*#### Desktop ####*/
 @media (min-width: 1024px) {
     body {
         font-size: 16px;
@@ -503,7 +471,7 @@ footer p {
     }
 }
 
-/* ========== TABLETTE (768px - 1023px) ========== */
+/*#### Tablette ####*/
 @media (min-width: 768px) and (max-width: 1023px) {
     body {
         font-size: 15px;
@@ -565,7 +533,7 @@ footer p {
     }
 }
 
-/* ========== MOBILE (≤ 767px) ========== */
+/*#### Mobile ####*/
 @media (max-width: 767px) {
     body {
         font-size: 14px;
