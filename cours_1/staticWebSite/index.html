@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Site personnel - Portfolio d'un étudiant passionné par le développement web et les nouvelles technologies">
+    <title>Mon Site Personnel !</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="menu-flex">
+        <h1>Loqman Benhaddya</h1>
+
+        <!-- Bouton Burger Menu (visible uniquement sur mobile) -->
+        <button id="menu-btn" class="menu-btn" aria-label="Menu">
+            <span class="menu-icon"></span>
+        </button>
+
+        <nav>
+            <ul id="menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="experiences.html">Mon Parcours</a></li>
+                <li><a href="contact.html">Me contacter</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="a-propos">
+            <h2>À propos de moi</h2>
+            <img src="public/images/profile_picture.jpg" alt="Photo de profil" class="profile-photo">
+            <p>Bonjour ! Je m'appelle Loqman, et je suis un étudiant passionné par le développement web
+                et les nouvelles technologies.</p>
+            <blockquote>
+                "La technologie ne résout pas les problèmes humains, mais elle nous donne des outils pour les
+                affronter."
+            </blockquote>
+        </section>
+
+        <section id="competences">
+            <h2>Mes Compétences</h2>
+            <h3>Langages et outils :</h3>
+
+            <div class="skills-container">
+                <article class="skill-category">
+                    <h3>💻 Web</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag html">🌐 HTML5</span>
+                        <span class="skill-tag css">🎨 CSS3</span>
+                        <span class="skill-tag javascript">⚡ JavaScript</span>
+                        <span class="skill-tag hacking">🔒 Hacking</span>
+                    </div>
+                </article>
+
+                <article class="skill-category">
+                    <h3>🤖 Data & ML</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag python">🐍 Python</span>
+                        <span class="skill-tag pytorch">🔥 Pytorch</span>
+                        <span class="skill-tag airflow">💨 Airflow</span>
+                        <span class="skill-tag postgresql">🐘 PostgreSQL</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="code-fun">
+            <h2>Attention tremblement de terre !</h2>
+            <p>(Copier ce code dans la console du navigateur)</p>
+            <pre><code>// Code "Tremblement de terre"
+setInterval(() => {
+    document.body.style.marginLeft = `${Math.random() * 20 - 10}px`;
+    document.body.style.marginTop = `${Math.random() * 20 - 10}px`;
+}, 100);</code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Mon Site Personnel</p>
+    </footer>
+
+    <!-- Script du burger menu -->
+    <script src="public/js/menu.js"></script>
+</body>
+
+</html>

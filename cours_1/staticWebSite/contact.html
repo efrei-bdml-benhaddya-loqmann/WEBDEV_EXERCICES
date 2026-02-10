@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez-moi - Formulaire de contact et réseaux sociaux">
+    <title>Me Contacter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="menu-flex">
+        <h1>Loqman Benhaddya</h1>
+
+        <!-- Bouton Burger Menu (visible uniquement sur mobile) -->
+        <button id="menu-btn" class="menu-btn" aria-label="Menu">
+            <span class="menu-icon"></span>
+        </button>
+
+        <nav>
+            <ul id="menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="experiences.html">Mon Parcours</a></li>
+                <li><a href="contact.html">Me contacter</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="formulaire">
+            <h2>Formulaire de Contact</h2>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="objet">Objet :</label>
+                    <input type="text" id="objet" name="objet" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" rows="5" cols="30" required></textarea>
+                </div>
+
+                <button type="submit">Envoyer</button>
+            </form>
+        </section>
+
+        <section id="reseaux">
+            <h2>Mes Réseaux</h2>
+            <ul>
+                <li>🔗 <a href="https://www.linkedin.com/in/loqmann-benhaddya" target="_blank">LinkedIn</a></li>
+                <li>🐙 <a href="https://www.github.com/skezu" target="_blank">GitHub</a></li>
+            </ul>
+        </section>
+
+        <section id="localisation">
+            <h2>Localisation</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2631.768948034945!2d2.3471889!3d48.7879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6717c6e2cc0d7%3A0x31e55dd0f8a09a63!2sEfrei%20Paris!5e0!3m2!1sfr!2sfr!4v1704067200000!5m2!1sfr!2sfr"
+                width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" title="Localisation EFREI Paris">
+            </iframe>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Mon Site Personnel</p>
+    </footer>
+
+    <!-- Script du burger menu -->
+    <script src="public/js/menu.js"></script>
+</body>
+
+</html>

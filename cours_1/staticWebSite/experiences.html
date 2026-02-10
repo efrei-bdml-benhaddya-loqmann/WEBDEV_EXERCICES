@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mon parcours académique et professionnel - Études et expériences">
+    <title>Mon Parcours</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="menu-flex">
+        <h1>Loqman Benhaddya</h1>
+
+        <!-- Bouton Burger Menu (visible uniquement sur mobile) -->
+        <button id="menu-btn" class="menu-btn" aria-label="Menu">
+            <span class="menu-icon"></span>
+        </button>
+
+        <nav>
+            <ul id="menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="experiences.html">Mon Parcours</a></li>
+                <li><a href="contact.html">Me contacter</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="etudes">
+            <h2>🎓 Études</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Année</th>
+                        <th>Diplôme</th>
+                        <th>Établissement</th>
+                        <th class="col-description">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-2025</td>
+                        <td>Spécialisation Data Science</td>
+                        <td>EFREI</td>
+                        <td class="col-description">Formation avancée en IA, ML et Big Data</td>
+                    </tr>
+                    <tr>
+                        <td>2022-2023</td>
+                        <td>Master 1 Computer Science</td>
+                        <td>Oxford</td>
+                        <td class="col-description">Échange universitaire en Angleterre</td>
+                    </tr>
+                    <tr>
+                        <td>2019-2022</td>
+                        <td>Prépa intégrée et Cycle Ingénieur</td>
+                        <td>EFREI</td>
+                        <td class="col-description">Formation d'ingénieur en informatique</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <details>
+                <summary>Détails de la Spécialisation Data Science</summary>
+                <ul>
+                    <li>Développement Web</li>
+                    <li>Apprentissage automatique</li>
+                    <li>Deep Learning</li>
+                    <li>DevOps & MLOps</li>
+                    <li>Cloud Computing</li>
+                </ul>
+            </details>
+        </section>
+
+        <section id="experiences">
+            <h2>💼 Expériences Professionnelles</h2>
+
+            <article>
+                <h3>2025 - Projet Personnel : Mon Portfolio</h3>
+                <p>Conception et développement de mon site personnel.</p>
+            </article>
+
+            <article>
+                <h3>2024 - Stage chez Criteo</h3>
+                <ul>
+                    <li>Optimisation d'algorithmes de type Bandit Manchot</li>
+                    <li>Déploiement de nouveaux modèles</li>
+                </ul>
+            </article>
+
+            <article>
+                <h3>2023 - Stage Assistant Chercheur : FAIR</h3>
+                <p>Recherche sur systèmes de ML à architecture JEPA</p>
+            </article>
+        </section>
+
+        <section id="projets">
+            <h2>🚀 Mes Projets</h2>
+
+            <div class="projects-grid">
+                <!-- Projet Principal (le plus grand) -->
+                <article class="project-card main-project">
+                    <h3>🌐 Plateforme E-Commerce Full Stack</h3>
+                    <p>Application web complète avec panier, paiement Stripe, et gestion des utilisateurs.
+                        Architecture microservices avec Docker et Kubernetes.</p>
+                    <div class="project-tech">
+                        <span class="skill-tag">⚛️ React</span>
+                        <span class="skill-tag">🟢 Node.js</span>
+                        <span class="skill-tag">🍃 MongoDB</span>
+                        <span class="skill-tag">🐳 Docker</span>
+                        <span class="skill-tag">💳 Stripe</span>
+                    </div>
+                </article>
+
+                <!-- Projet Secondaire 1 -->
+                <article class="project-card secondary-project">
+                    <h3>🤖 Chatbot IA</h3>
+                    <p>Assistant conversationnel basé sur GPT-4 pour le service client.</p>
+                    <div class="project-tech">
+                        <span class="skill-tag">🐍 Python</span>
+                        <span class="skill-tag">🧠 OpenAI</span>
+                        <span class="skill-tag">⚡ FastAPI</span>
+                    </div>
+                </article>
+
+                <!-- Projet Secondaire 2 -->
+                <article class="project-card secondary-project">
+                    <h3>📊 Dashboard Analytics</h3>
+                    <p>Tableau de bord interactif pour visualiser les données de vente.</p>
+                    <div class="project-tech">
+                        <span class="skill-tag">💚 Vue.js</span>
+                        <span class="skill-tag">📈 D3.js</span>
+                        <span class="skill-tag">🐘 PostgreSQL</span>
+                    </div>
+                </article>
+
+                <!-- Projet Mineur (le plus petit) -->
+                <article class="project-card minor-project">
+                    <h3>📱 App Météo</h3>
+                    <p>Application mobile affichant la météo en temps réel.</p>
+                    <div class="project-tech">
+                        <span class="skill-tag">⚛️ React Native</span>
+                        <span class="skill-tag">🔌 API</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Mon Site Personnel</p>
+    </footer>
+
+    <!-- Script du burger menu -->
+    <script src="public/js/menu.js"></script>
+</body>
+
+</html>

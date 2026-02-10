@@ -1,9 +1,145 @@
 /*#### Burger Menu ####*/
 
+/* ============================================
+   BOUTON BURGER (icône 3 barres)
+   ============================================ */
+.menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 5px;
+    z-index: 100;
+}
+
 .menu-icon {
     display: block;
     width: 25px;
-    height: 2px;
-    background: #000;
+    height: 3px;
+    background: white;
     position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Barres supplémentaires du burger (avant et après) */
+.menu-icon::before,
+.menu-icon::after {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.menu-icon::before {
+    top: -8px;
+}
+
+.menu-icon::after {
+    top: 8px;
+}
+
+/* ============================================
+   ANIMATION X quand menu ouvert
+   ============================================ */
+.menu--open .menu-icon {
+    background: transparent;
+}
+
+.menu--open .menu-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.menu--open .menu-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+/* ============================================
+   MENU NAVIGATION (caché par défaut sur mobile)
+   ============================================ */
+#menu {
+    display: flex;
+}
+
+/* Classe pour afficher le menu en colonne (quand ouvert) */
+.menu-col {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #228B22;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+}
+
+.menu-col li {
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* ============================================
+   RESPONSIVE - Affichage du burger sur mobile
+   ============================================ */
+@media (max-width: 767px) {
+
+    /* Afficher le bouton burger */
+    .menu-btn {
+        display: flex;
+    }
+
+    /* Cacher le menu par défaut sur mobile */
+    #menu {
+        display: none;
+    }
+
+    /* Afficher le menu quand la classe menu--open est présente */
+    .menu--open #menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #228B22;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu--open #menu li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    /* Header en mode mobile avec le burger */
+    #menu-flex {
+        position: relative;
+    }
+}
+
+/* Sur tablette et desktop, le menu reste visible */
+@media (min-width: 768px) {
+    .menu-btn {
+        display: none;
+    }
+
+    #menu {
+        display: flex !important;
+        flex-direction: row;
+        position: static;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
 }

@@ -1,3 +1,671 @@
-@import url(public/css/main.css);
-@import url(public/css/menu.css);
-@import url(public/css/grid.css);
+/* ============================================
+   STYLES.CSS - Mon Site Personnel
+   ============================================ */
+/* Use public css files*/
+@import url('public/css/menu.css');
+
+/* 1. Import Google Font - Outfit */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* 2. Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* ============================================
+   3. HEADER - Nouvelle Navbar avec Flexbox
+   ============================================ */
+header {
+    background-color: #228B22;
+    color: white;
+    padding: 15px 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* Navigation horizontale avec Flexbox */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #87CEEB;
+}
+
+/* ============================================
+   4. MAIN - Contenu principal
+   ============================================ */
+main {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+/* Sections avec ombre et coins arrondis */
+section {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+section h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+section h3 {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* ============================================
+   5. PHOTO DE PROFIL - Ronde avec ombre
+   ============================================ */
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 15px auto;
+    display: block;
+}
+
+/* ============================================
+   6. CITATION - Italique
+   ============================================ */
+blockquote {
+    font-style: italic;
+    color: #666;
+    margin: 20px auto;
+    padding: 10px 20px;
+    max-width: 700px;
+}
+
+/* ============================================
+   7. COMPÉTENCES - Badges/Tags avec Flexbox
+   ============================================ */
+#competences h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.skills-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.skill-category {
+    background-color: #f5f5dc;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 250px;
+    flex: 1;
+    max-width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skill-category h3 {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.skill-tag {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+    cursor: default;
+    background-color: #5f5d57;
+}
+
+/* ============================================
+   8. SECTION CODE
+   ============================================ */
+#code-fun p {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+pre {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    text-align: left;
+    font-size: 0.85rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+code {
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* ============================================
+   9. TABLEAU - Études
+   ============================================ */
+table {
+    width: auto;
+    margin: 20px auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Colonne supplémentaire - visible par défaut sur Desktop */
+.col-description {
+    display: table-cell;
+}
+
+/* ============================================
+   10. DETAILS/SUMMARY
+   ============================================ */
+details {
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: left;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 10px;
+}
+
+details ul {
+    padding-left: 30px;
+    margin-top: 10px;
+}
+
+details li {
+    margin: 5px 0;
+}
+
+/* ============================================
+   11. ARTICLES - Expériences
+   ============================================ */
+#experiences article {
+    margin: 25px 0;
+    text-align: center;
+}
+
+#experiences article h3 {
+    color: #333;
+    font-weight: 600;
+}
+
+#experiences article p {
+    color: #666;
+    margin-top: 5px;
+}
+
+#experiences article ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+#experiences article li {
+    color: #666;
+    margin: 5px 0;
+}
+
+/* ============================================
+   12. PROJETS - CSS Grid
+   ============================================ */
+#projets h2 {
+    margin-bottom: 25px;
+}
+
+.projects-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.project-card {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-card h3 {
+    color: #228B22;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.project-card p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.project-card .project-tech {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.project-card .tech-badge {
+    background-color: #228B22;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+/* Projet principal (plus grand) */
+.project-card.main-project {
+    background-color: #e8f5e9;
+    border-color: #228B22;
+}
+
+/* Projets secondaires */
+.project-card.secondary-project {
+    background-color: #fff8e1;
+    border-color: #ffc107;
+}
+
+/* Projet mineur */
+.project-card.minor-project {
+    background-color: #f5f5f5;
+}
+
+/* ============================================
+   13. FORMULAIRE DE CONTACT
+   ============================================ */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+form input,
+form textarea {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+form button {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #e0e0e0;
+}
+
+/* ============================================
+   14. RÉSEAUX SOCIAUX
+   ============================================ */
+#reseaux ul {
+    list-style: none;
+    padding: 0;
+}
+
+#reseaux li {
+    margin: 10px 0;
+}
+
+#reseaux a {
+    color: #0077B5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#reseaux a:hover {
+    color: #005582;
+    text-decoration: underline;
+}
+
+/* ============================================
+   15. LOCALISATION - iFrame
+   ============================================ */
+#localisation iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+/* ============================================
+   16. FOOTER
+   ============================================ */
+footer {
+    background-color: #e8e8e8;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    color: #666;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   17. RESPONSIVE - MEDIA QUERIES
+   ============================================ */
+
+/* ========== DESKTOP (≥ 1024px) ========== */
+@media (min-width: 1024px) {
+    body {
+        font-size: 16px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    /* Grid 3x3 pour les projets */
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, auto);
+    }
+
+    /* Projet principal : occupe 2 colonnes et 2 lignes */
+    .project-card.main-project {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+    }
+
+    /* Projets secondaires : taille moyenne */
+    .project-card.secondary-project:nth-of-type(2) {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+    }
+
+    .project-card.secondary-project:nth-of-type(3) {
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+    }
+
+    /* Projet mineur : le plus petit */
+    .project-card.minor-project {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+    }
+
+    /* Colonne description visible */
+    .col-description {
+        display: table-cell;
+    }
+}
+
+/* ========== TABLETTE (768px - 1023px) ========== */
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 15px;
+    }
+
+    header {
+        padding: 15px 20px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    nav ul {
+        gap: 20px;
+    }
+
+    nav ul li a {
+        font-size: 0.95rem;
+    }
+
+    /* Grid 3x3 pour les projets (même layout que desktop) */
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, auto);
+    }
+
+    .project-card.main-project {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+    }
+
+    .project-card.secondary-project:nth-of-type(2) {
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+    }
+
+    .project-card.secondary-project:nth-of-type(3) {
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+    }
+
+    .project-card.minor-project {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+    }
+
+    /* Colonne description visible sur tablette */
+    .col-description {
+        display: table-cell;
+    }
+
+    .skills-container {
+        gap: 20px;
+    }
+
+    .skill-category {
+        min-width: 200px;
+    }
+}
+
+/* ========== MOBILE (≤ 767px) ========== */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+
+    /* Header : passe en colonne sur mobile */
+    header {
+        flex-direction: column;
+        padding: 15px;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+
+    /* Main */
+    main {
+        padding: 10px;
+    }
+
+    section {
+        padding: 20px 15px;
+        margin: 15px 0;
+    }
+
+    section h2 {
+        font-size: 1.3rem;
+    }
+
+    /* Photo de profil plus petite */
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Compétences en colonne */
+    .skills-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .skill-category {
+        width: 100%;
+        max-width: 300px;
+        min-width: auto;
+    }
+
+    /* Code block */
+    pre {
+        font-size: 0.75rem;
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    /* Tableau : cacher la colonne description */
+    .col-description {
+        display: none;
+    }
+
+    th,
+    td {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    /* Projets en colonne (empilés) */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card,
+    .project-card.main-project,
+    .project-card.secondary-project,
+    .project-card.minor-project {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    /* Formulaire */
+    form input,
+    form textarea {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    /* iFrame responsive */
+    #localisation iframe {
+        width: 100%;
+        height: 250px;
+    }
+}
