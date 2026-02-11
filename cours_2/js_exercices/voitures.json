@@ -1,46 +1,43 @@
 [
     {
         "id": 101,
-        "modele" : {
-            "nom" : "Clio",
-            "marque" : "Renault",
-            "id_modele" : 1203,
-            "numero_serie" : 12345678,
-            "vitesse_de_pointe_kmH" : 180
+        "modele": {
+            "nom": "Clio",
+            "marque": "Renault",
+            "id_modele": 1203,
+            "numero_serie": 12345678,
+            "vitesse_de_pointe_kmH": 180
         },
-        "proprietaire":{
+        "proprietaire": {
             "prenom": "Pedro",
             "nom": "Mucho",
             "age": 34
         }
-
     },
     {
         "id": 102,
-        "modele" : {
-            "nom" : "A110 R",
-            "marque" : "Alpine",
-            "id_modele" : 110123,
-            "numero_serie" : 22345,
-            "vitesse_de_pointe_kmH" : 250
+        "modele": {
+            "nom": "A110 R",
+            "marque": "Alpine",
+            "id_modele": 110123,
+            "numero_serie": 22345,
+            "vitesse_de_pointe_kmH": 250
         },
-        "proprietaire":{
+        "proprietaire": {
             "prenom": "Pierre",
             "nom": "Gasly",
             "age": 29
         }
-
     },
     {
         "id": 103,
-        "modele" : {
-            "nom" : "Amalfi",
-            "marque" : "Ferrari",
-            "vitesse_de_pointe_kmH" : 320
+        "modele": {
+            "nom": "Amalfi",
+            "marque": "Ferrari",
+            "vitesse_de_pointe_kmH": 320
         },
-        "proprietaire":{
-            "prenom": "Charles" 
+        "proprietaire": {
+            "prenom": "Charles"
         }
-
     }
 ]

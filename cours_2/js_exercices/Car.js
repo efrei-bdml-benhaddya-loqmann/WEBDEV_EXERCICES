@@ -1,11 +1,11 @@
-class Car{
+class Car {
     id = null
     model = {
         "name": "",
         "brand": "",
         "modeleId": null,
         "serialNumber": null,
-        "topSpeed" : null
+        "topSpeed": null
     }
     owner = {
         "firstName": "",
@@ -13,13 +13,16 @@ class Car{
         "age": null
     }
 
-    constructor(id, modelName, ownerFirstName, ownerLastName, age = 0, topSpeed = 0 ) {
+    constructor(id, modelName, ownerFirstName, ownerLastName, age = 0, topSpeed = 0, brand = "", modeleId = null, serialNumber = null) {
         this.id = id
         this.model.name = modelName
         this.owner.firstName = ownerFirstName
         this.owner.lastName = ownerLastName
         this.owner.age = age
         this.model.topSpeed = topSpeed
+        this.model.brand = brand
+        this.model.modeleId = modeleId
+        this.model.serialNumber = serialNumber
     }
 
     printEssentialCarInfos() {
@@ -32,7 +35,7 @@ class Car{
     }
 
     static sayHello() {
-        console.log("Hello I am from the Car class !")
+        console.log("Hello! I am from the Car class !")
     }
 }
 
