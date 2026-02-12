@@ -1,0 +1,11 @@
+.core-concept {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.core-concept-image {
+    width: 25;
+    height: 25px;
+}
