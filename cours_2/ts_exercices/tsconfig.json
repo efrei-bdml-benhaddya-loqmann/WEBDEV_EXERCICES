@@ -1,18 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2020",                    // Version JavaScript cible
-    "module": "commonjs",                   // Système de modules
-    "lib": ["ES2020"],                      // Bibliothèques disponibles
-    "outDir": "./dist",                     // Dossier de sortie des fichiers JS compilés
-    "rootDir": ".",                     // Dossier source des fichiers TS
-    "strict": true,                         // Active tous les checks stricts
-    "esModuleInterop": true,                // Meilleure compatibilité imports
-    "skipLibCheck": true,                   // Saute la vérification des .d.ts
+    "target": "ES2020", // Version JavaScript cible
+    "module": "commonjs", // Système de modules
+    "lib": [
+      "ES2020"
+    ], // Bibliothèques disponibles
+    "outDir": "./dist", // Dossier de sortie des fichiers JS compilés
+    "rootDir": "./src", // Dossier source des fichiers TS
+    "strict": true, // Active tous les checks stricts
+    "esModuleInterop": true, // Meilleure compatibilité imports
+    "skipLibCheck": true, // Saute la vérification des .d.ts
     "forceConsistentCasingInFileNames": true, // Cohérence noms fichiers
-    "resolveJsonModule": true,              // Permet d'importer des JSON
-    "moduleResolution": "node"              // Résolution des modules comme Node.js
+    "resolveJsonModule": true, // Permet d'importer des JSON
+    "moduleResolution": "node" // Résolution des modules comme Node.js
   },
-  //"include": ["src/**/*"],                  // Fichiers à inclure
-  "include" : ["./*.ts"],
-  "exclude": ["node_modules", "dist"]       // Fichiers à exclure
+  "include": [
+    "src/**/*"
+  ], // Fichiers à inclure
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Fichiers à exclure
 }
