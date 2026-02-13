@@ -6,7 +6,7 @@ const workouts = [
   {
     title: 'Pushups',
     description: 'Do 30 pushups',
-    time: 1000 * 60 * 3,
+    time: 1000 * 3 * 3,
   },
   {
     title: 'Squats',
@@ -23,7 +23,7 @@ const workouts = [
 function App() {
   const [completedWorkouts, setCompletedWorkouts] = React.useState([]);
 
-  function handleWorkoutComplete(workoutTitle) {
+  function handleWorkoutComplete(workoutTitle: string) {
     setCompletedWorkouts((prevCompletedWorkouts) => [
       ...prevCompletedWorkouts,
       workoutTitle,
