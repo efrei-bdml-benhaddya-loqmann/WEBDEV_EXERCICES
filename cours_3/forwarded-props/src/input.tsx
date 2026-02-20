@@ -1,18 +1,12 @@
-interface InputProps {
-    richText?: boolean;
-    type?: string;
-    placeholder: string;
-}
+import { type ComponentPropsWithoutRef } from 'react';
 
-const Input = ({ richText, type, placeholder }: InputProps) => {
-    // return a <textarea> if a richText prop is true
-    // return an <input> otherwise
-    // forward / set the received props on the returned elements
+type InputProps = { richText?: boolean } & ComponentPropsWithoutRef<'input'> & ComponentPropsWithoutRef<'textarea'>;
+
+const Input = ({ richText, ...props }: InputProps) => {
     if (richText) {
-        return <textarea placeholder={placeholder} />
+        return <textarea {...props} />
     }
-    return <input type={type} placeholder={placeholder} />
-
+    return <input {...props} />
 }
 
 export default Input;

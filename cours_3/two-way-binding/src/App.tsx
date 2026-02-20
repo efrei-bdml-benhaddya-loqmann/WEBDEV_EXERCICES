@@ -19,11 +19,11 @@ function App() {
         <h2>Please share some feedback</h2>
         <p>
           <label>Your Feedback</label>
-          <textarea onChange={handleFeedbackChange} />
+          <textarea value={feedback} onChange={handleFeedbackChange} />
         </p>
         <p>
           <label>Your Name</label>
-          <input type="text" onChange={handleStudentChange} />
+          <input type="text" value={student} onChange={handleStudentChange} />
         </p>
       </section>
       <section id="draft">

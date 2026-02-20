@@ -1,15 +1,17 @@
-import Form from './Form';
-
-// Don't change the name of the 'App' 
-// function and keep it a named export
+import { useRef } from 'react';
+import Form, { type FormHandle } from './Form';
 
 export function App() {
-  function handleRestart() {}
+  const formRef = useRef<FormHandle>(null);
+
+  function handleRestart() {
+    formRef.current?.clear();
+  }
 
   return (
     <div id="app">
       <button onClick={handleRestart}>Restart</button>
-      <Form />
+      <Form ref={formRef} />
     </div>
   );
 }
