@@ -88,3 +88,35 @@ Pour aller plus loin, vous pouvez :
 * ajouter une **validation des champs** (poids min < poids max, valeurs positives, etc.).
 * rendre toute la web app **responsive**.
 * permettre l’export du tableau (CSV, PDF, etc.).
+
+---
+
+## 🗺️ Diagramme du flow utilisateur
+
+```mermaid
+flowchart TD
+    A([🚀 Ouverture de l'application]) --> B[Affichage du formulaire]
+
+    B --> C[Sélectionner un ou plusieurs objectifs]
+    C --> D[Saisir le poids minimum]
+    D --> E[Saisir le poids maximum]
+    E --> F[Choisir le nombre de lignes]
+
+    F --> G{Valeurs valides ?}
+
+    G -- ❌ Non --> H[⚠️ Afficher les erreurs de validation\npoids min ≥ max, valeurs négatives...]
+    H --> D
+
+    G -- ✅ Oui --> I[🧮 Calcul des poids intermédiaires\nmin → max répartis sur N lignes]
+
+    I --> J[🧮 Calcul des besoins en protéines\npour chaque poids × ratio objectif]
+
+    J --> K[📊 Génération du tableau dynamique]
+
+    K --> L[Affichage\nColonne Poids + une colonne par objectif sélectionné\nChaque cellule = plage en g/jour]
+
+    L --> M{L'utilisateur modifie\nun paramètre ?}
+
+    M -- ✅ Oui --> G
+    M -- ❌ Non --> N([🏁 Fin])
+```
