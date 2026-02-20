@@ -16,7 +16,7 @@ const Table = (props: TableProps) => {
         const weights: number[] = []
         const step = (maxW - minW) / (nbL - 1) // nbL - 1 pour créer nbL intervalles, ex: 100 - 50 / 6 - 1 = 10 (pas de 10)
         for (let i = 0; i < nbL; i++) {
-            weights.push(minW + i * step)
+            weights.push(Number((minW + i * step).toFixed(1)))
         }
         return weights
     }
