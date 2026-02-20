@@ -1,0 +1,192 @@
+/* ============================================================
+   TABLE.CSS — Premium Anthropic-Inspired Table Styles
+   ============================================================ */
+
+/* ----- Table container ----- */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    /* Horizontal scroll on mobile */
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    background: var(--clr-surface);
+}
+
+/* Subtle scroll hint shadow on right edge when overflowing */
+.table-wrapper::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    pointer-events: none;
+}
+
+/* ----- Table meta header ----- */
+.table-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    padding: var(--spacing-5) var(--spacing-6);
+    border-bottom: 1px solid var(--clr-border);
+    background: var(--clr-bg-secondary);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    /* Doit correspondre au min-width du <table> pour éviter l'espace blanc sur mobile */
+    min-width: 480px;
+}
+
+.table-meta-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--clr-text-primary);
+    margin: 0;
+}
+
+.table-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    background: var(--clr-accent-light);
+    color: var(--clr-accent);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 3px var(--spacing-3);
+    border-radius: var(--radius-full);
+}
+
+/* ----- The actual <table> ----- */
+.protein-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+    min-width: 480px;
+    /* Forces horizontal scroll below this width */
+}
+
+/* ----- Column headers ----- */
+.protein-table thead tr {
+    background: var(--clr-bg-secondary);
+}
+
+.protein-table th {
+    padding: var(--spacing-4) var(--spacing-5);
+    text-align: left;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--clr-text-muted);
+    border-bottom: 2px solid var(--clr-border);
+    white-space: nowrap;
+}
+
+.protein-table th.weight-th {
+    color: var(--clr-text-secondary);
+    border-right: 2px solid var(--clr-border);
+    min-width: 110px;
+}
+
+.protein-table th.protein-th {
+    text-align: center;
+    min-width: 160px;
+}
+
+/* ----- Body rows ----- */
+.protein-table tbody tr {
+    transition:
+        background-color var(--transition-fast),
+        opacity var(--transition-normal);
+    animation: rowFadeIn var(--transition-slow) both;
+}
+
+/* Staggered row animation using CSS custom property set inline */
+.protein-table tbody tr {
+    animation-delay: calc(var(--row-index, 0) * 40ms);
+}
+
+@keyframes rowFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Alternating row colors for readability */
+.protein-table tbody tr:nth-child(even) {
+    background-color: var(--clr-surface-alt);
+}
+
+.protein-table tbody tr:nth-child(odd) {
+    background-color: var(--clr-surface);
+}
+
+/* Row hover highlight */
+.protein-table tbody tr:hover {
+    background-color: var(--clr-accent-light) !important;
+}
+
+/* ----- Cells ----- */
+.protein-table td {
+    padding: var(--spacing-3) var(--spacing-5);
+    border-bottom: 1px solid var(--clr-border);
+    color: var(--clr-text-secondary);
+    vertical-align: middle;
+}
+
+.protein-table td.weight-td {
+    font-weight: 600;
+    color: var(--clr-text-primary);
+    font-feature-settings: "tnum";
+    /* tabular numbers for alignment */
+    border-right: 2px solid var(--clr-border);
+    white-space: nowrap;
+}
+
+.protein-table td.protein-td {
+    text-align: center;
+    font-feature-settings: "tnum";
+    color: var(--clr-text-secondary);
+    white-space: nowrap;
+}
+
+/* Remove bottom border on last row */
+.protein-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ----- Empty state ----- */
+.table-empty-th {
+    text-align: center;
+    color: var(--clr-text-muted);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: var(--spacing-6);
+}
+
+/* ----- Responsive: mobile empilement hint ----- */
+@media (max-width: 600px) {
+    .table-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--spacing-4);
+    }
+
+    .protein-table th,
+    .protein-table td {
+        padding: var(--spacing-3) var(--spacing-3);
+    }
+}

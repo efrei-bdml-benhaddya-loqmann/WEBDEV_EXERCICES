@@ -26,11 +26,11 @@ Suivi de l'avancement du mini-projet React.
 - [x] Gérer le rendu conditionnel (ne rien afficher ou message si aucun objectif n'est sélectionné)
 
 ## 5. 💅 Design & UX
-- [ ] Appliquer un style moderne et premium (CSS Vanilla)
-- [ ] Assurer la lisibilité des données (bordures, alternance de couleurs de lignes)
-- [ ] Ajouter des transitions/animations subtiles lors de la mise à jour des données
+- [x] Appliquer un style moderne et premium (CSS Vanilla)
+- [x] Assurer la lisibilité des données (bordures, alternance de couleurs de lignes)
+- [x] Ajouter des transitions/animations subtiles lors de la mise à jour des données
 
 ## 6. 🌟 Bonus (En option)
-- [ ] Validation des champs : Bloquer `min > max` ou `nb lignes < 2`
-- [ ] Responsive design : Adapter le tableau sur mobile (scroll horizontal ou empilement)
+- [x] Validation des champs : Bloquer `min > max` ou `nb lignes < 2`
+- [x] Responsive design : Adapter le tableau sur mobile (scroll horizontal ou empilement)
 - [ ] Export : Ajouter un bouton pour télécharger les données ou imprimer

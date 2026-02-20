@@ -1,13 +1,13 @@
 interface FormItemProps {
     name: string,
-    id: number,
+    id: string,
     children: React.ReactNode
 }
 
 const FormItem = ({ name, id, children }: FormItemProps) => {
     return (
-        <div className="form-item">
-            <label htmlFor={id.toString()}>{name}</label>
+        <div className="form-item-field">
+            <label htmlFor={id}>{name}</label>
             {children}
         </div>
     )

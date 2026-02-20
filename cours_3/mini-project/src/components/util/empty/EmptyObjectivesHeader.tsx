@@ -1,6 +1,6 @@
 const EmptyObjectivesHeader = () => {
     return (
-        <th>Aucun objectif sélectionné</th>
+        <th className="table-empty-th">Aucun objectif sélectionné</th>
     )
 }
 

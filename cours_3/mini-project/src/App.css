@@ -1,42 +1,122 @@
+/* ============================================================
+   APP.CSS — Layout & Global App Container
+   ============================================================ */
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--spacing-12) var(--spacing-4);
+  background-color: var(--clr-bg);
+}
+
+/* ----- App wrapper ----- */
+.app-wrapper {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ----- App Header ----- */
+.app-header {
+  margin-bottom: var(--spacing-10);
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.app-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: var(--clr-accent-light);
+  color: var(--clr-accent);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-4);
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+/* small decorative dot in badge */
+.app-logo-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clr-accent);
 }
 
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--clr-text-secondary);
+  margin: 0;
+  font-weight: 400;
 }
 
-@keyframes logo-spin {
+/* ----- View transition (form ↔ table) ----- */
+.view-enter {
+  animation: fadeSlideIn var(--transition-slow) forwards;
+}
+
+/* Hidden but mounted — preserves form DOM & input values */
+.view-hidden {
+  display: none;
+}
+
+
+@keyframes fadeSlideIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(16px);
   }
 
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* ----- Back button ----- */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: transparent;
+  border: 1.5px solid var(--clr-border-strong);
+  border-radius: var(--radius-md);
+  color: var(--clr-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--spacing-2) var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
+.btn-back:hover {
+  background-color: var(--clr-bg-secondary);
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+.btn-back svg {
+  transition: transform var(--transition-fast);
+}
+
+.btn-back:hover svg {
+  transform: translateX(-3px);
+}
+
+/* ----- Divider ----- */
 .divider {
-  margin: 2rem 0;
-  border-top: 1px solid #ccc;
+  margin: var(--spacing-8) 0;
+  border: none;
+  border-top: 1px solid var(--clr-border);
 }

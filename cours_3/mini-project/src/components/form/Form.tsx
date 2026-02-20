@@ -1,17 +1,19 @@
 import { useState, type SubmitEvent } from "react"
 import { OBJECTIVES } from "../../data/data"
-import FormItem from "./FormItem"
 import FieldValidationError from "../util/error/FieldValidationError"
+import "./Form.css"
+import FormItem from "./FormItem"
 
 interface FormProps {
-    setObjectives: (objectives: number[]) => void
-    setMinWeight: (minWeight: number) => void
-    setMaxWeight: (maxWeight: number) => void
-    setNbLines: (nbLines: number) => void
+    onGenerate: (
+        objectives: number[],
+        minWeight: number,
+        maxWeight: number,
+        nbLines: number
+    ) => void
 }
 
-const Form = (props: FormProps) => {
-    const { setObjectives, setMinWeight, setMaxWeight, setNbLines } = props
+const Form = ({ onGenerate }: FormProps) => {
 
     const [isFormErrorVisible, setIsFormErrorVisible] = useState<boolean>(false)
     const [formErrorMessage, setFormErrorMessage] = useState<string>("")
@@ -25,57 +27,83 @@ const Form = (props: FormProps) => {
         const maxW = Number(formData.get("maxWeight"))
         const lines = Number(formData.get("nbLines"))
 
+        // Regles de validation
         if (minW > maxW) {
             form.reportValidity()
-            setFormErrorMessage("Le poids minimum doit être inférieur au poids maximum")
+            setFormErrorMessage("Le poids minimum doit être inférieur au poids maximum.")
             setIsFormErrorVisible(true)
             return
         }
 
         if (lines > (maxW - minW)) {
             form.reportValidity()
-            setFormErrorMessage("Le nombre de lignes doit être inférieur ou égal à la différence entre le poids maximum et le poids minimum")
+            setFormErrorMessage("Le nombre de lignes doit être inférieur ou égal à la différence entre le poids max et min.")
+            setIsFormErrorVisible(true)
+            return
+        }
+        if (lines < 2) {
+            form.reportValidity()
+            setFormErrorMessage("Le nombre de lignes doit être supérieur ou égal à 2.")
             setIsFormErrorVisible(true)
             return
         }
 
-        setObjectives(selectedObjectives)
-        setMinWeight(minW)
-        setMaxWeight(maxW)
-        setNbLines(lines)
-
-        // console.log({
-        //     objectives: selectedObjectives,
-        //     minWeight: minW,
-        //     maxWeight: maxW,
-        //     nbLines: lines
-        // })
+        // Utilise la fonction défini dans App.tsx pour générer le tableau
+        onGenerate(selectedObjectives, minW, maxW, lines)
     }
 
     return (
-        <form action="sendData" onSubmit={handleSubmit} method="POST">
-            <label>Objectifs</label>
-            {OBJECTIVES.map((objective) => (
-                <FormItem key={objective.id} name={objective.name} id={objective.id}>
-                    <input
-                        type="checkbox"
-                        value={objective.id}
-                        name="objectives"
-                        id={objective.id.toString()}
-                    />
-                </FormItem>
-            ))}
-            <FormItem name="minWeight" id={1001}>
-                <input type="number" name="minWeight" id="1001" min={0} />
-            </FormItem>
-            <FormItem name="maxWeight" id={1002}>
-                <input type="number" name="maxWeight" id="1002" min={0} />
-            </FormItem>
-            <FormItem name="nbLines" id={1003}>
-                <input type="number" name="nbLines" id="1003" min={2} />
-            </FormItem>
-            <FieldValidationError message={formErrorMessage} isVisible={isFormErrorVisible} setIsVisible={setIsFormErrorVisible} />
-            <button type="submit">Générer</button>
+        <form
+            action="sendData"
+            onSubmit={handleSubmit}
+            method="POST" // masquer les arguments dans l'url
+            noValidate
+        >
+            <div className="form-card">
+
+                <p className="form-section-title">Objectifs</p>
+                <div className="objectives-grid">
+                    {OBJECTIVES.map((objective) => (
+                        <div className="form-item-checkbox" key={objective.id}>
+                            <input
+                                type="checkbox"
+                                value={objective.id}
+                                name="objectives"
+                                id={`obj-${objective.id}`}
+                            />
+                            <label htmlFor={`obj-${objective.id}`}>
+                                {objective.name}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+
+                <hr className="form-separator" />
+
+                <p className="form-section-title">Paramètres</p>
+                <div className="form-fields-row">
+                    <FormItem name="Poids minimum (kg)" id="minWeight">
+                        <input type="number" name="minWeight" id="minWeight" min={0} required />
+                    </FormItem>
+                    <FormItem name="Poids maximum (kg)" id="maxWeight">
+                        <input type="number" name="maxWeight" id="maxWeight" min={0} required />
+                    </FormItem>
+                    <FormItem name="Nombre de lignes" id="nbLines">
+                        <input type="number" name="nbLines" id="nbLines" min={2} required />
+                    </FormItem>
+                </div>
+
+                {/* S'affiche lorsque une erreur du formulaire est détectée */}
+                <FieldValidationError
+                    message={formErrorMessage}
+                    isVisible={isFormErrorVisible}
+                    setIsVisible={setIsFormErrorVisible}
+                />
+
+                <button type="submit" className="btn-generate">
+                    Générer le tableau →
+                </button>
+            </div>
         </form>
     )
 }
