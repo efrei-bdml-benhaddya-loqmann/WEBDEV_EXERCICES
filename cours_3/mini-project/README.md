@@ -78,7 +78,7 @@ npm run dev
 pnpm run dev
 
 # Avec bun
-bun run dev
+bun --watch run dev
 ```
 
 L'application est disponible sur [http://localhost:5173](http://localhost:5173).

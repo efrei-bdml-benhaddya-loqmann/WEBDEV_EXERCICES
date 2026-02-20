@@ -79,8 +79,16 @@
   }
 }
 
-/* ----- Back button ----- */
-.btn-back {
+/* ----- Barre d'actions (retour + export) ----- */
+.table-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+}
+
+/* ----- Boutons outline (retour, export…) ----- */
+.btn-outline {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-2);
@@ -91,7 +99,6 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
   padding: var(--spacing-2) var(--spacing-4);
-  margin-bottom: var(--spacing-6);
   cursor: pointer;
   transition:
     background-color var(--transition-fast),
@@ -100,18 +107,29 @@
     transform var(--transition-fast);
 }
 
-.btn-back:hover {
+.btn-outline:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-outline:hover {
   background-color: var(--clr-bg-secondary);
   border-color: var(--clr-accent);
   color: var(--clr-accent);
 }
 
-.btn-back svg {
+.btn-outline svg {
   transition: transform var(--transition-fast);
 }
 
-.btn-back:hover svg {
+/* Flèche retour glisse vers la gauche */
+.btn-outline:first-child:hover svg {
   transform: translateX(-3px);
+}
+
+/* Icône d'export : légère montée au lieu de glisser à gauche */
+.btn-outline:not(:first-child):hover svg {
+  transform: translateY(-2px);
 }
 
 /* ----- Divider ----- */

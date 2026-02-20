@@ -1,7 +1,9 @@
 import './App.css'
 import Form from './components/form/Form'
 import Table from './components/table/Table'
-import { useState } from 'react'
+import ExportButton from './components/action/export/ExportButton'
+import { useState, useMemo } from 'react'
+import { generateTableData } from './data/data'
 
 function App() {
   const [objectives, setObjectives] = useState<number[]>([])
@@ -26,6 +28,13 @@ function App() {
     setShowTable(true)
   }
 
+  // Source unique de vérité pour les données du tableau
+  // Recalcul uniquement quand les paramètres changent
+  const { rows, headers, selectedObjectives } = useMemo( // useMemo pour ne pas recalculer les données pour rien
+    () => generateTableData(objectives, minWeight, maxWeight, nbLines),
+    [objectives, minWeight, maxWeight, nbLines]
+  )
+
   return (
     <div className="app-wrapper">
       <header className="app-header">
@@ -43,18 +52,27 @@ function App() {
 
       {/* toujours monté, caché jusqu'à la génération */}
       <div className={showTable ? "view-enter" : "view-hidden"}>
-        <button className="btn-back" onClick={() => setShowTable(false)}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          Retour au formulaire
-        </button>
+        {/* ---- Barre d'actions ---- */}
+        <div className="table-actions">
+          <button className="btn-outline" onClick={() => setShowTable(false)}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Retour au formulaire
+          </button>
+
+          {/* ExportButton reçoit les mêmes données que Table */}
+          <ExportButton
+            rows={rows}
+            headers={headers}
+            selectedObjectives={selectedObjectives}
+          />
+        </div>
 
         <Table
-          objectives={objectives}
-          minWeight={minWeight}
-          maxWeight={maxWeight}
-          nbLines={nbLines}
+          rows={rows}
+          headers={headers}
+          selectedObjectives={selectedObjectives}
         />
       </div>
     </div>
