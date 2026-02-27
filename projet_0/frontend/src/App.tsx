@@ -1,59 +1,125 @@
 import { useState } from 'react'
-import { Badge } from '@openai/apps-sdk-ui/components/Badge'
-import { Button } from '@openai/apps-sdk-ui/components/Button'
-import { Input } from '@openai/apps-sdk-ui/components/Input'
-import { Textarea } from '@openai/apps-sdk-ui/components/Textarea'
-import { SegmentedControl } from '@openai/apps-sdk-ui/components/SegmentedControl'
+import { SidebarMenuMobile } from '@openai/apps-sdk-ui/components/Icon'
+import { Sidebar } from './components/Sidebar'
+import { MainContent, HeroTitle } from './components/MainContent'
+import { ChatArea } from './components/ChatArea'
+import { InputArea } from './components/InputArea'
+import type { SentimentResult } from './types'
 
 function App() {
-  const [segmentData, setSegmentData] = useState('first')
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [inputText, setInputText] = useState('')
+
+  // App states
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submittedText, setSubmittedText] = useState<string | null>(null)
+  const [result, setResult] = useState<SentimentResult | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  // Mock History
+  const [history, setHistory] = useState<SentimentResult[]>([
+    {
+      id: '1',
+      text: "I really love the new design!",
+      sentiment: "positive",
+      score: 0.98,
+      timestamp: 1700000000000
+    },
+    {
+      id: '2',
+      text: "This is a terrible experience.",
+      sentiment: "negative",
+      score: 0.95,
+      timestamp: 1690000000000
+    },
+    {
+      id: '3',
+      text: "The weather is okay today.",
+      sentiment: "neutral",
+      score: 0.81,
+      timestamp: 1680000000000
+    }
+  ])
+
+  // Is Hero visible? Only when there's no submitted text and no result/error
+  const showHero = !submittedText && !result && !error
+
+  const handleSubmit = () => {
+    // Artificial mock to test UI
+    setSubmittedText(inputText)
+    setInputText('')
+    setIsSubmitting(true)
+    setResult(null)
+    setError(null)
+
+    setTimeout(() => {
+      setIsSubmitting(false)
+      // Random result
+      const newResult: SentimentResult = {
+        id: Math.random().toString(),
+        text: submittedText || inputText,
+        sentiment: Math.random() > 0.6 ? 'positive' : Math.random() > 0.3 ? 'negative' : 'neutral',
+        score: Math.random() * (0.99 - 0.45) + 0.45,
+        timestamp: Date.now()
+      }
+      setResult(newResult)
+      setHistory(prev => [newResult, ...prev])
+    }, 1500)
+  }
+
+  const handleSelectHistory = (item: SentimentResult) => {
+    setSubmittedText(item.text)
+    setResult(item)
+    setError(null)
+    if (window.innerWidth < 1024) {
+      setIsSidebarOpen(false)
+    }
+  }
+
+  const handleClearHistory = () => {
+    setHistory([])
+  }
 
   return (
-    <div className="flex flex-col gap-8 p-10 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold">@openai/apps-sdk-ui Components</h1>
+    <div className="flex h-[100dvh] w-full bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 overflow-hidden font-sans">
+      <Sidebar
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
+        history={history}
+        onSelect={handleSelectHistory}
+        onClear={handleClearHistory}
+      />
 
-      {/* Badge Section */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Badges (variant: soft)</h2>
-        <div className="flex gap-4">
-          <Badge color="success" variant="soft" size='lg'>Positive</Badge>
-          <Badge color="danger" variant="soft" size='lg'>Negative</Badge>
-          <Badge color="secondary" variant="soft" size='lg'>Neutral</Badge>
+      <MainContent>
+        {/* Mobile Header */}
+        <div className="lg:hidden flex items-center p-3 border-b border-gray-200 dark:border-gray-800 shrink-0 ease-in-out">
+          <button
+            className="p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            <SidebarMenuMobile className="size-6 text-gray-600 dark:text-gray-300" />
+          </button>
+          <span className="font-semibold ml-2 text-lg">Sentiment Analyzer</span>
         </div>
-      </div>
 
-      {/* Button Section */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Buttons</h2>
-        <div className="flex gap-4">
-          <Button color="primary">Primary</Button>
-          <Button color="secondary">Secondary</Button>
-          <Button color="danger" variant="soft">Danger Soft</Button>
-        </div>
-      </div>
+        {showHero ? (
+          <HeroTitle />
+        ) : (
+          <ChatArea
+            userText={submittedText}
+            result={result}
+            isLoading={isSubmitting}
+            error={error}
+          />
+        )}
 
-      {/* Input / Textarea Section */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Inputs</h2>
-        <div className="flex flex-col gap-4">
-          <Input placeholder="Enter some text here..." />
-          <Textarea placeholder="Type a longer message..." rows={3} />
-        </div>
-      </div>
-
-      {/* Segmented Control Section */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Segmented Control</h2>
-        <div>
-          <SegmentedControl value={segmentData} onChange={setSegmentData} aria-label="Example segmented control">
-            <SegmentedControl.Option value="first">First Option</SegmentedControl.Option>
-            <SegmentedControl.Option value="second">Second Option</SegmentedControl.Option>
-            <SegmentedControl.Option value="third">Third Option</SegmentedControl.Option>
-          </SegmentedControl>
-        </div>
-        <p className="mt-2 text-sm text-gray-500">Selected value: <span className="font-bold">{segmentData}</span></p>
-      </div>
-
+        <InputArea
+          text={inputText}
+          setText={setInputText}
+          onSubmit={handleSubmit}
+          isLoading={isSubmitting}
+        />
+      </MainContent>
     </div>
   )
 }
