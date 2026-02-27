@@ -19,16 +19,16 @@ Implement the core sentiment analysis service in `backend/model`.
 ## Phase 2: Main Backend (Node.js/Express)
 Implement history management and orchestration in `backend/app`.
 
-- [ ] 2.1 Update Express server structure
+- [x] 2.1 Update Express server structure
   - Add middleware for CORS and JSON parsing if not already complete.
   - Implement in-memory storage for history.
   - Reference: Design (Architecture, History Management)
-- [ ] 2.2 Implement `/analyze` endpoint
+- [x] 2.2 Implement `/analyze` endpoint
   - This endpoint should call the Flask API (`POST /predict`).
   - Generate a unique ID and timestamp for each result.
   - Save result to history.
   - Reference: Requirements 2.1, 4.1; Design (Backend API)
-- [ ] 2.3 Implement history endpoints
+- [x] 2.3 Implement history endpoints
   - `GET /history`: Return all stored results.
   - `DELETE /history/:id`: Remove specific result.
   - `DELETE /history`: Clear all results.
