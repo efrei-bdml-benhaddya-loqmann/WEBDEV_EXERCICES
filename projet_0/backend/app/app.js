@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto'); // source https://dev.to/simplr_sh/ditch-the-import-why-cryptorandomuuid-is-your-new-best-friend-for-uuids-2lp3
