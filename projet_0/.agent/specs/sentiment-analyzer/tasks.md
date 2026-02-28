@@ -37,12 +37,12 @@ Implement history management and orchestration in `backend/app`.
 ## Phase 3: Frontend Infrastructure & Styling
 Prepare the React application with necessary libraries and global styles.
 
-- [ ] 3.1 Install and configure dependencies
+- [x] 3.1 Install and configure dependencies
   - Install `@openai/apps-sdk-ui` and `tailwindcss` (v4).
   - Configure `vite.config.ts` and Tailwind if necessary.
   - Import SDK styles in `index.css`.
   - Reference: Design (UI & Styling)
-- [ ] 3.2 Set up API communication layer
+- [x] 3.2 Set up API communication layer
   - Create a utility/service to handle fetch calls to the Express backend.
   - Reference: Design (Architecture)
 
