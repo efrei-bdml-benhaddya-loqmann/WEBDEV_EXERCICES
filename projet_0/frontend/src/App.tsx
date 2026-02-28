@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { SidebarMenuMobile } from '@openai/apps-sdk-ui/components/Icon'
 import { Sidebar } from './components/Sidebar'
 import { MainContent, HeroTitle } from './components/MainContent'
-import { ChatArea } from './components/ChatArea'
 import { InputArea } from './components/InputArea'
 import type { SentimentResult } from './types'
+import { AnalysisArea } from './components/AnalysisArea'
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -45,19 +45,22 @@ function App() {
   const showHero = !submittedText && !result && !error
 
   const handleSubmit = () => {
-    // Artificial mock to test UI
-    setSubmittedText(inputText)
+    if (!inputText.trim()) return
+
+    const textToSubmit = inputText
+    setSubmittedText(textToSubmit)
     setInputText('')
     setIsSubmitting(true)
     setResult(null)
     setError(null)
 
+    // Artificial mock to test UI
     setTimeout(() => {
       setIsSubmitting(false)
       // Random result
       const newResult: SentimentResult = {
         id: Math.random().toString(),
-        text: submittedText || inputText,
+        text: textToSubmit,
         sentiment: Math.random() > 0.6 ? 'positive' : Math.random() > 0.3 ? 'negative' : 'neutral',
         score: Math.random() * (0.99 - 0.45) + 0.45,
         timestamp: Date.now()
@@ -80,32 +83,42 @@ function App() {
     setHistory([])
   }
 
+  const handleDeleteHistory = (id: string) => {
+    setHistory(prev => prev.filter(item => item.id !== id))
+  }
+
   return (
-    <div className="flex h-[100dvh] w-full bg-white dark:bg-[#212121] text-gray-900 dark:text-gray-100 overflow-hidden font-sans">
+    <div className="flex h-[100dvh] w-full bg-surface dark:bg-[#000000] text-default overflow-hidden font-sans">
       <Sidebar
         isOpen={isSidebarOpen}
         setIsOpen={setIsSidebarOpen}
         history={history}
         onSelect={handleSelectHistory}
         onClear={handleClearHistory}
+        onDelete={handleDeleteHistory}
       />
 
       <MainContent>
+        {/* Top Mobile Gradient Overlay */}
+        <div className="lg:hidden absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/10 dark:from-black/40 to-transparent pointer-events-none z-10" />
+
         {/* Mobile Header */}
-        <div className="lg:hidden flex items-center p-3 border-b border-gray-200 dark:border-gray-800 shrink-0 ease-in-out">
+        <div className="lg:hidden flex items-center gap-3 p-4 bg-transparent shrink-0 relative z-20">
           <button
-            className="p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)] hover:opacity-80 transition-opacity"
             onClick={() => setIsSidebarOpen(true)}
           >
-            <SidebarMenuMobile className="size-6 text-gray-600 dark:text-gray-300" />
+            <SidebarMenuMobile className="size-5 text-primary dark:text-primary" />
           </button>
-          <span className="font-semibold ml-2 text-lg">Sentiment Analyzer</span>
+          <div className="flex items-center px-4 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)]">
+            <span className="font-semibold text-sm text-primary dark:text-primary">Sentiment Analyzer</span>
+          </div>
         </div>
 
         {showHero ? (
           <HeroTitle />
         ) : (
-          <ChatArea
+          <AnalysisArea
             userText={submittedText}
             result={result}
             isLoading={isSubmitting}
@@ -113,12 +126,17 @@ function App() {
           />
         )}
 
-        <InputArea
-          text={inputText}
-          setText={setInputText}
-          onSubmit={handleSubmit}
-          isLoading={isSubmitting}
-        />
+        <div className="relative z-20 shrink-0 w-full mt-auto">
+          <InputArea
+            text={inputText}
+            setText={setInputText}
+            onSubmit={handleSubmit}
+            isLoading={isSubmitting}
+          />
+        </div>
+
+        {/* Bottom Mobile Gradient Overlay */}
+        <div className="lg:hidden absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/10 dark:from-black/40 to-transparent pointer-events-none z-10" />
       </MainContent>
     </div>
   )

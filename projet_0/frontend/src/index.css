@@ -5,3 +5,6 @@
 @source "../node_modules/@openai/apps-sdk-ui";
 
 /* Application-specific styles can follow here */
+
+/* Sync Tailwind CSS v4 dark modifier with OpenAI UI SDK data-theme="dark" attribute */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
