@@ -43,8 +43,7 @@ async function predictSentiment(text) {
         console.warn(
             `[warn] Flask API unreachable (${err.message}). Using mock prediction.`
         );
-        // return mockPredict(text);
-        return err.message;
+        return mockPredict(text);
     }
 }
 
