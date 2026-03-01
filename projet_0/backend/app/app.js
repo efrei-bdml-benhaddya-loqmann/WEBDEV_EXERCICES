@@ -114,6 +114,10 @@ app.post('/analyze', async (req, res) => {
         // Prepend so newest entries are first
         history.unshift(result);
 
+        // Log result
+        // console.log('[info] Analysis result:', result);
+        // console.log('[info] History:', history);
+
         return res.status(201).json(result);
     } catch (err) {
         console.error('[error] /analyze failed:', err);

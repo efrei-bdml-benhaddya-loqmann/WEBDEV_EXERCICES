@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SidebarMenuMobile } from '@openai/apps-sdk-ui/components/Icon'
 import { Sidebar } from './components/Sidebar'
 import { MainContent, HeroTitle } from './components/MainContent'
 import { InputArea } from './components/InputArea'
 import type { SentimentResult } from './types'
 import { AnalysisArea } from './components/AnalysisArea'
+
+import { analyzeText, clearHistory, deleteHistoryItem, getHistory } from './services/api'
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -16,30 +18,17 @@ function App() {
   const [result, setResult] = useState<SentimentResult | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // Mock History
-  const [history, setHistory] = useState<SentimentResult[]>([
-    {
-      id: '1',
-      text: "I really love the new design!",
-      sentiment: "positive",
-      score: 0.98,
-      timestamp: 1700000000000
-    },
-    {
-      id: '2',
-      text: "This is a terrible experience.",
-      sentiment: "negative",
-      score: 0.95,
-      timestamp: 1690000000000
-    },
-    {
-      id: '3',
-      text: "The weather is okay today.",
-      sentiment: "neutral",
-      score: 0.81,
-      timestamp: 1680000000000
-    }
-  ])
+  // History
+  const [history, setHistory] = useState<SentimentResult[]>([])
+  useEffect(() => {
+    getHistory()
+      .then((data) => {
+        setHistory(data)
+      })
+      .catch((error) => {
+        setError(error)
+      });
+  }, [result]) // update the history when the result is updated
 
   // Is Hero visible? Only when there's no submitted text and no result/error
   const showHero = !submittedText && !result && !error
@@ -54,19 +43,12 @@ function App() {
     setResult(null)
     setError(null)
 
-    // Artificial mock to test UI
-    setTimeout(() => {
+    // Provide smooth UI feedback
+    setTimeout(async () => {
       setIsSubmitting(false)
-      // Random result
-      const newResult: SentimentResult = {
-        id: Math.random().toString(),
-        text: textToSubmit,
-        sentiment: Math.random() > 0.6 ? 'positive' : Math.random() > 0.3 ? 'negative' : 'neutral',
-        score: Math.random() * (0.99 - 0.45) + 0.45,
-        timestamp: Date.now()
-      }
+      const newResult: SentimentResult = await analyzeText(textToSubmit);
       setResult(newResult)
-      setHistory(prev => [newResult, ...prev])
+      // setHistory(prev => [newResult, ...prev])
     }, 1500)
   }
 
@@ -80,11 +62,13 @@ function App() {
   }
 
   const handleClearHistory = () => {
-    setHistory([])
+    clearHistory()
+    setHistory([]) // update the local history state
   }
 
   const handleDeleteHistory = (id: string) => {
-    setHistory(prev => prev.filter(item => item.id !== id))
+    deleteHistoryItem(id)
+    setHistory(prev => prev.filter(item => item.id !== id)) // update the local history state
   }
 
   return (
