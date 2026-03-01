@@ -49,15 +49,15 @@ Prepare the React application with necessary libraries and global styles.
 ## Phase 4: Frontend Components & Integration
 Build the UI using OpenAI SDK components and wire everything together.
 
-- [ ] 4.1 Implement Main Layout and `AnalysisForm`
+- [x] 4.1 Implement Main Layout and `AnalysisForm`
   - Use SDK `Layout`, `TextArea`, and `Button`.
   - Handle form submission and "Analyze" button state.
   - Reference: Requirements 1.1, 1.2, 2.2; Design (Frontend Components)
-- [ ] 4.2 Implement `ResultDisplay` and `AnalysisHistory`
-  - Use SDK `Card` and typography components for results.
+- [x] 4.2 Implement `ResultDisplay` and `AnalysisHistory`
+  - Use SDK `Badge` and typography components for results.
   - Implement the history list with selectable items and delete actions.
   - Reference: Requirements 3.1, 3.2, 3.3, 4.2, 4.3; Design (Frontend Components)
-- [ ] 4.3 Implement Error Handling and Loading States
+- [-] 4.3 Implement Error Handling and Loading States
   - Add visual feedback for pending requests and API errors.
   - Reference: Requirements 1.3, 2.2, 5.1, 5.2; Design (Error Handling)
 

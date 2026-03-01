@@ -31,7 +31,7 @@ export function AnalysisArea({
 
                 {/* Error State */}
                 {error && !isLoading && (
-                    <ErrorState error={error} />
+                    <ErrorState userText={userText} error={error} />
                 )}
 
                 {/* Result State */}

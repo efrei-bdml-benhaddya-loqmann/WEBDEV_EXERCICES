@@ -26,7 +26,7 @@ function App() {
         setHistory(data)
       })
       .catch((error) => {
-        setError(error)
+        setError(error instanceof Error ? error.message : String(error))
       });
   }, [result]) // update the history when the result is updated
 
@@ -46,8 +46,12 @@ function App() {
     // Provide smooth UI feedback
     setTimeout(async () => {
       setIsSubmitting(false)
-      const newResult: SentimentResult = await analyzeText(textToSubmit);
-      setResult(newResult)
+      try {
+        const newResult: SentimentResult = await analyzeText(textToSubmit);
+        setResult(newResult)
+      } catch (error: any) {
+        setError(error instanceof Error ? error.message : String(error))
+      }
       // setHistory(prev => [newResult, ...prev])
     }, 1500)
   }
