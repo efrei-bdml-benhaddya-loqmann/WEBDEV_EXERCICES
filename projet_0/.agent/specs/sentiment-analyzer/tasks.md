@@ -3,17 +3,22 @@
 This document outlines the implementation plan for the Sentiment Analyzer application.
 
 ## Phase 1: Model API (Python/Flask)
-Implement the core sentiment analysis service in `backend/model`.
+Implement the core sentiment analysis service in `backend/model` using an **external AI API** (clé API existante).
 
-- [ ] 1.1 Set up Flask environment and basic API structure
-  - Create `backend/model/requirements.txt` with `flask`, `flask-cors`.
+- [x] 1.1 Set up Flask environment and basic API structure
+  - Create `backend/model/requirements.txt` with `flask`, `flask-cors`, `requests`, `python-dotenv`.
   - Create `backend/model/app.py` with a basic `/predict` endpoint.
   - Reference: Design (Model API)
-- [ ] 1.2 Implement sentiment analysis logic
-  - Add a simple rule-based or probabilistic sentiment analysis function.
-  - Ensure it returns `{ "sentiment": ..., "score": ... }`.
+- [x] 1.2 Configure AI API key
+  - Use a `.env` file to store the AI API key (e.g., `AI_API_KEY=sk-...`).
+  - Load the key via `python-dotenv` in `app.py`.
+  - **Important**: The API key is already existing and provided by the user; do NOT generate or create one.
+- [x] 1.3 Implement sentiment analysis logic via external AI API
+  - Call an external AI API (e.g., OpenAI, HuggingFace Inference API) using the configured API key to perform sentiment analysis.
+  - Send the user's text to the AI API and parse the response.
+  - Ensure the endpoint returns `{ "sentiment": ..., "score": ... }`.
   - Reference: Requirements 3.1, 3.2; Design (Model API)
-- [ ] 1.3 Verify Flask API with manual testing
+- [x] 1.4 Verify Flask API with manual testing
   - Run the Flask server and test with `curl` or a similar tool.
 
 ## Phase 2: Main Backend (Node.js/Express)
