@@ -57,6 +57,20 @@ export const deleteHistoryItem = async (id: string): Promise<void> => {
   );
 };
 
+export const updateHistoryItem = async (
+  id: string,
+  updates: Partial<SentimentResult>
+): Promise<SentimentResult> => {
+  return requestBuilder<SentimentResult>(
+    `/history/${id}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(updates),
+    },
+    'Failed to update history item'
+  );
+};
+
 export const clearHistory = async (): Promise<void> => {
   return requestBuilder<void>(
     '/history',

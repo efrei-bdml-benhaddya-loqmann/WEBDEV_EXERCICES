@@ -6,7 +6,7 @@ import { InputArea } from './components/InputArea'
 import type { SentimentResult } from './types'
 import { AnalysisArea } from './components/AnalysisArea'
 
-import { analyzeText, clearHistory, deleteHistoryItem, getHistory } from './services/api'
+import { analyzeText, clearHistory, deleteHistoryItem, getHistory, updateHistoryItem } from './services/api'
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -71,9 +71,17 @@ function App() {
     performAnalysis(text)
   }
 
-  const handleScore = (id: string, feedback: 'positive' | 'negative' | 'none') => {
+  const handleScore = async (id: string, feedback: 'positive' | 'negative' | 'none') => {
+    // Optimistic update
     setResult(prev => prev && prev.id === id ? { ...prev, feedback } : prev)
     setHistory(prev => prev.map(item => item.id === id ? { ...item, feedback } : item))
+
+    try {
+      await updateHistoryItem(id, { feedback });
+    } catch (err) {
+      console.error('Failed to persist feedback:', err);
+      // We could revert the optimistic update here if we wanted to be strict
+    }
   }
 
   const handleSelectHistory = (item: SentimentResult) => {

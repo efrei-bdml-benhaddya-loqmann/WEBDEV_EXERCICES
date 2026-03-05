@@ -131,6 +131,29 @@ app.get('/history', (_req, res) => {
     res.json(history);
 });
 
+// PATCH /history/:id – Update a specific result (e.g., feedback/score).
+// Ref: Task X.5.3
+app.patch('/history/:id', (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    const entry = history.find((entry) => entry.id === id);
+
+    if (!entry) {
+        return res.status(404).json({ error: 'History entry not found.' });
+    }
+
+    // Only allow updating specific fields to maintain integrity
+    if (updates.feedback !== undefined) {
+        entry.feedback = updates.feedback;
+    }
+
+    // We could allow updating other fields if needed, but for now just feedback
+    // as per task X.5.3 requirement for persistent scoring/feedback.
+
+    return res.json(entry);
+});
+
 // DELETE /history/:id – Remove a specific result.
 // Ref: Requirements 6.1 ; Design (Backend API)
 app.delete('/history/:id', (req, res) => {

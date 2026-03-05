@@ -89,11 +89,12 @@ Build the UI using OpenAI SDK components and wire everything together.
   - [x] X.5.1 Add item copy
   - [x] X.5.2 Add item edit
   - [x] X.5.3 Add item scoring (two buttons with thumbs up and thumbs down icons)
+    - [x] Scoring must be persistent
   - [x] X.5.4 Add item regenerate
-- [ ] Add Settings modal
+- [ ] X.6 Add Settings modal
   - Use Portals
   - Parametres generaux (theme, accent color etc...)
   - Memory (clear history)
-  - [ ] Add Settings button to the layout
+  - Add Settings button to the 
 - [ ] Add OPENAI SDK Transitions
   - View what you can add, such as the transition when the user text disapears and the result appears
