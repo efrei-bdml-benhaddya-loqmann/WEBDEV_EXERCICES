@@ -5,15 +5,15 @@ This document outlines the implementation plan for the Sentiment Analyzer applic
 ## Phase 1: Model API (Python/Flask)
 Implement the core sentiment analysis service in `backend/model`.
 
-- [ ] 1.1 Set up Flask environment and basic API structure
+- [x] 1.1 Set up Flask environment and basic API structure
   - Create `backend/model/requirements.txt` with `flask`, `flask-cors`.
   - Create `backend/model/app.py` with a basic `/predict` endpoint.
   - Reference: Design (Model API)
-- [ ] 1.2 Implement sentiment analysis logic
+- [x] 1.2 Implement sentiment analysis logic
   - Add a simple rule-based or probabilistic sentiment analysis function.
   - Ensure it returns `{ "sentiment": ..., "score": ... }`.
   - Reference: Requirements 3.1, 3.2; Design (Model API)
-- [ ] 1.3 Verify Flask API with manual testing
+- [x] 1.3 Verify Flask API with manual testing
   - Run the Flask server and test with `curl` or a similar tool.
 
 ## Phase 2: Main Backend (Node.js/Express)
