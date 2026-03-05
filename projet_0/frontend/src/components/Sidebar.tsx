@@ -1,4 +1,4 @@
-import { Delete } from '@openai/apps-sdk-ui/components/Icon'
+import { Delete, X } from '@openai/apps-sdk-ui/components/Icon'
 import { Button } from '@openai/apps-sdk-ui/components/Button'
 import { ThemeToggle } from './ThemeToggle'
 import type { SentimentResult } from '../types'
@@ -38,7 +38,7 @@ export function Sidebar({
                         <h2 className="font-medium text-sm text-secondary">History</h2>
                     </div>
                     <button className="lg:hidden p-2 rounded-md hover:bg-surface-tertiary text-secondary" onClick={() => setIsOpen(false)}>
-                        <Delete className="size-5" />
+                        <X className="size-5" />
                     </button>
                 </div>
 

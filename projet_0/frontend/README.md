@@ -1,4 +1,4 @@
-# Sentiment Analyzer - Frontend ✨
+# Sentiment Analyzer - Frontend
 
 Welcome to the frontend of the **Sentiment Analyzer**, a modern, responsive web application designed to analyze the emotional tone of your text with a sleek, chat-like interface.
 
