@@ -1,53 +1,69 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+from huggingface_hub import InferenceClient
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# ---------- Sentiment analysis logic ----------
+# ---------- HuggingFace Inference API Configuration ----------
+HF_TOKEN = os.environ.get("HF_TOKEN")
+MODEL = "tabularisai/multilingual-sentiment-analysis"
 
-POSITIVE_WORDS = [
-    "love", "great", "amazing", "wonderful", "fantastic", "excellent",
-    "good", "happy", "joy", "beautiful", "awesome", "best", "brilliant",
-    "enjoy", "nice", "perfect", "pleased", "superb", "terrific", "thanks",
-    "thank", "liked", "like", "recommend", "impressive", "outstanding",
-    "satisfied", "delight", "cheerful", "exciting", "adore", "magnificent",
-    "incredible", "remarkable", "fabulous", "positive", "cool",
-]
+client = None
 
-NEGATIVE_WORDS = [
-    "hate", "terrible", "awful", "bad", "horrible", "worst", "poor",
-    "ugly", "boring", "disappointing", "sad", "angry", "annoying",
-    "dreadful", "disgusting", "miserable", "unpleasant", "wrong",
-    "fail", "failure", "useless", "waste", "broken", "rubbish",
-    "pathetic", "nasty", "painful", "frustrating", "mediocre",
-    "inferior", "lousy", "negative", "dislike", "regret",
-]
+
+def get_client() -> InferenceClient:
+    """Lazy-init the HuggingFace InferenceClient."""
+    global client
+    if client is None:
+        if not HF_TOKEN:
+            raise RuntimeError("HF_TOKEN is not set. Add it to your .env file.")
+        client = InferenceClient(provider="hf-inference", api_key=HF_TOKEN)
+    return client
+
+
+# Label mapping: the model returns labels like "1 star" .. "5 stars"
+# We map them to positive / negative / neutral
+LABEL_MAP = {
+    "1 star": "negative",
+    "2 stars": "negative",
+    "3 stars": "neutral",
+    "4 stars": "positive",
+    "5 stars": "positive",
+    # Fallback for other possible label formats
+    "POSITIVE": "positive",
+    "NEGATIVE": "negative",
+    "NEUTRAL": "neutral",
+    "positive": "positive",
+    "negative": "negative",
+    "neutral": "neutral",
+    "Very Positive": "positive",
+    "Positive": "positive",
+    "Neutral": "neutral",
+    "Negative": "negative",
+    "Very Negative": "negative"
+}
 
 
 def analyze_sentiment(text: str) -> dict:
-    """Rule-based sentiment analysis using keyword matching."""
-    words = text.lower().split()
+    """Analyse the sentiment of *text* using the HuggingFace Inference API."""
+    results = get_client().text_classification(text, model=MODEL)
 
-    pos_count = sum(1 for w in words if w.strip(".,!?;:'\"()") in POSITIVE_WORDS)
-    neg_count = sum(1 for w in words if w.strip(".,!?;:'\"()") in NEGATIVE_WORDS)
-
-    total = pos_count + neg_count
-
-    if total == 0:
+    # results is a list of ClassificationOutput objects
+    # Pick the top prediction (highest score)
+    if isinstance(results, list) and len(results) > 0:
+        top = max(results, key=lambda r: r.score)
+        raw_label = top.label
+        score = round(top.score, 4)
+    else:
         return {"sentiment": "neutral", "score": 0.5}
 
-    pos_ratio = pos_count / total
-
-    if pos_ratio > 0.5:
-        sentiment = "positive"
-        score = round(0.5 + (pos_ratio - 0.5), 2)
-    elif pos_ratio < 0.5:
-        sentiment = "negative"
-        score = round(0.5 + (0.5 - pos_ratio), 2)
-    else:
-        sentiment = "neutral"
-        score = 0.5
+    # Map the raw label to our API contract
+    sentiment = LABEL_MAP.get(raw_label, "neutral")
 
     return {"sentiment": sentiment, "score": score}
 
@@ -61,8 +77,13 @@ def predict():
     if not data or not data.get("text", "").strip():
         return jsonify({"error": "Le champ 'text' est requis et ne peut pas être vide."}), 400
 
-    result = analyze_sentiment(data["text"])
-    return jsonify(result)
+    try:
+        result = analyze_sentiment(data["text"])
+        return jsonify(result)
+    except RuntimeError as e:
+        return jsonify({"error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"error": f"Erreur lors de l'appel à l'API HuggingFace : {e}"}), 502
 
 
 if __name__ == "__main__":
