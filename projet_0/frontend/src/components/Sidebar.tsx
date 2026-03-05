@@ -1,4 +1,4 @@
-import { Delete, History } from '@openai/apps-sdk-ui/components/Icon'
+import { Delete } from '@openai/apps-sdk-ui/components/Icon'
 import { Button } from '@openai/apps-sdk-ui/components/Button'
 import { ThemeToggle } from './ThemeToggle'
 import type { SentimentResult } from '../types'
@@ -57,7 +57,7 @@ export function Sidebar({
                             <span className="truncate flex-1 text-sm text-secondary group-hover:text-default transition-colors">
                                 {item.text}
                             </span>
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className={`${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}>
                                 <Button
                                     color="secondary"
                                     size="sm"
