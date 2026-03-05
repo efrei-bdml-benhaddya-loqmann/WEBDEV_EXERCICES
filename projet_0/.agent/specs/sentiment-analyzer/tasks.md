@@ -84,12 +84,12 @@ Build the UI using OpenAI SDK components and wire everything together.
   - Ensure the layout works on all devices.
   - Reference: Design (UI & Styling)
 - [ ] X.4 Add multi account handling
-- [ ] X.5 Add item actions
-  - Add an action row with copy and edit buttons under the result display (hover on pc and always visible otherwise) with ghost variant
-  - [ ] X.5.1 Add item copy
-  - [ ] X.5.2 Add item edit
-  - [ ] X.5.3 Add item scoring (two buttons with thumbs up and thumbs down icons)
-  - [ ] X.5.4 Add item regenerate
+- [x] X.5 Add item actions
+  - Add an action row with copy and edit buttons under the result display with ghost variant (base built in ResultActions)
+  - [x] X.5.1 Add item copy
+  - [x] X.5.2 Add item edit
+  - [x] X.5.3 Add item scoring (two buttons with thumbs up and thumbs down icons)
+  - [x] X.5.4 Add item regenerate
 - [ ] Add Settings modal
   - Use Portals
   - Parametres generaux (theme, accent color etc...)

@@ -33,27 +33,47 @@ function App() {
   // Is Hero visible? Only when there's no submitted text and no result/error
   const showHero = !submittedText && !result && !error
 
-  const handleSubmit = () => {
-    if (!inputText.trim()) return
+  const performAnalysis = async (text: string) => {
+    if (!text.trim()) return
 
-    const textToSubmit = inputText
-    setSubmittedText(textToSubmit)
-    setInputText('')
+    setSubmittedText(text)
     setIsSubmitting(true)
     setResult(null)
     setError(null)
 
     // Provide smooth UI feedback
     setTimeout(async () => {
-      setIsSubmitting(false)
       try {
-        const newResult: SentimentResult = await analyzeText(textToSubmit);
+        const newResult: SentimentResult = await analyzeText(text);
         setResult(newResult)
-      } catch (error: any) {
-        setError(error instanceof Error ? error.message : String(error))
+      } catch (err: any) {
+        setError(err instanceof Error ? err.message : String(err))
+      } finally {
+        setIsSubmitting(false)
       }
-      // setHistory(prev => [newResult, ...prev])
     }, 1500)
+  }
+
+  const handleSubmit = () => {
+    performAnalysis(inputText)
+    setInputText('')
+  }
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text)
+  }
+
+  const handleEdit = (text: string) => {
+    setInputText(text)
+  }
+
+  const handleRegenerate = (text: string) => {
+    performAnalysis(text)
+  }
+
+  const handleScore = (id: string, feedback: 'positive' | 'negative' | 'none') => {
+    setResult(prev => prev && prev.id === id ? { ...prev, feedback } : prev)
+    setHistory(prev => prev.map(item => item.id === id ? { ...item, feedback } : item))
   }
 
   const handleSelectHistory = (item: SentimentResult) => {
@@ -111,6 +131,10 @@ function App() {
             result={result}
             isLoading={isSubmitting}
             error={error}
+            onCopy={handleCopy}
+            onEdit={handleEdit}
+            onRegenerate={handleRegenerate}
+            onScore={handleScore}
           />
         )}
 

@@ -4,4 +4,5 @@ export interface SentimentResult {
   sentiment: 'positive' | 'negative' | 'neutral';
   score: number;
   timestamp: number;
+  feedback?: 'positive' | 'negative' | 'none';
 }

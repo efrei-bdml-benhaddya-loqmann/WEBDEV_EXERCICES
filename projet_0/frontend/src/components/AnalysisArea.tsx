@@ -8,12 +8,20 @@ export function AnalysisArea({
     userText,
     result,
     isLoading,
-    error
+    error,
+    onCopy,
+    onEdit,
+    onRegenerate,
+    onScore
 }: {
     userText: string | null
     result: SentimentResult | null
     isLoading: boolean
     error: string | null
+    onCopy: (text: string) => void
+    onEdit: (text: string) => void
+    onRegenerate: (text: string) => void
+    onScore: (id: string, feedback: 'positive' | 'negative' | 'none') => void
 }) {
     return (
         <div className="flex-1 overflow-y-auto px-4 py-8 lg:px-16 flex flex-col gap-8 w-full">
@@ -36,7 +44,13 @@ export function AnalysisArea({
 
                 {/* Result State */}
                 {result && !isLoading && !error && (
-                    <ResultState result={result} />
+                    <ResultState 
+                        result={result} 
+                        onCopy={onCopy}
+                        onEdit={onEdit}
+                        onRegenerate={onRegenerate}
+                        onScore={onScore}
+                    />
                 )}
 
             </div>

@@ -43,3 +43,25 @@ The Sentiment Analyzer is a web application that allows users to input text and 
 - The UI provides clear feedback during loading and error states.
 - Previous analyses are correctly stored and retrievable during the session.
 - The interface is responsive and follows basic accessibility standards.
+
+## 7. Additional Features (Phase X)
+
+### 7.1 Item Actions
+**As a user, I want to interact with the results I get, to copy, edit, rate or regenerate them.**
+1. **WHEN** the result is displayed, **THEN** an action row is provided.
+2. The row SHALL contain buttons to: **Copy** (to clipboard), **Edit** (return text to text area), **Scoring** (Thumbs Up/Down for feedback), and **Regenerate** (resubmit the same text).
+
+### 7.2 Multi Account Handling
+**As a user, I want my data to be isolated from other users.**
+1. **WHEN** users access the site, **THEN** they can have custom separated history and configuration via multi-account support.
+
+### 7.3 Settings Modal
+**As a user, I want to configure the app behavior and appearance.**
+1. **WHEN** the user clicks the "Settings" button, **THEN** a Settings Modal appears (implemented via Portals).
+2. The Settings Modal SHALL provide sections for:
+   - **General**: Theme toggles (Dark/Light mode), layout aesthetics (accent colors, etc).
+   - **Memory**: An option to completely clear history.
+
+### 7.4 UI Transitions
+**As a user, I want the interface to feel highly responsive, fluid and premium.**
+1. **WHEN** transitioning states (e.g., from an input state to a loading state or result state), **THEN** the application SHALL utilize smooth OpenAI SDK transitions to enhance UX (e.g. text disappearing gracefully while results appear).

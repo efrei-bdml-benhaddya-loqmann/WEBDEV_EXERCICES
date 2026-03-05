@@ -92,3 +92,30 @@ The UI implements a breathing, minimalistic design strictly following OpenAI's U
 - **Unit Tests**: Test Python logic and React components.
 - **Integration Tests**: Verify Express -> Flask and React -> Express communication.
 - **Manual Verification**: End-to-end flow from input to history.
+
+## Additional Features (Phase X)
+
+### Item Actions Extensibility (`ResultActions.tsx`)
+- A new `ResultActions` functional component renders underneath the active `AnalysisResult` and potentially on elements in the history.
+- Built using the base structure which leverages "ghost" variant `<Button>` elements from the OpenAI SDK alongside icons like `Copy`, `EditPencil`, `ThumbUp`, `ThumbDown` and `ArrowRotateCcw`.
+- **Visibility & Styling**: Designed as an action row that remains hidden on desktop to reduce noise until the user hovers over the result container. On mobile, it is always visible to properly accommodate touch targets. 
+- **Interactions**:
+  - `Copy`: Writes the result or parsed text to the user's OS clipboard.
+  - `Edit`: Re-populates the chat `<Textarea>` with the initially analyzed text for quick modifications.
+  - `Scoring`: `ThumbUp` and `ThumbDown` act as feedback collectors.
+  - `Regenerate`: Triggers a repeat API call to re-evaluate the same input.
+
+### Multi Account Handling
+- The backend API history endpoints (`/history`) adapt to partition data using user identity tokens or primary IDs instead of maintaining a single global or local list.
+- A new frontend session/auth architecture context will be built.
+
+### Settings Modal & Portals
+- **Component Detail**: A Settings configuration modal deployed strictly via React's `createPortal`. Mounting to the top-level `body` guarantees no CSS `overflow: hidden`, padding, or `z-index` stacking context issues from nested layouts.
+- **Layout / Options**:
+  - **General Tab**: Exposes visual configuration hooks such as interacting with `useDocumentTheme()` or overriding inline accent properties.
+  - **Memory Tab**: Triggers the `clearHistory()` flow previously mapped to standard buttons.
+- **Access Point**: A gear/settings icon button appended to the global Navigation (`Sidebar`).
+
+### Advanced UI Transitions
+- Employs deep OpenAI SDK transition components/utilities (or pure React transition architectures like Framer Motion/CSS classes if preferred).
+- **Core Target Flow**: The state window where `isSubmitting` shifts toward `result`. The text bubble transforms or resolves smoothly into the final `SentimentBadge` card without abrasive DOM snap/layout shifting.
