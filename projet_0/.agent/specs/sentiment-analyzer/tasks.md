@@ -62,12 +62,12 @@ Build the UI using OpenAI SDK components and wire everything together.
   - Use SDK `Badge` and typography components for results.
   - Implement the history list with selectable items and delete actions.
   - Reference: Requirements 3.1, 3.2, 3.3, 4.2, 4.3; Design (Frontend Components)
-- [-] 4.3 Implement Error Handling and Loading States
+- [x] 4.3 Implement Error Handling and Loading States
   - Add visual feedback for pending requests and API errors.
   - Reference: Requirements 1.3, 2.2, 5.1, 5.2; Design (Error Handling)
 
 ## Phase 5: Verification & Cleanup
-- [ ] 5.1 Perform end-to-end testing
+- [x] 5.1 Perform end-to-end testing
   - Verify the full flow: Input -> Analyze -> Display Result -> See in History.
 - [ ] 5.2 Final code review and cleanup
   - Ensure consistent naming and adherence to project standards.
