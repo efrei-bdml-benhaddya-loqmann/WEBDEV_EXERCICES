@@ -71,3 +71,29 @@ Build the UI using OpenAI SDK components and wire everything together.
   - Verify the full flow: Input -> Analyze -> Display Result -> See in History.
 - [ ] 5.2 Final code review and cleanup
   - Ensure consistent naming and adherence to project standards.
+
+## Phese X: Additional features
+
+- [x] X.1 Add dark mode support
+  - Use Tailwind's dark mode utilities.
+  - Reference: Design (UI & Styling)
+- [x] X.2 Add responsive design
+  - Ensure the layout works on all devices.
+  - Reference: Design (UI & Styling)
+- [x] X.3 Add accessibility features
+  - Ensure the layout works on all devices.
+  - Reference: Design (UI & Styling)
+- [ ] X.4 Add multi account handling
+- [ ] X.5 Add item actions
+  - Add an action row with copy and edit buttons under the result display (hover on pc and always visible otherwise) with ghost variant
+  - [ ] X.5.1 Add item copy
+  - [ ] X.5.2 Add item edit
+  - [ ] X.5.3 Add item scoring (two buttons with thumbs up and thumbs down icons)
+  - [ ] X.5.4 Add item regenerate
+- [ ] Add Settings modal
+  - Use Portals
+  - Parametres generaux (theme, accent color etc...)
+  - Memory (clear history)
+  - [ ] Add Settings button to the layout
+- [ ] Add OPENAI SDK Transitions
+  - View what you can add, such as the transition when the user text disapears and the result appears
