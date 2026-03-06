@@ -1,16 +1,13 @@
 import { Delete, X } from '@openai/apps-sdk-ui/components/Icon'
 import { Button } from '@openai/apps-sdk-ui/components/Button'
-import { ThemeToggle } from './ThemeToggle'
 import type { SentimentResult } from '../types'
 import { SidebarMenu } from './menu/SidebarMenu'
-import { Popover } from '@openai/apps-sdk-ui/components/Popover'
 
 export function Sidebar({
     isOpen,
     setIsOpen,
     history,
     onSelect,
-    onClear,
     onDelete,
 }: {
     isOpen: boolean

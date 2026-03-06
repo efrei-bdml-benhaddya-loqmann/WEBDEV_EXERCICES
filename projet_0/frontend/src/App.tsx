@@ -5,10 +5,13 @@ import { MainContent, HeroTitle } from './components/MainContent'
 import { InputArea } from './components/InputArea'
 import type { SentimentResult } from './types'
 import { AnalysisArea } from './components/AnalysisArea'
+import { useAuth } from './contexts/AuthContext'
+import Login from './components/Auth/Login'
 
 import { analyzeText, clearHistory, deleteHistoryItem, getHistory, updateHistoryItem } from './services/api'
 
 function App() {
+  const { user, loading } = useAuth()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [inputText, setInputText] = useState('')
 
@@ -20,15 +23,30 @@ function App() {
 
   // History
   const [history, setHistory] = useState<SentimentResult[]>([])
+
   useEffect(() => {
-    getHistory()
-      .then((data) => {
-        setHistory(data)
-      })
-      .catch((error) => {
-        setError(error instanceof Error ? error.message : String(error))
-      });
-  }, [result]) // update the history when the result is updated
+    if (user && !loading) {
+      getHistory()
+        .then((data) => {
+          setHistory(data)
+        })
+        .catch((error) => {
+          setError(error instanceof Error ? error.message : String(error))
+        });
+    }
+  }, [user, loading, result]) // update the history when the user logs in or result is updated
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-surface dark:bg-[#000000]">
+        <div className="text-primary animate-pulse">Loading...</div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return <Login />
+  }
 
   // Is Hero visible? Only when there's no submitted text and no result/error
   const showHero = !submittedText && !result && !error
@@ -61,10 +79,6 @@ function App() {
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
-  }
-
-  const handleEdit = (text: string) => {
-    setInputText(text)
   }
 
   const handleRegenerate = (text: string) => {
@@ -140,7 +154,6 @@ function App() {
             isLoading={isSubmitting}
             error={error}
             onCopy={handleCopy}
-            onEdit={handleEdit}
             onRegenerate={handleRegenerate}
             onScore={handleScore}
           />

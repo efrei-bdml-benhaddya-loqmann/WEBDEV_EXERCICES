@@ -1,11 +1,19 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const crypto = require('crypto'); // source https://dev.to/simplr_sh/ditch-the-import-why-cryptorandomuuid-is-your-new-best-friend-for-uuids-2lp3
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const FLASK_API_URL = process.env.FLASK_API_URL || 'http://localhost:5000';
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.error('Missing Supabase environment variables');
+    process.exit(1);
+}
 
 // ---------------------------------------------------------------------------
 // Middleware
@@ -13,16 +21,43 @@ const FLASK_API_URL = process.env.FLASK_API_URL || 'http://localhost:5000';
 app.use(cors());
 app.use(express.json());
 
-// ---------------------------------------------------------------------------
-// In-memory history storage
-// ---------------------------------------------------------------------------
-/** @type {Array<{id: string, text: string, sentiment: string, score: number, timestamp: number}>} */
-const history = [];
+// Helper to get Supabase client with user token for RLS
+function getSupabase(token) {
+    if (!token) return null;
+    return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        global: {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    });
+}
+
+// Middleware to extract and verify the token
+const authMiddleware = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Missing or invalid Authorization header' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const supabase = getSupabase(token);
+    
+    try {
+        const { data: { user }, error } = await supabase.auth.getUser(token);
+        if (error || !user) {
+            throw new Error(error?.message || 'Invalid token');
+        }
+        req.user = user;
+        req.supabase = supabase;
+        next();
+    } catch (err) {
+        return res.status(401).json({ error: 'Unauthorized: ' + err.message });
+    }
+};
 
 // ---------------------------------------------------------------------------
 // Helper – call the Flask Model API (POST /predict)
-// Falls back to a simple mock when the Flask service is unreachable so that
-// the Express layer can be developed & tested independently of the model.
 // ---------------------------------------------------------------------------
 async function predictSentiment(text) {
     try {
@@ -39,20 +74,13 @@ async function predictSentiment(text) {
         const data = await response.json();
         return { sentiment: data.sentiment, score: data.score };
     } catch (err) {
-        // If the Flask service is not running, fall back to a naive mock.
-        console.warn(
-            `[warn] Flask API unreachable (${err.message}). Using mock prediction.`
-        );
+        console.warn(`[warn] Flask API unreachable (${err.message}). Using mock prediction.`);
         return mockPredict(text);
     }
 }
 
-/**
- * Naive keyword-based mock so the Express backend can be tested without Flask.
- */
 function mockPredict(text) {
     const lower = text.toLowerCase();
-
     const positiveWords = ['good', 'great', 'love', 'excellent', 'happy', 'wonderful', 'amazing', 'fantastic', 'awesome', 'best'];
     const negativeWords = ['bad', 'terrible', 'hate', 'awful', 'sad', 'horrible', 'worst', 'ugly', 'angry', 'disgusting'];
 
@@ -67,18 +95,9 @@ function mockPredict(text) {
     }
 
     const total = positiveCount + negativeCount;
-
-    if (total === 0) {
-        return { sentiment: 'neutral', score: 0.5 };
-    }
-
-    if (positiveCount > negativeCount) {
-        return { sentiment: 'positive', score: +(positiveCount / total).toFixed(2) };
-    }
-    if (negativeCount > positiveCount) {
-        return { sentiment: 'negative', score: +(negativeCount / total).toFixed(2) };
-    }
-
+    if (total === 0) return { sentiment: 'neutral', score: 0.5 };
+    if (positiveCount > negativeCount) return { sentiment: 'positive', score: +(positiveCount / total).toFixed(2) };
+    if (negativeCount > positiveCount) return { sentiment: 'negative', score: +(negativeCount / total).toFixed(2) };
     return { sentiment: 'neutral', score: 0.5 };
 }
 
@@ -86,13 +105,13 @@ function mockPredict(text) {
 // Routes
 // ---------------------------------------------------------------------------
 
-// Health-check
 app.get('/', (_req, res) => {
     res.json({ status: 'ok', message: 'Sentiment Analyzer API running' });
 });
 
-// POST /analyze – Analyse text, save result to history, return it.
-// Ref: Requirements 2.1, 4.1 ; Design (Backend API)
+// All /history and /analyze routes require authentication
+app.use(['/analyze', '/history'], authMiddleware);
+
 app.post('/analyze', async (req, res) => {
     const { text } = req.body;
 
@@ -103,81 +122,90 @@ app.post('/analyze', async (req, res) => {
     try {
         const { sentiment, score } = await predictSentiment(text.trim());
 
-        const result = {
-            id: crypto.randomUUID(),
-            text: text.trim(),
-            sentiment,
-            score,
-            timestamp: Date.now(),
-        };
+        const { data, error } = await req.supabase
+            .from('history')
+            .insert({
+                text: text.trim(),
+                sentiment,
+                score,
+                user_id: req.user.id
+            })
+            .select()
+            .single();
 
-        // Prepend so newest entries are first
-        history.unshift(result);
+        if (error) throw error;
 
-        // Log result
-        // console.log('[info] Analysis result:', result);
-        // console.log('[info] History:', history);
-
-        return res.status(201).json(result);
+        return res.status(201).json(data);
     } catch (err) {
         console.error('[error] /analyze failed:', err);
-        return res.status(502).json({ error: 'Analysis service unavailable. Please try again later.' });
+        return res.status(502).json({ error: 'Failed to save analysis: ' + err.message });
     }
 });
 
-// GET /history – Return all stored results.
-// Ref: Requirements 4.2 ; Design (Backend API)
-app.get('/history', (_req, res) => {
-    res.json(history);
+app.get('/history', async (req, res) => {
+    try {
+        const { data, error } = await req.supabase
+            .from('history')
+            .select('*')
+            .order('timestamp', { ascending: false });
+
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// PATCH /history/:id – Update a specific result (e.g., feedback/score).
-// Ref: Task X.5.3
-app.patch('/history/:id', (req, res) => {
+app.patch('/history/:id', async (req, res) => {
     const { id } = req.params;
-    const updates = req.body;
+    const { feedback } = req.body;
 
-    const entry = history.find((entry) => entry.id === id);
+    try {
+        const { data, error } = await req.supabase
+            .from('history')
+            .update({ feedback })
+            .eq('id', id)
+            .select()
+            .single();
 
-    if (!entry) {
-        return res.status(404).json({ error: 'History entry not found.' });
+        if (error) throw error;
+        if (!data) return res.status(404).json({ error: 'History entry not found.' });
+
+        return res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-
-    // Only allow updating specific fields to maintain integrity
-    if (updates.feedback !== undefined) {
-        entry.feedback = updates.feedback;
-    }
-
-    // We could allow updating other fields if needed, but for now just feedback
-    // as per task X.5.3 requirement for persistent scoring/feedback.
-
-    return res.json(entry);
 });
 
-// DELETE /history/:id – Remove a specific result.
-// Ref: Requirements 6.1 ; Design (Backend API)
-app.delete('/history/:id', (req, res) => {
+app.delete('/history/:id', async (req, res) => {
     const { id } = req.params;
-    const index = history.findIndex((entry) => entry.id === id);
+    try {
+        const { error } = await req.supabase
+            .from('history')
+            .delete()
+            .eq('id', id);
 
-    if (index === -1) {
-        return res.status(404).json({ error: 'History entry not found.' });
+        if (error) throw error;
+        return res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-
-    history.splice(index, 1);
-    return res.status(204).send();
 });
 
-// DELETE /history – Clear all results.
-// Ref: Requirements 6.2 ; Design (Backend API)
-app.delete('/history', (_req, res) => {
-    history.length = 0;
-    return res.status(204).send();
+app.delete('/history', async (req, res) => {
+    try {
+        const { error } = await req.supabase
+            .from('history')
+            .delete()
+            .eq('user_id', req.user.id);
+
+        if (error) throw error;
+        return res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// ---------------------------------------------------------------------------
-// Start
-// ---------------------------------------------------------------------------
 app.listen(PORT, () => {
     console.log(`Sentiment Analyzer API running on http://localhost:${PORT}`);
 });

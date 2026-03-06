@@ -1,0 +1,51 @@
+# OpenAI UI SDK Rules
+
+You are using the `@openai/apps-sdk-ui` library for UI components. Follow these rules when using the SDK:
+
+## Allowed Components
+You can ONLY use the following components from the OpenAI UI SDK:
+- `Alert`
+- `AppsSDKUIProvider`
+- `Avatar`
+- `Badge`
+- `Button`
+- `Checkbox`
+- `CodeBlock`
+- `DatePicker`
+- `DateRangePicker`
+- `EmptyMessage`
+- `Icon`
+- `Image`
+- `Indicator`
+- `Input`
+- `Markdown`
+- `Menu`
+- `Popover`
+- `RadioGroup`
+- `SegmentedControl`
+- `Select`
+- `SelectControl`
+- `ShimmerText`
+- `Slider`
+- `Switch`
+- `TagInput`
+- `TextLink`
+- `Textarea`
+- `Tooltip`
+- `Transition`
+
+## Import Pattern
+Import components using the following pattern:
+```typescript
+import { ComponentName } from '@openai/apps-sdk-ui/components/ComponentName'
+```
+Example:
+```typescript
+import { Button } from '@openai/apps-sdk-ui/components/Button'
+import { Input } from '@openai/apps-sdk-ui/components/Input'
+```
+
+## Best Practices
+1. **Design System Consistency**: Use the `color`, `variant`, and `size` props provided by the SDK to maintain consistency with the OpenAI design system.
+2. **Variants**: Prefer `soft` and `solid` variants as seen in existing components.
+3. **Accessibility**: Ensure all interactive components have appropriate labels and descriptions.

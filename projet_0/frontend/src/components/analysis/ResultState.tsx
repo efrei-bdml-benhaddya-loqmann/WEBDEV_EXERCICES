@@ -8,13 +8,11 @@ import { SentimentBadge } from './SentimentBadge'
 export function ResultState({
   result,
   onCopy,
-  onEdit,
   onRegenerate,
   onScore
 }: {
   result: SentimentResult;
   onCopy: (text: string) => void
-  onEdit: (text: string) => void
   onRegenerate: (text: string) => void
   onScore: (id: string, feedback: 'positive' | 'negative' | 'none') => void
 }) {

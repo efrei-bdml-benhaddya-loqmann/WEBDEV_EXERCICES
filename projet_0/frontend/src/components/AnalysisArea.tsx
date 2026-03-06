@@ -1,6 +1,5 @@
 import type { SentimentResult } from '../types'
 import { SubmitState } from './analysis/SubmitState'
-import { LoadingState } from './analysis/LoadingState'
 import { ErrorState } from './analysis/ErrorState'
 import { ResultState } from './analysis/ResultState'
 
@@ -10,7 +9,6 @@ export function AnalysisArea({
     isLoading,
     error,
     onCopy,
-    onEdit,
     onRegenerate,
     onScore
 }: {
@@ -19,7 +17,6 @@ export function AnalysisArea({
     isLoading: boolean
     error: string | null
     onCopy: (text: string) => void
-    onEdit: (text: string) => void
     onRegenerate: (text: string) => void
     onScore: (id: string, feedback: 'positive' | 'negative' | 'none') => void
 }) {
@@ -32,11 +29,6 @@ export function AnalysisArea({
                     <SubmitState userText={userText} isLoading={isLoading} />
                 )}
 
-                {/* Loading State Spinner */}
-                {/* {isLoading && (
-                    <LoadingState />
-                )} */}
-
                 {/* Error State */}
                 {error && !isLoading && (
                     <ErrorState userText={userText} error={error} />
@@ -47,7 +39,6 @@ export function AnalysisArea({
                     <ResultState 
                         result={result} 
                         onCopy={onCopy}
-                        onEdit={onEdit}
                         onRegenerate={onRegenerate}
                         onScore={onScore}
                     />

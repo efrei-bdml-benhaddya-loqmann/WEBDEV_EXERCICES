@@ -1,4 +1,5 @@
 import type { SentimentResult } from '../types';
+import { supabase } from '../lib/supabase';
 
 const API_BASE_URL = 'http://localhost:3000';
 
@@ -9,10 +10,14 @@ const requestBuilder = async <T>(
   options: RequestInit = {},
   errorMessage = 'An error occurred'
 ): Promise<T> => {
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token;
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
       ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+      ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
       ...options.headers,
     },
   });
