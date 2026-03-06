@@ -5,6 +5,7 @@ import { createPortal } from "react-dom"
 import { ProfileSettings } from "./ProfileSettings"
 import { NotificationSettings } from "./NotificationSettings"
 import { SecuritySettings } from "./SecuritySettings"
+import { DataManagementSettings } from "./DataManagementSettings"
 import { SettingsSidebar } from "./SettingsSidebar"
 import { SettingsMobileHeader } from "./SettingsMobileHeader"
 import type { SettingsSection } from "./types"
@@ -88,6 +89,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                 <main className="flex-1 overflow-y-auto min-w-0">
                     {activeSection === "profile" && <ProfileSettings />}
                     {activeSection === "notifications" && <NotificationSettings />}
+                    {activeSection === "data" && <DataManagementSettings />}
                     {activeSection === "security" && <SecuritySettings />}
                 </main>
             </div>

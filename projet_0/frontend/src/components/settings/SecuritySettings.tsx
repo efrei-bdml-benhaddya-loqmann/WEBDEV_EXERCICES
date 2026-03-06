@@ -1,5 +1,5 @@
-import React from "react"
 import { Button } from "@openai/apps-sdk-ui/components/Button"
+import { Item, ItemContent, ItemTitle, ItemActions, ItemGroup } from "../ui/Item"
 
 export function SecuritySettings() {
     const handleLogout = async () => {
@@ -10,19 +10,24 @@ export function SecuritySettings() {
     }
 
     return (
-        <div className="p-6">
-            <div className="flex items-center justify-between py-4">
-                <span className="text-sm font-medium">Logout</span>
-                <Button
-                    variant="outline"
-                    color="secondary"
-                    size="sm"
-                    pill
-                    onClick={handleLogout}
-                >
-                    Logout
-                </Button>
-            </div>
-        </div>
+        <ItemGroup>
+            <Item variant="destructive" className="!border-b-0">
+                <ItemContent>
+                    <ItemTitle>Logout</ItemTitle>
+                </ItemContent>
+                <ItemActions>
+                    <Button
+                        variant="outline"
+                        color="secondary"
+                        size="sm"
+                        pill
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </Button>
+                </ItemActions>
+            </Item>
+        </ItemGroup>
     )
 }
+

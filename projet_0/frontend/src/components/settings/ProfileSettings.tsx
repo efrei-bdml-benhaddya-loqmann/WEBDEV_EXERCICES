@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { Button } from "@openai/apps-sdk-ui/components/Button"
 import { Input } from "@openai/apps-sdk-ui/components/Input"
 import { Popover, usePopoverController } from "@openai/apps-sdk-ui/components/Popover"
+import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions, ItemGroup } from "../ui/Item"
 
 // ─── Edit Name Popover Inner (uses usePopoverController) ────────────────────
 
@@ -90,17 +91,16 @@ export function ProfileSettings() {
     }
 
     return (
-        <div className="p-6 space-y-0">
+        <ItemGroup>
             {/* Full Name Row */}
-            <div
-                className="flex items-center justify-between py-4"
-                style={{ borderBottom: "1px solid var(--border-default, #e5e5e5)" }}
-            >
-                <span className="text-sm font-medium">Full Name</span>
-                <div className="flex items-center gap-3">
-                    <span className="text-sm text-[var(--text-secondary,#555)] max-w-[180px] truncate">
+            <Item>
+                <ItemContent>
+                    <ItemTitle>Full Name</ItemTitle>
+                </ItemContent>
+                <ItemActions>
+                    <ItemDescription className="max-w-[180px] truncate">
                         {displayName}
-                    </span>
+                    </ItemDescription>
                     <Popover>
                         <Popover.Trigger>
                             <Button variant="outline" color="secondary" size="sm" pill>
@@ -117,16 +117,20 @@ export function ProfileSettings() {
                             />
                         </Popover.Content>
                     </Popover>
-                </div>
-            </div>
+                </ItemActions>
+            </Item>
 
-            {/* Email Row */}
-            <div className="flex items-center justify-between py-4">
-                <span className="text-sm font-medium">Email</span>
-                <span className="text-sm text-[var(--text-secondary,#555)] max-w-[200px] truncate">
-                    {email}
-                </span>
-            </div>
-        </div>
+            {/* Email Row — no border on last item */}
+            <Item className="!border-b-0">
+                <ItemContent>
+                    <ItemTitle>Email</ItemTitle>
+                </ItemContent>
+                <ItemActions>
+                    <ItemDescription className="max-w-[200px] truncate">
+                        {email}
+                    </ItemDescription>
+                </ItemActions>
+            </Item>
+        </ItemGroup>
     )
 }
