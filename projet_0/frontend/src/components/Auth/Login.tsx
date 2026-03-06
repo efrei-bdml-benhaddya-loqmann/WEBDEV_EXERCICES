@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabase';
+import { Input } from '@openai/apps-sdk-ui/components/Input';
+import { Button } from '@openai/apps-sdk-ui/components/Button';
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -8,7 +10,7 @@ const Login: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleAuth = async (e: React.FormEvent) => {
+  const handleAuth = async (e: React.SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -37,12 +39,12 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md space-y-8 rounded-lg border bg-card p-8 shadow-sm">
+      <div className="w-full max-w-md space-y-8 p-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">
+          <h2 className="heading-xl mb-3">
             {isSignUp ? 'Create an account' : 'Welcome back'}
           </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-md text-secondary">
             {isSignUp
               ? 'Enter your details to sign up'
               : 'Enter your credentials to access your account'}
@@ -52,7 +54,19 @@ const Login: React.FC = () => {
         <form className="mt-8 space-y-6" onSubmit={handleAuth}>
           <div className="space-y-4 rounded-md">
             <div>
-              <label htmlFor="email-address" className="sr-only">
+              <Input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                pill
+                size='3xl'
+              />
+              {/* <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
               <input
@@ -65,9 +79,22 @@ const Login: React.FC = () => {
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              />
+              /> */}
             </div>
             <div>
+              <Input
+                id="password-address"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                pill
+                size='3xl'
+              />
+              {/* 
               <label htmlFor="password-address" className="sr-only">
                 Password
               </label>
@@ -81,31 +108,41 @@ const Login: React.FC = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
+              /> */}
             </div>
           </div>
 
           {error && (
-            <div className="text-sm text-destructive text-center">
+            <p className="text-md text-danger-soft text-center">
               {error}
-            </div>
+            </p>
           )}
 
           <div>
-            <button
+            <Button
+              type='submit'
+              disabled={loading}
+              color='primary'
+              size='3xl'
+              pill
+              block
+            >
+              {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Sign In'}
+            </Button>
+            {/* <button
               type="submit"
               disabled={loading}
               className="group relative flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
             >
               {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Sign In'}
-            </button>
+            </button> */}
           </div>
         </form>
 
         <div className="text-center">
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="text-sm text-primary hover:underline"
+            className="text-md text-primary hover:underline"
           >
             {isSignUp
               ? 'Already have an account? Sign in'

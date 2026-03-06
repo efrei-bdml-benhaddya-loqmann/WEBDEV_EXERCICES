@@ -1,11 +1,9 @@
-import React from "react"
 import { Button } from "@openai/apps-sdk-ui/components/Button"
 import {
     ItemGroup,
     Item,
     ItemContent,
     ItemTitle,
-    ItemDescription,
     ItemActions
 } from "../ui/Item"
 
