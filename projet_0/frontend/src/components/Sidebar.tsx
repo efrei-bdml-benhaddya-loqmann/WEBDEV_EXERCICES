@@ -2,6 +2,8 @@ import { Delete, X } from '@openai/apps-sdk-ui/components/Icon'
 import { Button } from '@openai/apps-sdk-ui/components/Button'
 import { ThemeToggle } from './ThemeToggle'
 import type { SentimentResult } from '../types'
+import { SidebarMenu } from './menu/SidebarMenu'
+import { Popover } from '@openai/apps-sdk-ui/components/Popover'
 
 export function Sidebar({
     isOpen,
@@ -23,13 +25,13 @@ export function Sidebar({
             {/* Mobile overlay */}
             {isOpen && (
                 <div
-                    className="lg:hidden fixed inset-0 bg-black/50 z-40 transition-opacity"
+                    className="lg:hidden fixed inset-0 bg-black/50 z-20 transition-opacity"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
             <div
-                className={`fixed inset-y-0 left-0 z-50 w-[260px] bg-surface-secondary border-r border-default flex flex-col transition-transform duration-300 ease-in-out transform 
+                className={`fixed inset-y-0 left-0 z-[30] w-[260px] bg-surface-secondary border-r border-default flex flex-col transition-transform duration-300 ease-in-out transform overflow-visible
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
         lg:static lg:flex shrink-0`}
             >
@@ -78,7 +80,7 @@ export function Sidebar({
                 </div>
 
                 <div className="p-3 border-t border-default flex-shrink-0 flex items-center gap-2">
-                    <ThemeToggle />
+                    {/* <ThemeToggle />
                     <Button
                         color="secondary"
                         variant="ghost"
@@ -88,7 +90,8 @@ export function Sidebar({
                         className="text-secondary hover:bg-surface-tertiary flex-1"
                     >
                         Clear History
-                    </Button>
+                    </Button> */}
+                    <SidebarMenu />
                 </div>
             </div>
         </>
