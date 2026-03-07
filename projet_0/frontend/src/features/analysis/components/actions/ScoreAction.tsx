@@ -1,4 +1,3 @@
-import { Button } from "@openai/apps-sdk-ui/components/Button";
 import { ThumbUp, ThumbDown, ThumbUpFilled, ThumbDownFilled } from "@openai/apps-sdk-ui/components/Icon";
 import { ActionButton } from "./ActionButton";
 
