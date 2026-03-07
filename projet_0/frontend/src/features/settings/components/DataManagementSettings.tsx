@@ -8,18 +8,23 @@ import {
 } from "../../../components/ui/Item"
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { useAppContext } from "@/contexts/AppContext"
+import { exportHistoryToJSON } from "../actions/exportHistory"
+import { getHistory } from "@/services/api"
 
 export function DataManagementSettings() {
     const { handleClearHistory } = useAppContext()
 
-    const handleExport = () => {
-        console.log("Exporting chats...")
-        // Implementation for exporting chats
+    const handleExport = async () => {
+        console.log("Exporting history...")
+        const history = await getHistory()
+        const fn = exportHistoryToJSON(history)
+        console.log("History exported successfully to ", fn)
     }
 
     const handleDeleteAll = () => {
-        console.log("Deleting all chats...")
+        console.log("Deleting all analyzes...")
         handleClearHistory()
+        console.log("All analyzes deleted successfully")
     }
 
     return (
