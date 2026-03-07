@@ -3,6 +3,8 @@ import { Button } from "@openai/apps-sdk-ui/components/Button"
 import { Input } from "@openai/apps-sdk-ui/components/Input"
 import { Popover, usePopoverController } from "@openai/apps-sdk-ui/components/Popover"
 import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions, ItemGroup } from "../ui/Item"
+import { useAuth } from "@/contexts/AuthContext"
+import { SettingsHeader } from "./SettingsHeader"
 
 // ─── Edit Name Popover Inner (uses usePopoverController) ────────────────────
 
@@ -66,71 +68,42 @@ function EditNamePopoverContent({
 // ─── Profile Settings ─────────────────────────────────────────────────────────
 
 export function ProfileSettings() {
-    // Fallback values — replace with a real user hook if available
-    const displayName = "Sam Smith"
-    const email = "sam.smith@gmail.com"
+    const { user, signOut } = useAuth()
+    const email = user?.email
 
-    const [fullName, setFullName] = useState(displayName)
-    const [isSaving, setIsSaving] = useState(false)
-
-    const handleSave = async (closePopover: () => void) => {
-        if (!fullName.trim()) return
-        setIsSaving(true)
-        try {
-            await fetch("/api/user/profile", {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ displayName: fullName }),
-            })
-            closePopover()
-        } catch (err) {
-            console.error("Failed to update profile:", err)
-        } finally {
-            setIsSaving(false)
-        }
-    }
 
     return (
-        <ItemGroup>
-            {/* Full Name Row */}
-            <Item>
-                <ItemContent>
-                    <ItemTitle>Full Name</ItemTitle>
-                </ItemContent>
-                <ItemActions>
-                    <ItemDescription className="max-w-[180px] truncate">
-                        {displayName}
-                    </ItemDescription>
-                    <Popover>
-                        <Popover.Trigger>
-                            <Button variant="outline" color="secondary" size="sm" pill>
-                                Edit
-                            </Button>
-                        </Popover.Trigger>
-                        <Popover.Content side="bottom" align="end" width={320} translucent={false}>
-                            <EditNamePopoverContent
-                                displayName={displayName}
-                                fullName={fullName}
-                                setFullName={setFullName}
-                                isSaving={isSaving}
-                                onSave={handleSave}
-                            />
-                        </Popover.Content>
-                    </Popover>
-                </ItemActions>
-            </Item>
+        <>
+            <SettingsHeader title={"Profile"} />
+            <ItemGroup>
+                <Item>
+                    <ItemContent>
+                        <ItemTitle>Email</ItemTitle>
+                    </ItemContent>
+                    <ItemActions>
+                        <ItemDescription className="max-w-[200px] truncate">
+                            {email}
+                        </ItemDescription>
+                    </ItemActions>
+                </Item>
+                <Item variant="destructive" separator={false} >
+                    <ItemContent>
+                        <ItemTitle>Logout from this device</ItemTitle>
+                    </ItemContent>
+                    <ItemActions>
+                        <Button
+                            variant="outline"
+                            color="secondary"
+                            size="sm"
+                            pill
+                            onClick={signOut}
+                        >
+                            Logout
+                        </Button>
+                    </ItemActions>
+                </Item>
+            </ItemGroup>
+        </>
 
-            {/* Email Row — no border on last item */}
-            <Item className="!border-b-0">
-                <ItemContent>
-                    <ItemTitle>Email</ItemTitle>
-                </ItemContent>
-                <ItemActions>
-                    <ItemDescription className="max-w-[200px] truncate">
-                        {email}
-                    </ItemDescription>
-                </ItemActions>
-            </Item>
-        </ItemGroup>
     )
 }

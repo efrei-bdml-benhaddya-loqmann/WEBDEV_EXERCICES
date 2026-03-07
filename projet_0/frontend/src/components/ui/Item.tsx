@@ -34,9 +34,10 @@ interface ItemProps {
     variant?: ItemVariant
     className?: string
     onClick?: () => void
+    separator?: boolean
 }
 
-export function Item({ children, variant = "default", onClick, className = "" }: ItemProps) {
+export function Item({ children, variant = "default", onClick, className = "", separator = true }: ItemProps) {
     const variantClass =
         variant === "destructive"
             ? "text-[var(--text-error,#e53e3e)]"
@@ -51,7 +52,7 @@ export function Item({ children, variant = "default", onClick, className = "" }:
     return (
         <div
             className={`flex items-center justify-between px-6 py-4 ${variantClass} ${interactiveClass} ${className}`}
-            style={{ borderBottom: "1px solid var(--border-default, #e5e5e5)" }}
+            style={separator ? { borderBottom: "1px solid var(--border-default, #e5e5e5)" } : {}}
             onClick={onClick}
         >
             {children}

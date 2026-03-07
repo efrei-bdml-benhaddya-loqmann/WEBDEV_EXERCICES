@@ -27,6 +27,8 @@ export function SettingsSidebar({ activeSection, setActiveSection, onClose }: Se
                     size="sm"
                     onClick={onClose}
                     aria-label="Close settings"
+                    pill={false}
+                    uniform
                 >
                     <X />
                 </Button>

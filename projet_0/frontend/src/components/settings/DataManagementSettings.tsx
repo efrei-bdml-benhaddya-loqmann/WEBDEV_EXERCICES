@@ -6,6 +6,7 @@ import {
     ItemTitle,
     ItemActions
 } from "../ui/Item"
+import { SettingsHeader } from "./SettingsHeader"
 
 export function DataManagementSettings() {
     const handleExport = () => {
@@ -22,6 +23,7 @@ export function DataManagementSettings() {
 
     return (
         <div className="space-y-0">
+            <SettingsHeader title="Data Management" />
             <ItemGroup label="Chat History">
                 <Item>
                     <ItemContent>
@@ -40,7 +42,7 @@ export function DataManagementSettings() {
                     </ItemActions>
                 </Item>
 
-                <Item>
+                <Item separator={false}>
                     <ItemContent>
                         <ItemTitle>Delete All Chats</ItemTitle>
                     </ItemContent>
@@ -53,24 +55,6 @@ export function DataManagementSettings() {
                             onClick={handleDeleteAll}
                         >
                             Delete All
-                        </Button>
-                    </ItemActions>
-                </Item>
-            </ItemGroup>
-
-            <ItemGroup>
-                <Item>
-                    <ItemContent>
-                        <ItemTitle>Clear Cache</ItemTitle>
-                    </ItemContent>
-                    <ItemActions>
-                        <Button
-                            variant="outline"
-                            color="secondary"
-                            size="sm"
-                            pill
-                        >
-                            Clear
                         </Button>
                     </ItemActions>
                 </Item>
