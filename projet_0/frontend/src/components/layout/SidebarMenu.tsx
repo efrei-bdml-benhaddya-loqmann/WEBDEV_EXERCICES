@@ -4,6 +4,7 @@ import { Menu } from "@openai/apps-sdk-ui/components/Menu"
 import { Avatar } from "@openai/apps-sdk-ui/components/Avatar";
 import { SettingsDialog } from "../../features/settings/components/SettingsDialog"
 import { useAuth } from "../../contexts/AuthContext"
+import { Logout, Settings } from "@openai/apps-sdk-ui/components/Icon";
 
 export function SidebarMenu() {
     const [settingsOpen, setSettingsOpen] = useState(false)
@@ -52,13 +53,15 @@ export function SidebarMenu() {
                             </div>
                         </div>
                     </Menu.Item>
-                    <Menu.Separator />
+                    <Menu.Separator className="mx-2" />
                     <Menu.Item onSelect={() => setSettingsOpen(true)}>
-                        Settings
+                        <Settings height={16} width={16} /> Settings
                     </Menu.Item>
                     {/* <Menu.Link href="https://openai.com/policies/">Terms &amp; policies</Menu.Link> */}
-                    <Menu.Separator />
-                    <Menu.Item onSelect={signOut}>Logout</Menu.Item>
+                    <Menu.Separator className="mx-2" />
+                    <Menu.Item onSelect={signOut}>
+                        <Logout height={16} width={16} /> Logout
+                    </Menu.Item>
                 </Menu.Content>
             </Menu >
 
