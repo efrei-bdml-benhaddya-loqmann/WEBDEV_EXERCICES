@@ -1,0 +1,58 @@
+"use client"
+
+import { useState } from "react"
+import {
+    Dialog,
+    DialogContent,
+} from "../../../components/ui/Dialog"
+import { ProfileSettings } from "./ProfileSettings"
+import { NotificationSettings } from "./NotificationSettings"
+import { SecuritySettings } from "./SecuritySettings"
+import { DataManagementSettings } from "./DataManagementSettings"
+import { SettingsSidebar } from "./SettingsSidebar"
+import { SettingsMobileHeader } from "./SettingsMobileHeader"
+import type { SettingsSection } from "../types/settings.types"
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface SettingsDialogProps {
+    open: boolean
+    onOpenChange: (open: boolean) => void
+}
+
+// ─── Dialog Shell ─────────────────────────────────────────────────────────────
+
+export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
+    const [activeSection, setActiveSection] = useState<SettingsSection>("profile")
+
+    return (
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent
+                className="flex flex-col sm:flex-row w-full h-full sm:w-[680px] sm:h-[600px] sm:max-w-[680px] sm:max-h-[600px] max-h-[100dvh] p-0 rounded-2xl"
+                style={{ overflow: "clip" }}
+            >
+                {/* ── Desktop Sidebar ── */}
+                <SettingsSidebar
+                    activeSection={activeSection}
+                    setActiveSection={setActiveSection}
+                    onClose={() => onOpenChange(false)}
+                />
+
+                {/* ── Mobile Header ── */}
+                <SettingsMobileHeader
+                    activeSection={activeSection}
+                    setActiveSection={setActiveSection}
+                    onClose={() => onOpenChange(false)}
+                />
+
+                {/* ── Content ── */}
+                <main className="flex-1 overflow-y-auto min-w-0">
+                    {activeSection === "profile" && <ProfileSettings />}
+                    {activeSection === "notifications" && <NotificationSettings />}
+                    {activeSection === "data" && <DataManagementSettings />}
+                    {activeSection === "security" && <SecuritySettings />}
+                </main>
+            </DialogContent>
+        </Dialog>
+    )
+}

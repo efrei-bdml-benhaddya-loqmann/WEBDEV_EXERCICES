@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { SidebarMenuMobile } from '@openai/apps-sdk-ui/components/Icon'
-import { Sidebar } from './components/Sidebar'
-import { MainContent, HeroTitle } from './components/MainContent'
-import { InputArea } from './components/InputArea'
+import { Sidebar } from './components/layout/Sidebar'
+import { MainContent, HeroTitle } from './components/layout/MainContent'
+import { InputArea } from './features/analysis/components/InputArea'
 import type { SentimentResult } from './types'
-import { AnalysisArea } from './components/AnalysisArea'
+import { AnalysisArea } from './features/analysis/components/AnalysisArea'
 import { useAuth } from './contexts/AuthContext'
-import Login from './components/Auth/Login'
+import Login from './features/auth/components/Login'
 
 import { analyzeText, clearHistory, deleteHistoryItem, getHistory, updateHistoryItem } from './services/api'
 
@@ -64,8 +64,9 @@ function App() {
       try {
         const newResult: SentimentResult = await analyzeText(text);
         setResult(newResult)
-      } catch (err: any) {
-        setError(err instanceof Error ? err.message : String(err))
+      } catch (err: unknown) {
+        console.error('API Error:', err)
+        setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
         setIsSubmitting(false)
       }

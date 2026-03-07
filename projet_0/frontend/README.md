@@ -76,16 +76,46 @@ npm run build
 ## 📂 Project Structure
 
 ```text
-frontend/
-├── src/
-│   ├── components/      # Reusable UI components
-│   ├── services/        # API communication logic (Express integration)
-│   ├── types/           # TypeScript interfaces and types
-│   ├── App.tsx          # Main layout and state coordination
-│   ├── index.css        # Global styles (Tailwind 4)
-│   └── main.tsx         # React entry point
-├── public/              # Static assets (favicons, etc.)
-└── index.html           # HTML template
+frontend/src/
+├── 📁 assets/                 # SVGs, images, global styles (index.css)
+├── 📁 components/             # General-purpose & structural components
+│   ├── 📁 layout/             # Application shell components
+│   │   ├── Sidebar.tsx
+│   │   ├── MainContent.tsx
+│   │   └── Navbar.tsx (if any)
+│   └── 📁 ui/                 # Atomic, headless, and reusable components (shadcn style)
+│       ├── Button.tsx
+│       ├── Input.tsx
+│       ├── Item.tsx
+│       ├── Badge.tsx
+│       └── Modal.tsx
+│
+├── 📁 features/               # Business logic & domain-specific components
+│   ├── 📁 analysis/           # Everything related to data analysis
+│   │   ├── 📁 components/     # Analysis-specific components
+│   │   │   ├── AnalysisArea.tsx
+│   │   │   ├── InputArea.tsx
+│   │   │   ├── ResultState.tsx
+│   │   │   ├── SentimentBadge.tsx
+│   │   │   └── 📁 actions/    # Action-specific components
+│   │   ├── 📁 hooks/          # useAnalysis.ts, etc.
+│   │   └── 📁 types/          # analysis.types.ts
+│   │
+│   ├── 📁 auth/               # Login, Signup, Auth logic
+│   │   ├── 📁 components/     # Login.tsx, AuthForm.tsx
+│   │   └── 📁 hooks/          # useAuth.ts
+│   │
+│   └── 📁 settings/           # All settings panels
+│       ├── 📁 components/     # SettingsDialog.tsx, ProfileSettings.tsx, etc.
+│       └── 📁 hooks/          # useSettings.ts
+│
+├── 📁 contexts/               # Global state (AuthContext, ThemeContext)
+├── 📁 hooks/                  # Global reusable hooks (useMediaQuery, useStorage)
+├── 📁 services/               # API clients, Supabase config, or axios instances
+├── 📁 types/                  # Global interfaces and shared types
+├── 📁 utils/                  # Pure utility functions (formating, validation)
+├── App.tsx                    # Main entry point (Routing, Providers)
+└── main.tsx                   # DOM attachment
 ```
 
 ---
