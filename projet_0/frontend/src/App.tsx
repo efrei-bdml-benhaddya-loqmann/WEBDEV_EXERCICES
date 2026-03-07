@@ -118,6 +118,16 @@ function App() {
     setHistory(prev => prev.filter(item => item.id !== id)) // update the local history state
   }
 
+  const handleReset = () => {
+    setSubmittedText(null)
+    setResult(null)
+    setError(null)
+    setInputText('')
+    if (window.innerWidth < 1024) {
+      setIsSidebarOpen(false)
+    }
+  }
+
   return (
     <div className="flex h-[100dvh] w-full bg-surface dark:bg-[#000000] text-default overflow-hidden font-sans">
       <Sidebar
@@ -127,6 +137,7 @@ function App() {
         onSelect={handleSelectHistory}
         onClear={handleClearHistory}
         onDelete={handleDeleteHistory}
+        onReset={handleReset}
       />
 
       <MainContent>

@@ -9,6 +9,7 @@ export function Sidebar({
     history,
     onSelect,
     onDelete,
+    onReset,
 }: {
     isOpen: boolean
     setIsOpen: (o: boolean) => void
@@ -16,6 +17,7 @@ export function Sidebar({
     onSelect: (item: SentimentResult) => void
     onClear: () => void
     onDelete: (id: string) => void
+    onReset: () => void
 }) {
     return (
         <>
@@ -39,7 +41,7 @@ export function Sidebar({
                         size="lg"
                         uniform
                         pill={false}
-                        onClick={() => { }}
+                        onClick={onReset}
                     >
                         <span className="text-lg">🎭</span>
                     </Button>
