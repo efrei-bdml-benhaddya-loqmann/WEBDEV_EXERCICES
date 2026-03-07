@@ -7,18 +7,19 @@ import {
     ItemActions
 } from "../../../components/ui/Item"
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
+import { useAppContext } from "@/contexts/AppContext"
 
 export function DataManagementSettings() {
+    const { handleClearHistory } = useAppContext()
+
     const handleExport = () => {
         console.log("Exporting chats...")
         // Implementation for exporting chats
     }
 
     const handleDeleteAll = () => {
-        if (confirm("Are you sure you want to delete all chats? This action cannot be undone.")) {
-            console.log("Deleting all chats...")
-            // Implementation for deleting all chats
-        }
+        console.log("Deleting all chats...")
+        handleClearHistory()
     }
 
     return (
@@ -29,7 +30,7 @@ export function DataManagementSettings() {
             <ItemGroup label="Chat History">
                 <Item>
                     <ItemContent>
-                        <ItemTitle>Export Chats</ItemTitle>
+                        <ItemTitle>Export Analyzes</ItemTitle>
                     </ItemContent>
                     <ItemActions>
                         <Button
@@ -54,7 +55,7 @@ export function DataManagementSettings() {
                             color="danger"
                             size="sm"
                             pill
-                            onClick={handleDeleteAll}
+                            onClick={() => handleDeleteAll()}
                         >
                             Delete All
                         </Button>

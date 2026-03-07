@@ -9,6 +9,8 @@ import { useAuth } from './contexts/AuthContext'
 import Login from './features/auth/components/Login'
 
 import { analyzeText, clearHistory, deleteHistoryItem, getHistory, updateHistoryItem } from './services/api'
+import { copyToClipboard, isMobileScreen, delay, getErrorMessage } from './utils'
+import { AppProvider } from './contexts/AppContext'
 
 function App() {
   const { user, loading } = useAuth()
@@ -31,7 +33,7 @@ function App() {
           setHistory(data)
         })
         .catch((error) => {
-          setError(error instanceof Error ? error.message : String(error))
+          setError(getErrorMessage(error))
         });
     }
   }, [user, loading, result]) // update the history when the user logs in or result is updated
@@ -60,17 +62,16 @@ function App() {
     setError(null)
 
     // Provide smooth UI feedback
-    setTimeout(async () => {
-      try {
-        const newResult: SentimentResult = await analyzeText(text);
-        setResult(newResult)
-      } catch (err: unknown) {
-        console.error('API Error:', err)
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setIsSubmitting(false)
-      }
-    }, 1500)
+    await delay(1500)
+    try {
+      const newResult: SentimentResult = await analyzeText(text);
+      setResult(newResult)
+    } catch (err: unknown) {
+      console.error('API Error:', err)
+      setError(getErrorMessage(err))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleSubmit = () => {
@@ -79,7 +80,7 @@ function App() {
   }
 
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text)
+    copyToClipboard(text)
   }
 
   const handleRegenerate = (text: string) => {
@@ -103,7 +104,7 @@ function App() {
     setSubmittedText(item.text)
     setResult(item)
     setError(null)
-    if (window.innerWidth < 1024) {
+    if (isMobileScreen()) {
       setIsSidebarOpen(false)
     }
   }
@@ -123,67 +124,69 @@ function App() {
     setResult(null)
     setError(null)
     setInputText('')
-    if (window.innerWidth < 1024) {
+    if (isMobileScreen()) {
       setIsSidebarOpen(false)
     }
   }
 
   return (
-    <div className="flex h-[100dvh] w-full bg-surface dark:bg-[#000000] text-default overflow-hidden font-sans">
-      <Sidebar
-        isOpen={isSidebarOpen}
-        setIsOpen={setIsSidebarOpen}
-        history={history}
-        onSelect={handleSelectHistory}
-        onClear={handleClearHistory}
-        onDelete={handleDeleteHistory}
-        onReset={handleReset}
-      />
+    <AppProvider value={{ handleClearHistory, handleReset, handleDeleteHistory, handleSelectHistory }}>
+      <div className="flex h-[100dvh] w-full bg-surface dark:bg-[#000000] text-default overflow-hidden font-sans">
+        <Sidebar
+          isOpen={isSidebarOpen}
+          setIsOpen={setIsSidebarOpen}
+          history={history}
+          onSelect={handleSelectHistory}
+          onClear={handleClearHistory}
+          onDelete={handleDeleteHistory}
+          onReset={handleReset}
+        />
 
-      <MainContent>
-        {/* Top Mobile Gradient Overlay */}
-        <div className="lg:hidden absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/10 dark:from-black/40 to-transparent pointer-events-none z-10" />
+        <MainContent>
+          {/* Top Mobile Gradient Overlay */}
+          <div className="lg:hidden absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/10 dark:from-black/40 to-transparent pointer-events-none z-10" />
 
-        {/* Mobile Header */}
-        <div className="lg:hidden flex items-center gap-3 p-4 bg-transparent shrink-0 relative z-20">
-          <button
-            className="flex items-center justify-center w-10 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)] hover:opacity-80 transition-opacity"
-            onClick={() => setIsSidebarOpen(true)}
-          >
-            <SidebarMenuMobile className="size-5 text-primary dark:text-primary" />
-          </button>
-          <div className="flex items-center px-4 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)]">
-            <span className="font-semibold text-sm text-primary dark:text-primary">Sentiment Analyzer</span>
+          {/* Mobile Header */}
+          <div className="lg:hidden flex items-center gap-3 p-4 bg-transparent shrink-0 relative z-20">
+            <button
+              className="flex items-center justify-center w-10 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)] hover:opacity-80 transition-opacity"
+              onClick={() => setIsSidebarOpen(true)}
+            >
+              <SidebarMenuMobile className="size-5 text-primary dark:text-primary" />
+            </button>
+            <div className="flex items-center px-4 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)]">
+              <span className="font-semibold text-sm text-primary dark:text-primary">Sentiment Analyzer</span>
+            </div>
           </div>
-        </div>
 
-        {showHero ? (
-          <HeroTitle />
-        ) : (
-          <AnalysisArea
-            userText={submittedText}
-            result={result}
-            isLoading={isSubmitting}
-            error={error}
-            onCopy={handleCopy}
-            onRegenerate={handleRegenerate}
-            onScore={handleScore}
-          />
-        )}
+          {showHero ? (
+            <HeroTitle />
+          ) : (
+            <AnalysisArea
+              userText={submittedText}
+              result={result}
+              isLoading={isSubmitting}
+              error={error}
+              onCopy={handleCopy}
+              onRegenerate={handleRegenerate}
+              onScore={handleScore}
+            />
+          )}
 
-        <div className="relative z-20 shrink-0 w-full mt-auto">
-          <InputArea
-            text={inputText}
-            setText={setInputText}
-            onSubmit={handleSubmit}
-            isLoading={isSubmitting}
-          />
-        </div>
+          <div className="relative z-20 shrink-0 w-full mt-auto">
+            <InputArea
+              text={inputText}
+              setText={setInputText}
+              onSubmit={handleSubmit}
+              isLoading={isSubmitting}
+            />
+          </div>
 
-        {/* Bottom Mobile Gradient Overlay */}
-        <div className="lg:hidden absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/10 dark:from-black/40 to-transparent pointer-events-none z-10" />
-      </MainContent>
-    </div>
+          {/* Bottom Mobile Gradient Overlay */}
+          <div className="lg:hidden absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/10 dark:from-black/40 to-transparent pointer-events-none z-10" />
+        </MainContent>
+      </div>
+    </AppProvider>
   )
 }
 

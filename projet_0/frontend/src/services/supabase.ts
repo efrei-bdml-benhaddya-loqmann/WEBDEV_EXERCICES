@@ -8,3 +8,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export const updateUserName = async (name: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    data: { display_name: name }
+  })
+  if (error) throw error;
+  return data;
+}

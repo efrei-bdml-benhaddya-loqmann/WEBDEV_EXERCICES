@@ -21,7 +21,7 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 app.use(cors());
 app.use(express.json());
 
-// Helper to get Supabase client with user token for RLS
+// Helper to get Supabase client with user token for RLS 'Row Level Security'
 function getSupabase(token) {
     if (!token) return null;
     return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
@@ -42,7 +42,7 @@ const authMiddleware = async (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
     const supabase = getSupabase(token);
-    
+
     try {
         const { data: { user }, error } = await supabase.auth.getUser(token);
         if (error || !user) {
