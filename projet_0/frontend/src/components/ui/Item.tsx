@@ -50,13 +50,16 @@ export function Item({ children, variant = "default", onClick, className = "", s
         : ""
 
     return (
-        <div
-            className={`flex items-center justify-between px-6 py-4 ${variantClass} ${interactiveClass} ${className}`}
-            style={separator ? { borderBottom: "1px solid var(--border-default, #e5e5e5)" } : {}}
-            onClick={onClick}
-        >
-            {children}
-        </div>
+        <>
+            <div
+                className={`flex items-center justify-between px-6 py-4 ${variantClass} ${interactiveClass} ${className}`}
+                // style={separator ? { borderBottom: "1px solid var(--border-default, #e5e5e5)" } : {}}
+                onClick={onClick}
+            >
+                {children}
+            </div>
+            {separator && <div className="border-t border-default mx-6"></div>}
+        </>
     )
 }
 

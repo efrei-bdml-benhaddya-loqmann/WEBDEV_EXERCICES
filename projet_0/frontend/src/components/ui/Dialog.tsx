@@ -195,13 +195,17 @@ export function DialogContent({ children, className = "", style, backdropStyle }
 interface DialogHeaderProps {
     children: React.ReactNode
     className?: string
+    divider?: boolean
 }
 
-export function DialogHeader({ children, className = "" }: DialogHeaderProps) {
+export function DialogHeader({ children, className = "", divider = true }: DialogHeaderProps) {
     return (
-        <div className={`flex flex-col gap-1 p-6 pb-4 ${className}`}>
-            {children}
-        </div>
+        <>
+            <div className={`flex flex-col gap-1 p-6 pb-4 ${className}`}>
+                {children}
+            </div>
+            {divider && <div className="border-t border-default mx-6"></div>}
+        </>
     )
 }
 
@@ -215,7 +219,7 @@ interface DialogTitleProps {
 export function DialogTitle({ children, className = "" }: DialogTitleProps) {
     const { titleId } = useDialogContext("DialogTitle")
     return (
-        <h2 id={titleId} className={`text-lg font-semibold text-[var(--text-primary,#111)] ${className}`}>
+        <h2 id={titleId} className={`text-lg text-[var(--text-primary,#111)] ${className}`}>
             {children}
         </h2>
     )

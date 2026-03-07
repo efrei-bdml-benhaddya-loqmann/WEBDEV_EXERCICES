@@ -1,7 +1,7 @@
 import { Button } from "@openai/apps-sdk-ui/components/Button"
 import { Item, ItemContent, ItemTitle, ItemActions, ItemGroup } from "../../../components/ui/Item"
 import { useAuth } from "../../../contexts/AuthContext"
-import { SettingsHeader } from "./SettingsHeader"
+import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 
 export function ProfileSettings() {
     const { user, signOut } = useAuth()
@@ -9,7 +9,9 @@ export function ProfileSettings() {
 
     return (
         <>
-            <SettingsHeader title="Profile" />
+            <DialogHeader>
+                <DialogTitle>Profile</DialogTitle>
+            </DialogHeader>
             <ItemGroup>
                 <Item>
                     <ItemContent>

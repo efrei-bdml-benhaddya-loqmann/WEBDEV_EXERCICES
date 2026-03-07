@@ -6,7 +6,7 @@ import {
     ItemTitle,
     ItemActions
 } from "../../../components/ui/Item"
-import { SettingsHeader } from "./SettingsHeader"
+import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 
 export function DataManagementSettings() {
     const handleExport = () => {
@@ -23,7 +23,9 @@ export function DataManagementSettings() {
 
     return (
         <div className="space-y-0">
-            <SettingsHeader title="Data Management" />
+            <DialogHeader>
+                <DialogTitle>Data Management</DialogTitle>
+            </DialogHeader>
             <ItemGroup label="Chat History">
                 <Item>
                     <ItemContent>
