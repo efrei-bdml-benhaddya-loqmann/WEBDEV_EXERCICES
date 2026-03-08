@@ -95,7 +95,7 @@ interface ItemDescriptionProps {
 
 export function ItemDescription({ children, className = "" }: ItemDescriptionProps) {
     return (
-        <span className={`text-sm text-[var(--color-text-secondary)] ${className}`}>
+        <span className={`text-xs text-secondary ${className}`}>
             {children}
         </span>
     )

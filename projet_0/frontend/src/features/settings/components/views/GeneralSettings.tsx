@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog";
-import { Item, ItemActions, ItemContent, ItemGroup, ItemTitle } from "@/components/ui/Item";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from "@/components/ui/Item";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Alert } from "@openai/apps-sdk-ui/components/Alert";
 import { Badge } from "@openai/apps-sdk-ui/components/Badge";
+import { Switch } from "@openai/apps-sdk-ui/components/Switch";
 import { TextLink } from "@openai/apps-sdk-ui/components/TextLink";
 import { checkExpressApiStatus, checkFlaskApiStatus, checkSupabaseStatus, type FlaskStatus } from "@/services/api";
 
@@ -14,6 +15,8 @@ export function GeneralSettings() {
     const [expressStatus, setExpressStatus] = useState<Status>('checking');
     const [flaskStatus, setFlaskStatus] = useState<FlaskState>({ status: 'checking' });
     const [supabaseStatus, setSupabaseStatus] = useState<Status>('checking');
+    const [repeatPing, setRepeatPing] = useState(true);
+    const pingTimeout = 30000;
 
     useEffect(() => {
         const verifyStatus = async () => {
@@ -21,11 +24,14 @@ export function GeneralSettings() {
             setFlaskStatus(await checkFlaskApiStatus());
             setSupabaseStatus(await checkSupabaseStatus() ? 'online' : 'offline');
         };
+        if (!repeatPing)
+            return
 
         verifyStatus();
-        const intervalId = setInterval(verifyStatus, 30000);
+        const intervalId = setInterval(verifyStatus, pingTimeout);
         return () => clearInterval(intervalId);
-    }, []);
+
+    }, [repeatPing]);
 
     const renderBadge = (status: Status | 'warning', offlineColor: 'danger' | 'warning' = 'danger') => {
         if (status === 'checking') return <Badge variant="soft" color="secondary">Checking</Badge>;
@@ -96,7 +102,7 @@ export function GeneralSettings() {
                         {renderBadge(flaskStatus.status, 'danger')}
                     </ItemActions>
                 </Item>
-                <Item separator={false}>
+                <Item separator={true}>
                     <ItemContent>
                         <ItemTitle>Supabase Database</ItemTitle>
                     </ItemContent>
@@ -104,9 +110,15 @@ export function GeneralSettings() {
                         {renderBadge(supabaseStatus, 'danger')}
                     </ItemActions>
                 </Item>
-            </ItemGroup>
-
-            <ItemGroup label="Appearance">
+                <Item separator={true}>
+                    <ItemContent>
+                        <ItemTitle>Surveiller le status</ItemTitle>
+                        <ItemDescription>Le système va requêter les différents services toutes les {pingTimeout / 1000}s</ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                        <Switch checked={repeatPing} onCheckedChange={setRepeatPing} />
+                    </ItemActions>
+                </Item>
                 <Item separator={false}>
                     <ItemContent>
                         <ItemTitle>Theme</ItemTitle>

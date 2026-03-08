@@ -266,9 +266,11 @@ export function DialogSidebar({ children, className = "", desktopWidth = 191 }: 
         <>
             {/* ── Desktop Sidebar (sm+) ── */}
             <aside
-                className={`hidden sm:flex flex-col shrink-0 bg-[var(--color-surface-secondary)] border-r border-[var(--color-border)] ${className}`}
+                className={`hidden sm:flex flex-col shrink-0 bg-surface-secondary border-r border-default ${className}`}
                 style={{
                     width: desktopWidth,
+                    background: "var(--gray-50)",
+                    borderColor: "var(--gray-100)",
                 }}
             >
                 {children}
@@ -277,6 +279,10 @@ export function DialogSidebar({ children, className = "", desktopWidth = 191 }: 
             {/* ── Mobile Top Bar (< sm) ── */}
             <div
                 className={`flex sm:hidden flex-col bg-[var(--color-surface-secondary)] border-b border-[var(--color-border)] shrink-0 ${className}`}
+                style={{
+                    background: "var(--gray-50)",
+                    borderColor: "var(--gray-100)",
+                }}
             >
                 {children}
             </div>

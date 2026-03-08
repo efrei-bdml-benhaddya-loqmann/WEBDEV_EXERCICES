@@ -11,14 +11,7 @@ interface SettingsSidebarProps {
 
 export function SettingsSidebar({ activeSection, setActiveSection, onClose }: SettingsSidebarProps) {
     return (
-        <aside
-            className="hidden sm:flex flex-col shrink-0 border-r"
-            style={{
-                width: 191,
-                background: "var(--surface-secondary, #f9f9f9)",
-                borderColor: "var(--border-default, #e5e5e5)",
-            }}
-        >
+        <>
             {/* Close button row */}
             <div className="flex items-center px-5 py-4">
                 <Button
@@ -34,29 +27,28 @@ export function SettingsSidebar({ activeSection, setActiveSection, onClose }: Se
                 </Button>
             </div>
 
-            {/* Nav items */}
-            <nav className="flex-1 overflow-y-auto px-3 pb-3">
-                <div className="flex flex-col gap-0.5">
-                    {settingsSections.map(({ id, label, Icon }) => {
-                        const isActive = activeSection === id
-                        return (
-                            <button
+            {/* Nav items — vertical list on desktop, horizontal scroll on mobile */}
+            <nav className="flex-1 overflow-y-auto sm:flex-col px-3 pb-3 flex overflow-x-auto gap-0.5 sm:gap-0.5 no-scrollbar">
+                {settingsSections.map(({ id, label, Icon }) => {
+                    const isActive = activeSection === id
+                    return (
+                        <>
+                            <Button
                                 key={id}
                                 onClick={() => setActiveSection(id)}
-                                className={[
-                                    "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors text-left",
-                                    isActive
-                                        ? "bg-[var(--surface-tertiary,#efefef)] text-[var(--text-primary,#111)]"
-                                        : "text-[var(--text-secondary,#555)] hover:bg-[var(--surface-tertiary,#efefef)]/60",
-                                ].join(" ")}
+                                color="secondary"
+                                variant={isActive ? "soft" : "ghost"}
+                                pill={false}
                             >
-                                <Icon className="h-4 w-4 shrink-0" />
-                                <span>{label}</span>
-                            </button>
-                        )
-                    })}
-                </div>
+                                <div className="flex items-center justify-start gap-3 w-full">
+                                    <Icon className="h-4 w-4 shrink-0" />
+                                    <span>{label}</span>
+                                </div>
+                            </Button>
+                        </>
+                    )
+                })}
             </nav>
-        </aside>
+        </>
     )
 }

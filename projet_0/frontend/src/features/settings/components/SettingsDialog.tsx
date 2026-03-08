@@ -4,13 +4,13 @@ import { useState } from "react"
 import {
     Dialog,
     DialogContent,
+    DialogSidebar,
 } from "@/components/ui/Dialog"
 import { ProfileSettings } from "./views/ProfileSettings"
 import { NotificationSettings } from "./views/NotificationSettings"
 import { SecuritySettings } from "./views/SecuritySettings"
 import { DataManagementSettings } from "./views/DataManagementSettings"
 import { SettingsSidebar } from "./SettingsSidebar"
-import { SettingsMobileHeader } from "./SettingsMobileHeader"
 import type { SettingsSection } from "@/features/settings/types/settings.types"
 import { GeneralSettings } from "./views/GeneralSettings"
 
@@ -32,19 +32,14 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                 className="flex flex-col sm:flex-row w-full h-full sm:w-[680px] sm:h-[600px] sm:max-w-[680px] sm:max-h-[600px] max-h-[100dvh] p-0 rounded-2xl"
                 style={{ overflow: "clip" }}
             >
-                {/* ── Desktop Sidebar ── */}
-                <SettingsSidebar
-                    activeSection={activeSection}
-                    setActiveSection={setActiveSection}
-                    onClose={() => onOpenChange(false)}
-                />
-
-                {/* ── Mobile Header ── */}
-                <SettingsMobileHeader
-                    activeSection={activeSection}
-                    setActiveSection={setActiveSection}
-                    onClose={() => onOpenChange(false)}
-                />
+                {/* ── Sidebar (desktop: vertical aside, mobile: horizontal top bar) ── */}
+                <DialogSidebar desktopWidth={191}>
+                    <SettingsSidebar
+                        activeSection={activeSection}
+                        setActiveSection={setActiveSection}
+                        onClose={() => onOpenChange(false)}
+                    />
+                </DialogSidebar>
 
                 {/* ── Content ── */}
                 <main className="flex-1 overflow-y-auto min-w-0">
