@@ -17,7 +17,7 @@ export function ItemGroup({ label, children, className = "" }: ItemGroupProps) {
     return (
         <div className={className}>
             {label && (
-                <p className="px-6 pb-2 pt-5 text-xs font-semibold uppercase tracking-wider text-[var(--text-tertiary,#888)]">
+                <p className="px-6 pb-2 pt-5 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-tertiary)]">
                     {label}
                 </p>
             )}
@@ -40,13 +40,13 @@ interface ItemProps {
 export function Item({ children, variant = "default", onClick, className = "", separator = true }: ItemProps) {
     const variantClass =
         variant === "destructive"
-            ? "text-[var(--text-error,#e53e3e)]"
+            ? "text-[var(--color-text-danger)]"
             : variant === "muted"
                 ? "opacity-50 pointer-events-none"
                 : ""
 
     const interactiveClass = onClick
-        ? "cursor-pointer hover:bg-[var(--surface-secondary,#f9f9f9)] transition-colors duration-100"
+        ? "cursor-pointer hover:bg-[var(--color-surface-secondary)] transition-colors duration-100"
         : ""
 
     return (
@@ -58,7 +58,7 @@ export function Item({ children, variant = "default", onClick, className = "", s
             >
                 {children}
             </div>
-            {separator && <div className="border-t border-default mx-6"></div>}
+            {separator && <div className="border-t border-[var(--color-border)] mx-6"></div>}
         </>
     )
 }
@@ -95,7 +95,7 @@ interface ItemDescriptionProps {
 
 export function ItemDescription({ children, className = "" }: ItemDescriptionProps) {
     return (
-        <span className={`text-sm text-[var(--text-secondary,#555)] ${className}`}>
+        <span className={`text-sm text-[var(--color-text-secondary)] ${className}`}>
             {children}
         </span>
     )
@@ -128,7 +128,7 @@ export function ItemSeparator({ className = "" }: ItemSeparatorProps) {
     return (
         <div
             className={className}
-            style={{ borderBottom: "1px solid var(--border-default, #e5e5e5)" }}
+            style={{ borderBottom: "1px solid var(--color-border)" }}
         />
     )
 }

@@ -83,3 +83,49 @@ export const clearHistory = async (): Promise<void> => {
     'Failed to clear history'
   );
 };
+
+export const checkExpressApiStatus = async (): Promise<boolean> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/health`, {
+      method: 'GET',
+      signal: AbortSignal.timeout(5000),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+export interface FlaskStatus {
+  status: 'online' | 'warning' | 'offline';
+  message?: string;
+}
+
+export const checkFlaskApiStatus = async (): Promise<FlaskStatus> => {
+  try {
+    const response = await fetch('http://localhost:5000/health', {
+      method: 'GET',
+      signal: AbortSignal.timeout(5000),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      if (data.status === 'warning') {
+        return { status: 'warning', message: data.message };
+      }
+      return { status: 'online' };
+    }
+    return { status: 'offline' };
+  } catch {
+    return { status: 'offline' };
+  }
+};
+
+export const checkSupabaseStatus = async (): Promise<boolean> => {
+  try {
+    // A lightweight check that doesn't strictly depend on user login
+    const { error } = await supabase.auth.getSession();
+    return !error;
+  } catch {
+    return false;
+  }
+};

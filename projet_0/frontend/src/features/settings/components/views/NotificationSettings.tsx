@@ -1,5 +1,5 @@
 import { Alert } from "@openai/apps-sdk-ui/components/Alert"
-import { SettingsHeader } from "./SettingsHeader"
+import { SettingsHeader } from "@/features/settings/components/SettingsHeader"
 
 export function NotificationSettings() {
     return (

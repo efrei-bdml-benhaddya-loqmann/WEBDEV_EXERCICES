@@ -5,10 +5,10 @@ import {
     ItemContent,
     ItemTitle,
     ItemActions
-} from "../../../components/ui/Item"
+} from "@/components/ui/Item"
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { useAppContext } from "@/contexts/AppContext"
-import { exportHistoryToJSON } from "../actions/exportHistory"
+import { exportHistoryToJSON } from "@/features/settings/actions/exportHistory"
 import { getHistory } from "@/services/api"
 
 export function DataManagementSettings() {

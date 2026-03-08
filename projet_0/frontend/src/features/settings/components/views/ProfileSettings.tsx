@@ -1,6 +1,6 @@
 import { Button } from "@openai/apps-sdk-ui/components/Button"
-import { Item, ItemContent, ItemTitle, ItemActions, ItemGroup } from "../../../components/ui/Item"
-import { useAuth } from "../../../contexts/AuthContext"
+import { Item, ItemContent, ItemTitle, ItemActions, ItemGroup } from "@/components/ui/Item"
+import { useAuth } from "@/contexts/AuthContext"
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { updateUserName } from "@/services/supabase"
 import { useState } from "react"

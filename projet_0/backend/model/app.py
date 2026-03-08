@@ -70,6 +70,25 @@ def analyze_sentiment(text: str) -> dict:
 
 # ---------- Routes ----------
 
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    # success if running and model is loaded correctly, warning otherwise
+    healthy = get_client().model is not None and get_client().model.length != 0
+    print(get_client())
+    if healthy:
+        return jsonify({
+            "status": "healthy",
+            "version": "1.0.0" 
+        }), 200
+        
+    return jsonify({
+        "status": "warning",
+        "version": "1.0.0",
+        "message": "The system was unable to load the model. Maybe an API Key issue."
+    }), 200
+
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json(silent=True)

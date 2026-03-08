@@ -1,6 +1,6 @@
 import { Button } from "@openai/apps-sdk-ui/components/Button"
-import { Item, ItemContent, ItemTitle, ItemActions, ItemGroup } from "../../../components/ui/Item"
-import { SettingsHeader } from "./SettingsHeader"
+import { Item, ItemContent, ItemTitle, ItemActions, ItemGroup } from "@/components/ui/Item"
+import { SettingsHeader } from "@/features/settings/components/SettingsHeader"
 
 export function SecuritySettings() {
     const handleLogout = async () => {

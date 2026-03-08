@@ -4,14 +4,15 @@ import { useState } from "react"
 import {
     Dialog,
     DialogContent,
-} from "../../../components/ui/Dialog"
-import { ProfileSettings } from "./ProfileSettings"
-import { NotificationSettings } from "./NotificationSettings"
-import { SecuritySettings } from "./SecuritySettings"
-import { DataManagementSettings } from "./DataManagementSettings"
+} from "@/components/ui/Dialog"
+import { ProfileSettings } from "./views/ProfileSettings"
+import { NotificationSettings } from "./views/NotificationSettings"
+import { SecuritySettings } from "./views/SecuritySettings"
+import { DataManagementSettings } from "./views/DataManagementSettings"
 import { SettingsSidebar } from "./SettingsSidebar"
 import { SettingsMobileHeader } from "./SettingsMobileHeader"
-import type { SettingsSection } from "../types/settings.types"
+import type { SettingsSection } from "@/features/settings/types/settings.types"
+import { GeneralSettings } from "./views/GeneralSettings"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -51,6 +52,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                     {activeSection === "notifications" && <NotificationSettings />}
                     {activeSection === "data" && <DataManagementSettings />}
                     {activeSection === "security" && <SecuritySettings />}
+                    {activeSection === "general" && <GeneralSettings />}
                 </main>
             </DialogContent>
         </Dialog>

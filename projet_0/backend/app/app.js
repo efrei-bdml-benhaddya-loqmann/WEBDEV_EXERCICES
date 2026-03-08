@@ -108,6 +108,10 @@ function mockPredict(text) {
 app.get('/', (_req, res) => {
     res.json({ status: 'ok', message: 'Sentiment Analyzer API running' });
 });
+// /health endpoint redirects to /
+app.get('/health', (_req, res) => {
+    res.json({ status: 'ok', message: 'Sentiment Analyzer API running' });
+})
 
 // All /history and /analyze routes require authentication
 app.use(['/analyze', '/history'], authMiddleware);
