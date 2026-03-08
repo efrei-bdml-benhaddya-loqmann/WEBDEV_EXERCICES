@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
     Dialog,
     DialogContent,
@@ -19,12 +19,20 @@ import { GeneralSettings } from "./views/GeneralSettings"
 interface SettingsDialogProps {
     open: boolean
     onOpenChange: (open: boolean) => void
+    initialSection?: SettingsSection
 }
 
 // ─── Dialog Shell ─────────────────────────────────────────────────────────────
 
-export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
-    const [activeSection, setActiveSection] = useState<SettingsSection>("profile")
+export function SettingsDialog({ open, onOpenChange, initialSection = "profile" }: SettingsDialogProps) {
+    const [activeSection, setActiveSection] = useState<SettingsSection>(initialSection)
+
+    useEffect(() => {
+        if (open) {
+            setActiveSection(initialSection)
+        }
+    }, [open, initialSection])
+
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>

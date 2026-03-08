@@ -5,14 +5,17 @@ import { Avatar } from "@openai/apps-sdk-ui/components/Avatar";
 import { SettingsDialog } from "../../features/settings/components/SettingsDialog"
 import { useAuth } from "../../contexts/AuthContext"
 import { Logout, Settings } from "@openai/apps-sdk-ui/components/Icon";
+import type { SettingsSection } from "../../features/settings/types/settings.types"
 
 export function SidebarMenu() {
     const [settingsOpen, setSettingsOpen] = useState(false)
+    const [settingsSection, setSettingsSection] = useState<SettingsSection>("profile")
     const { user, signOut } = useAuth()
 
-    // I trust that these are the values of the color property
-    const colors = ['primary', 'secondary', 'info', 'discovery'] as const;
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const openSettings = (section: SettingsSection) => {
+        setSettingsSection(section)
+        setSettingsOpen(true)
+    }
 
     return (
         <>
@@ -29,7 +32,7 @@ export function SidebarMenu() {
                         <div className="flex items-center justify-start gap-3 w-full">
 
                             <Avatar
-                                color={randomColor}
+                                color="discovery"
                                 name={user?.user_metadata.display_name || user?.email?.split('@')[0] || 'User'}
                                 size={32}
                             />
@@ -39,22 +42,22 @@ export function SidebarMenu() {
                 </Menu.Trigger>
                 <Menu.Content side="top">
                     <div id="sidebar-popover-marker" className="hidden" />
-                    <Menu.Item>
+                    <Menu.Item onSelect={() => openSettings("profile")} className="py-2 px-3">
                         <div className="flex items-center justify-start gap-3 w-full">
-
                             <Avatar
-                                color={randomColor}
+                                color="discovery"
                                 name={user?.user_metadata.display_name || user?.email?.split('@')[0] || 'User'}
                                 size={26}
                             />
-                            <div>
-                                <p>{user?.user_metadata.display_name || user?.email?.split('@')[0] || 'User'}</p>
-                                <p className="text-secondary text-xs">{user?.email}</p>
+                            <div className="text-left w-full overflow-hidden">
+                                <p className="truncate text-sm font-medium">{user?.user_metadata.display_name || user?.email?.split('@')[0] || 'User'}</p>
+                                <p className="text-secondary text-xs truncate">{user?.email}</p>
                             </div>
                         </div>
                     </Menu.Item>
+
                     <Menu.Separator className="mx-2" />
-                    <Menu.Item onSelect={() => setSettingsOpen(true)}>
+                    <Menu.Item onSelect={() => openSettings("general")}>
                         <Settings height={16} width={16} /> Settings
                     </Menu.Item>
                     {/* <Menu.Link href="https://openai.com/policies/">Terms &amp; policies</Menu.Link> */}
@@ -65,7 +68,12 @@ export function SidebarMenu() {
                 </Menu.Content>
             </Menu >
 
-            <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
+            <SettingsDialog
+                open={settingsOpen}
+                onOpenChange={setSettingsOpen}
+                initialSection={settingsSection}
+            />
+
         </>
     )
 }

@@ -11,5 +11,9 @@ div:has(#sidebar-popover-marker) {
   z-index: 50 !important;
 }
 
+div:has(#dialog-popover-marker) {
+  z-index: 60 !important;
+}
+
 /* Sync Tailwind CSS v4 dark modifier with OpenAI UI SDK data-theme="dark" attribute */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));

@@ -6,3 +6,13 @@ export interface SentimentResult {
   timestamp: number;
   feedback?: 'positive' | 'negative' | 'none';
 }
+
+export type ServiceStatus = 'checking' | 'online' | 'offline';
+
+export interface FlaskStatus {
+  status: 'online' | 'warning' | 'offline';
+  message?: string;
+}
+
+export type FlaskState = FlaskStatus | { status: 'checking' };
+

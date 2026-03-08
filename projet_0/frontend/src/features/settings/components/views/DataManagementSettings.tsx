@@ -7,12 +7,12 @@ import {
     ItemActions
 } from "@/components/ui/Item"
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
-import { useAppContext } from "@/contexts/AppContext"
+import { useAppStore } from "@/store/useAppStore"
 import { exportHistoryToJSON } from "@/features/settings/actions/exportHistory"
 import { getHistory } from "@/services/api"
 
 export function DataManagementSettings() {
-    const { handleClearHistory } = useAppContext()
+    const { handleClearHistory } = useAppStore()
 
     const handleExport = async () => {
         console.log("Exporting history...")

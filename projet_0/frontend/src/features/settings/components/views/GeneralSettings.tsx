@@ -1,39 +1,26 @@
-import { useEffect, useState } from "react";
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog";
 import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from "@/components/ui/Item";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Theme } from "@/components/ui/Theme";
 import { Alert } from "@openai/apps-sdk-ui/components/Alert";
 import { Badge } from "@openai/apps-sdk-ui/components/Badge";
 import { Switch } from "@openai/apps-sdk-ui/components/Switch";
 import { TextLink } from "@openai/apps-sdk-ui/components/TextLink";
-import { checkExpressApiStatus, checkFlaskApiStatus, checkSupabaseStatus, type FlaskStatus } from "@/services/api";
+import { useAppStore } from "@/store/useAppStore";
+import type { ServiceStatus } from "@/types";
 
-type Status = 'checking' | 'online' | 'offline';
-type FlaskState = FlaskStatus | { status: 'checking' };
 
 export function GeneralSettings() {
-    const [expressStatus, setExpressStatus] = useState<Status>('checking');
-    const [flaskStatus, setFlaskStatus] = useState<FlaskState>({ status: 'checking' });
-    const [supabaseStatus, setSupabaseStatus] = useState<Status>('checking');
-    const [repeatPing, setRepeatPing] = useState(true);
+    const {
+        repeatPing,
+        setRepeatPing,
+        expressStatus,
+        flaskStatus,
+        supabaseStatus
+    } = useAppStore();
     const pingTimeout = 30000;
 
-    useEffect(() => {
-        const verifyStatus = async () => {
-            setExpressStatus(await checkExpressApiStatus() ? 'online' : 'offline');
-            setFlaskStatus(await checkFlaskApiStatus());
-            setSupabaseStatus(await checkSupabaseStatus() ? 'online' : 'offline');
-        };
-        if (!repeatPing)
-            return
+    const renderBadge = (status: ServiceStatus | 'warning', offlineColor: 'danger' | 'warning' = 'danger') => {
 
-        verifyStatus();
-        const intervalId = setInterval(verifyStatus, pingTimeout);
-        return () => clearInterval(intervalId);
-
-    }, [repeatPing]);
-
-    const renderBadge = (status: Status | 'warning', offlineColor: 'danger' | 'warning' = 'danger') => {
         if (status === 'checking') return <Badge variant="soft" color="secondary">Checking</Badge>;
         if (status === 'online') return <Badge variant="soft" color="success">Online</Badge>;
         if (status === 'warning') return <Badge variant="soft" color="warning">Warning</Badge>;
@@ -41,12 +28,12 @@ export function GeneralSettings() {
     };
 
     return (
-        <div className="flex flex-col gap-4">
+        <>
             <DialogHeader>
                 <DialogTitle>General</DialogTitle>
             </DialogHeader>
 
-            <div className="flex flex-col gap-2 px-6">
+            <div className="flex flex-col gap-2 py-4 px-6">
                 {expressStatus === 'offline' && (
                     <Alert
                         variant="soft"
@@ -85,7 +72,7 @@ export function GeneralSettings() {
                 )}
             </div>
 
-            <ItemGroup label="System Status">
+            <ItemGroup>
                 <Item separator={true}>
                     <ItemContent>
                         <ItemTitle>Express API</ItemTitle>
@@ -112,8 +99,8 @@ export function GeneralSettings() {
                 </Item>
                 <Item separator={true}>
                     <ItemContent>
-                        <ItemTitle>Surveiller le status</ItemTitle>
-                        <ItemDescription>Le système va requêter les différents services toutes les {pingTimeout / 1000}s</ItemDescription>
+                        <ItemTitle>Monitor the status</ItemTitle>
+                        <ItemDescription>The system will check the status of the different services every {pingTimeout / 1000}s</ItemDescription>
                     </ItemContent>
                     <ItemActions>
                         <Switch checked={repeatPing} onCheckedChange={setRepeatPing} />
@@ -124,10 +111,10 @@ export function GeneralSettings() {
                         <ItemTitle>Theme</ItemTitle>
                     </ItemContent>
                     <ItemActions>
-                        <ThemeToggle />
+                        <Theme />
                     </ItemActions>
                 </Item>
             </ItemGroup>
-        </div>
+        </>
     )
 }

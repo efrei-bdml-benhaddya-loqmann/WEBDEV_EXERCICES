@@ -1,37 +1,31 @@
 import { Delete, X } from '@openai/apps-sdk-ui/components/Icon'
 import { Button } from '@openai/apps-sdk-ui/components/Button'
-import type { SentimentResult } from '../../types'
 import { SidebarMenu } from './SidebarMenu'
+import { useAppStore } from '../../store/useAppStore'
 
-export function Sidebar({
-    isOpen,
-    setIsOpen,
-    history,
-    onSelect,
-    onDelete,
-    onReset,
-}: {
-    isOpen: boolean
-    setIsOpen: (o: boolean) => void
-    history: SentimentResult[]
-    onSelect: (item: SentimentResult) => void
-    onClear: () => void
-    onDelete: (id: string) => void
-    onReset: () => void
-}) {
+export function Sidebar() {
+    const {
+        isSidebarOpen,
+        setIsSidebarOpen,
+        history,
+        handleSelectHistory,
+        handleDeleteHistory,
+        handleReset
+    } = useAppStore()
+
     return (
         <>
             {/* Mobile overlay */}
-            {isOpen && (
+            {isSidebarOpen && (
                 <div
                     className="lg:hidden fixed inset-0 bg-black/50 z-20 transition-opacity"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => setIsSidebarOpen(false)}
                 />
             )}
 
             <div
                 className={`fixed inset-y-0 left-0 z-[30] w-[260px] bg-surface-secondary border-r border-default flex flex-col transition-transform duration-300 ease-in-out transform overflow-visible
-        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
         lg:static lg:flex shrink-0`}
             >
                 <div className="flex items-center justify-between p-3 pb-0 flex-shrink-0">
@@ -41,11 +35,11 @@ export function Sidebar({
                         size="lg"
                         uniform
                         pill={false}
-                        onClick={onReset}
+                        onClick={handleReset}
                     >
                         <span className="text-lg">🎭</span>
                     </Button>
-                    <button className="lg:hidden p-2 rounded-md hover:bg-surface-tertiary text-secondary" onClick={() => setIsOpen(false)}>
+                    <button className="lg:hidden p-2 rounded-md hover:bg-surface-tertiary text-secondary" onClick={() => setIsSidebarOpen(false)}>
                         <X className="size-5" />
                     </button>
                 </div>
@@ -64,13 +58,13 @@ export function Sidebar({
                     {history.map((item) => (
                         <div
                             key={item.id}
-                            onClick={() => onSelect(item)}
+                            onClick={() => handleSelectHistory(item)}
                             className="text-left py-2 pr-2 pl-3 rounded-lg hover:bg-surface-tertiary transition-colors flex items-center justify-between gap-3 w-full group cursor-pointer"
                         >
                             <p className="truncate flex-1 text-sm text-secondary group-hover:text-default transition-colors">
                                 {item.text}
                             </p>
-                            <div className={`${isOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}>
+                            <div className={`${isSidebarOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}>
                                 <Button
                                     color="secondary"
                                     size="sm"
@@ -78,7 +72,7 @@ export function Sidebar({
                                     variant="ghost"
                                     onClick={(e) => {
                                         e.stopPropagation()
-                                        onDelete(item.id)
+                                        handleDeleteHistory(item.id)
                                     }}
                                     className="h-6 w-6 p-0 hover:bg-surface-tertiary"
                                     aria-label="Delete item"
@@ -91,20 +85,10 @@ export function Sidebar({
                 </div>
 
                 <div className="p-3 border-t border-default flex-shrink-0 flex items-center gap-2">
-                    {/* <ThemeToggle />
-                    <Button
-                        color="secondary"
-                        variant="ghost"
-                        onClick={onClear}
-                        block
-                        disabled={history.length === 0}
-                        className="text-secondary hover:bg-surface-tertiary flex-1"
-                    >
-                        Clear History
-                    </Button> */}
                     <SidebarMenu />
                 </div>
             </div>
         </>
     )
 }
+
