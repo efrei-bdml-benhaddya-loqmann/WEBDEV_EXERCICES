@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/Item"
 import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { useAppStore } from "@/store/useAppStore"
-import { exportHistoryToJSON } from "@/features/settings/actions/exportHistory"
+import { exportHistoryToJSON } from "@/features/settings/services/exportHistory"
 import { getHistory } from "@/services/api"
 
 export function DataManagementSettings() {

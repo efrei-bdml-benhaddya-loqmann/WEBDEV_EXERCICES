@@ -1,4 +1,4 @@
-// src/features/settings/actions/exportHistory.ts
+// src/features/settings/services/exportHistory.ts
 import type { SentimentResult } from "../../../types";
 
 export function exportHistoryToJSON(history: SentimentResult[]) {
