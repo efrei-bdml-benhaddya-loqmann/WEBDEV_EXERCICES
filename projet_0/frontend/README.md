@@ -22,14 +22,19 @@ Built with **React**, **TypeScript**, and **Tailwind CSS 4**, this interface fol
 <div align="left">
 
 ![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-FFFFFF?style=for-the-badge&logo=vite&logoColor=8f40ff)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI_SDK-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-443E38?style=for-the-badge&logo=react&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-121212?style=for-the-badge&logo=supabase&logoColor=3ECF82)
+![OpenAI](https://img.shields.io/badge/OpenAI_SDK-FFFFFF?style=for-the-badge&logo=openai&logoColor=1D1D1D)
 
 </div>
 
-- **State Management**: React Hooks (useState, useEffect, etc.)
+- **State Management**: Zustand (Global State) + React Hooks
+- **Architecture**: [Feature-Driven Architecture](https://dev.to/rufatalv/feature-driven-architecture-with-nextjs-a-better-way-to-structure-your-application-1lph)
+- **UI Integration**: Radix UI Primitives, Tailwind Merge, Class-Variance-Authority, Lucide-React
+- **Database/Baas**: Supabase Client
 
 ---
 
@@ -77,46 +82,49 @@ npm run build
 
 ```text
 frontend/src/
-├── 📁 assets/                 # SVGs, images, global styles (index.css)
-├── 📁 components/             # General-purpose & structural components
+├── 📁 assets/                 # Global styles, SVGs, and images
+├── 📁 components/             # Reusable UI primitives and shared layout
 │   ├── 📁 layout/             # Application shell components
 │   │   ├── Sidebar.tsx
 │   │   ├── MainContent.tsx
 │   │   └── Navbar.tsx (if any)
-│   └── 📁 ui/                 # Atomic, headless, and reusable components (shadcn style)
+│   └── 📁 ui/                 # Atomic, headless components (shadcn style)
 │       ├── Button.tsx
-│       ├── Input.tsx
-│       ├── Item.tsx
-│       ├── Badge.tsx
-│       └── Modal.tsx
+│       ├── Dialog.tsx
+│       └── Badge.tsx
 │
-├── 📁 features/               # Business logic & domain-specific components
-│   ├── 📁 analysis/           # Everything related to data analysis
+├── 📁 features/               # Feature-Driven Design (FDD)
+│   ├── 📁 analysis/           # Everything related to analysis feature
 │   │   ├── 📁 components/     # Analysis-specific components
 │   │   │   ├── AnalysisArea.tsx
 │   │   │   ├── InputArea.tsx
 │   │   │   ├── ResultState.tsx
 │   │   │   ├── SentimentBadge.tsx
 │   │   │   └── 📁 actions/    # Action-specific components
-│   │   ├── 📁 hooks/          # useAnalysis.ts, etc.
-│   │   └── 📁 types/          # analysis.types.ts
+│   │   ├── 📁 hooks/          # Feature-specific hooks
+│   │   └── 📁 types/          # Feature-specific logic & types
 │   │
 │   ├── 📁 auth/               # Login, Signup, Auth logic
 │   │   ├── 📁 components/     # Login.tsx, AuthForm.tsx
 │   │   └── 📁 hooks/          # useAuth.ts
 │   │
 │   └── 📁 settings/           # All settings panels
+|       ├── 📁 services/       # Settings services (exportHistory <- can eventually move to global services)
 │       ├── 📁 components/     # SettingsDialog.tsx, ProfileSettings.tsx, etc.
-│       └── 📁 hooks/          # useSettings.ts
+│       └── 📁 types/          # settings.types.ts
 │
-├── 📁 contexts/               # Global state (AuthContext, ThemeContext)
-├── 📁 hooks/                  # Global reusable hooks (useMediaQuery, useStorage)
-├── 📁 services/               # API clients, Supabase config, or axios instances
-├── 📁 types/                  # Global interfaces and shared types
-├── 📁 utils/                  # Pure utility functions (formating, validation)
+├── 📁 store/                  # Global Zustand stores 
+│   └── useThemeStore.ts       # Central theme state
+│
+├── 📁 hooks/                  # Global reusable hooks
+├── 📁 services/               # API clients and Supabase connection
+├── 📁 types/                  # Global TypeScript definitions
+├── 📁 utils/                  # Pure utility functions (formatting, clsx)
 ├── App.tsx                    # Main entry point (Routing, Providers)
 └── main.tsx                   # DOM attachment
 ```
+
+This project strictly utilizes a **Feature-Driven Architecture** (as described [here](https://dev.to/rufatalv/feature-driven-architecture-with-nextjs-a-better-way-to-structure-your-application-1lph)), placing components, hooks, utilities, and types related to specific domains closely together to maximize modularity and maintainability.
 
 ---
 
@@ -139,7 +147,8 @@ This frontend communicates with an Express.js backend via the following endpoint
 - `GET /history`: Fetch previous analyses.
 - `DELETE /history/:id`: Remove a specific entry.
 - `DELETE /history`: Clear all history.
+- `GET /health`: Get the heakth of the Express backend
 
 ---
 
-*Part of the Efrei WebDev Project Series.*
+*Part of the Efrei WebDev Project*
