@@ -25,9 +25,8 @@ export function Sidebar() {
 
             <div
                 className={`fixed inset-y-0 left-0 z-[30] w-[260px] bg-surface-secondary border-r border-default flex flex-col transition-transform duration-300 ease-in-out transform overflow-visible
-        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
-        lg:static lg:flex shrink-0`}
-            >
+                                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
+                                lg:static lg:flex shrink-0`}>
                 <div className="flex items-center justify-between p-3 pb-0 flex-shrink-0">
                     <Button
                         color="secondary"
@@ -39,9 +38,9 @@ export function Sidebar() {
                     >
                         <span className="text-lg">🎭</span>
                     </Button>
-                    <button className="lg:hidden p-2 rounded-md hover:bg-surface-tertiary text-secondary" onClick={() => setIsSidebarOpen(false)}>
-                        <X className="size-5" />
-                    </button>
+                    <Button color='secondary' variant='ghost' size='lg' uniform pill={false} iconSize='lg' className='lg:hidden'>
+                        <X />
+                    </Button>
                 </div>
                 <div className="flex items-center justify-between p-3 pb-0 flex-shrink-0">
                     <div className="flex items-center gap-2 pl-2">
@@ -56,31 +55,31 @@ export function Sidebar() {
                         </div>
                     )}
                     {history.map((item) => (
-                        <div
+                        <Button
+                            color='secondary' variant='ghost' size='lg' pill={false}
                             key={item.id}
                             onClick={() => handleSelectHistory(item)}
-                            className="text-left py-2 pr-2 pl-3 rounded-lg hover:bg-surface-tertiary transition-colors flex items-center justify-between gap-3 w-full group cursor-pointer"
+                            className='text-left'
                         >
-                            <p className="truncate flex-1 text-sm text-secondary group-hover:text-default transition-colors">
+                            <p className="truncate flex-1 text-sm  transition-colors">
                                 {item.text}
                             </p>
-                            <div className={`${isSidebarOpen ? 'opacity-100' : 'opacity-0'} group-hover:opacity-100 transition-opacity`}>
-                                <Button
-                                    color="secondary"
-                                    size="sm"
-                                    uniform
-                                    variant="ghost"
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                        handleDeleteHistory(item.id)
-                                    }}
-                                    className="h-6 w-6 p-0 hover:bg-surface-tertiary"
-                                    aria-label="Delete item"
-                                >
-                                    <Delete className="size-3" />
-                                </Button>
-                            </div>
-                        </div>
+                            <Button
+                                color="secondary"
+                                size="sm"
+                                uniform
+                                pill={false}
+                                variant="ghost"
+                                iconSize='sm'
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    handleDeleteHistory(item.id)
+                                }}
+                                aria-label="Delete item"
+                            >
+                                <Delete />
+                            </Button>
+                        </Button>
                     ))}
                 </div>
 

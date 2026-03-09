@@ -1,5 +1,6 @@
 import { Spin } from '@openai/apps-sdk-ui/components/Icon'
 
+//unused
 export function LoadingState() {
   return (
     <div className="flex items-start gap-4">

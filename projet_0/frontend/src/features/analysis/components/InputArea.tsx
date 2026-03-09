@@ -29,7 +29,6 @@ export function InputArea({
             <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-            // className="relative shadow-sm rounded-full bg-white dark:bg-[var(--gray-200)] border border-transparent dark:border-[var(--gray-150)] transition-all"
             >
                 <Input
                     placeholder="Enter text..."
@@ -42,10 +41,11 @@ export function InputArea({
                             color={text.trim() ? "primary" : "secondary"}
                             variant="solid"
                             pill
+                            uniform
                             size="md"
                             iconSize="lg"
                             disabled={!text.trim() || isLoading}
-                            className={`w-9 h-9 p-0 -mr-3 flex items-center justify-center transition-opacity ${!text.trim() ? 'opacity-40' : 'opacity-100'}`}
+                            className={`-mr-3 transition-opacity ${!text.trim() ? 'opacity-40' : 'opacity-100'}`}
                             onClick={() => handleSubmit()}
                             type="button"
                         >

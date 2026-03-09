@@ -264,25 +264,19 @@ interface DialogSidebarProps {
 export function DialogSidebar({ children, className = "", desktopWidth = 191 }: DialogSidebarProps) {
     return (
         <>
-            {/* ── Desktop Sidebar (sm+) ── */}
+            {/* Desktop Sidebar (sm+) */}
             <aside
                 className={`hidden sm:flex flex-col shrink-0 bg-surface-secondary border-r border-default ${className}`}
                 style={{
                     width: desktopWidth,
-                    // background: "var(--gray-50)",
-                    // borderColor: "var(--gray-100)",
                 }}
             >
                 {children}
             </aside>
 
-            {/* ── Mobile Top Bar (< sm) ── */}
+            {/* Mobile Top Bar */}
             <div
                 className={`flex sm:hidden flex-col bg-[var(--color-surface-secondary)] border-b border-[var(--color-border)] shrink-0 ${className}`}
-            // style={{
-            //     background: "var(--gray-50)",
-            //     borderColor: "var(--gray-100)",
-            // }}
             >
                 {children}
             </div>

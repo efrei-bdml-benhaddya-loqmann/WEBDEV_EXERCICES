@@ -39,9 +39,10 @@ export function SettingsSidebar({ activeSection, setActiveSection, onClose }: Se
                                 color="secondary"
                                 variant={isActive ? "soft" : "ghost"}
                                 pill={false}
+                                iconSize="sm"
                             >
                                 <div className="flex items-center justify-start gap-3 w-full">
-                                    <Icon className="h-4 w-4 shrink-0" />
+                                    <Icon className="shrink-0" />
                                     <span>{label}</span>
                                 </div>
                             </Button>

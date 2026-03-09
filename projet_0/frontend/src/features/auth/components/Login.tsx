@@ -66,20 +66,6 @@ const Login: React.FC = () => {
                 pill
                 size='3xl'
               />
-              {/* <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="relative block w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              /> */}
             </div>
             <div>
               <Input
@@ -94,21 +80,6 @@ const Login: React.FC = () => {
                 pill
                 size='3xl'
               />
-              {/* 
-              <label htmlFor="password-address" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password-address"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="relative block w-full rounded-md border bg-background px-3 py-2 text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              /> */}
             </div>
           </div>
 
@@ -129,13 +100,6 @@ const Login: React.FC = () => {
             >
               {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Sign In'}
             </Button>
-            {/* <button
-              type="submit"
-              disabled={loading}
-              className="group relative flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
-            >
-              {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Sign In'}
-            </button> */}
           </div>
         </form>
 

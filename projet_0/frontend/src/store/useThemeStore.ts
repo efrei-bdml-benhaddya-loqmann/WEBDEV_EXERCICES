@@ -2,6 +2,8 @@ import { applyDocumentTheme } from "@openai/apps-sdk-ui/theme"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
+// ref : https://openai.github.io/apps-sdk-ui/?path=/docs/concepts-dark-mode--docs&args=color:secondary;variant:soft
+
 export type Theme = "light" | "dark" | "system"
 type ThemeState = {
     theme: Theme

@@ -126,6 +126,9 @@ app.post('/analyze', async (req, res) => {
     try {
         const { sentiment, score } = await predictSentiment(text.trim());
 
+        // await new Promise(resolve => setTimeout(resolve, 3000)); // to test if the front handles long responses
+
+
         const { data, error } = await req.supabase
             .from('history')
             .insert({

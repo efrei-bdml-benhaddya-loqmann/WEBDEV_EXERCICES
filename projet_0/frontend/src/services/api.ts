@@ -1,4 +1,4 @@
-import type { SentimentResult } from '../types';
+import type { FlaskStatus, SentimentResult } from '../types';
 import { supabase } from './supabase';
 
 const API_BASE_URL = 'http://localhost:3000';
@@ -95,11 +95,6 @@ export const checkExpressApiStatus = async (): Promise<boolean> => {
     return false;
   }
 };
-
-export interface FlaskStatus {
-  status: 'online' | 'warning' | 'offline';
-  message?: string;
-}
 
 export const checkFlaskApiStatus = async (): Promise<FlaskStatus> => {
   try {

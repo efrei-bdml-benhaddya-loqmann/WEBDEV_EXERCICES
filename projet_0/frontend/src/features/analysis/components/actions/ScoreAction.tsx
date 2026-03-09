@@ -21,18 +21,6 @@ export function ScoreAction({ feedback, onScore }: ScoreActionProps) {
   return (
     <div className="flex flex-row gap-0.5">
       {!isDisliked && (
-        // <Button
-        //   onClick={handleThumbUp}
-        //   color="secondary"
-        //   size="md"
-        //   gutterSize="md"
-        //   uniform
-        //   pill={false}
-        //   variant="ghost"
-        //   title="Helpful"
-        // >
-        //   {isLiked ? <ThumbUpFilled className="text-primary" /> : <ThumbUp />}
-        // </Button>
         <ActionButton
           onAction={handleThumbUp}
           icon={isLiked ? <ThumbUpFilled className="text-primary" /> : <ThumbUp />}
@@ -41,18 +29,6 @@ export function ScoreAction({ feedback, onScore }: ScoreActionProps) {
       )}
 
       {!isLiked && (
-        // <Button
-        //   onClick={handleThumbDown}
-        //   color="secondary"
-        //   size="md"
-        //   gutterSize="md"
-        //   uniform
-        //   pill={false}
-        //   variant="ghost"
-        //   title="Not helpful"
-        // >
-        //   {isDisliked ? <ThumbDownFilled className="text-primary" /> : <ThumbDown />}
-        // </Button>
         <ActionButton
           onAction={handleThumbDown}
           icon={isDisliked ? <ThumbDownFilled className="text-primary" /> : <ThumbDown />}
