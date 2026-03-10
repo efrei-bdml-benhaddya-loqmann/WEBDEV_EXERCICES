@@ -1,25 +1,98 @@
+# Sentiment Analyzer - Gateway API
 
+Welcome to the **Express Gateway API**. This service acts as the orchestrator of the **Sentiment Analyzer** ecosystem, connecting the frontend to the ML service and managing data persistence.
 
-### Structure de l'Endpoint API
+Built with **Node.js** and **Express**, this API ensures secure, reliable, and high-performance communication across all layers.
 
-- `GET` `/` : Vérificateur de santé
-- `GET` `/history` : Retourne l'historique des analyses
-- `POST` `/analyze` : Analyse le sentiment d'un texte, l'ajoute à l'historique et retourne le résultat
-- `DELETE` `/history/:id` : Supprime une analyse spécifique de l'historique
-- `DELETE` `/history` : Supprime l'historique
+---
 
-### Notes
+## ✨ Features
 
-**Usage de `crypto.randomUUID()` pour générer des UUIDs**
+- **Supabase Integration**: Direct communication with Supabase for user authentication (JWT) and persistent history storage.
+- **ML Proxy**: Facilitates and manages requests to the Flask-based ML service.
+- **Smart Fallback**: If the ML service is unreachable, a keyword-based `mockPredict` system is automatically triggered to ensure no downtime.
+- **Health Proxy**: Provides a unified health monitoring system that checks both the Express gateway and the ML analyzer.
+- **Auto-History**: Each successful analysis is automatically saved to the user's history with secure Row Level Security (RLS) enforcement.
 
-J'ai utilisé `crypto.randomUUID()` pour générer des UUIDs car c'est la meilleure pratique pour générer des identifiants uniques contrairement à `uuidv4()`.
-Source: https://dev.to/simplr_sh/ditch-the-import-why-cryptorandomuuid-is-your-new-best-friend-for-uuids-2lp3
+---
 
-**Stockage de l'historique**
+## 🛠️ Tech Stack
 
-J'ai utilisé un tableau simple en mémoire pour stocker l'historique des analyses car c'est la meilleure pratique pour stocker des données temporaires. 
-Une amélioration possible serait de stocker l'historique dans une base de données. (si non développé avant le rendu)
+<div align="left">
 
-**Que se passe-t-il si le model API est indisponible ?**
+![Node.js](https://img.shields.io/badge/Node.js_18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-121212?style=for-the-badge&logo=supabase&logoColor=3ECF82)
+![V8](https://img.shields.io/badge/V8_Engine-4A4A4A?style=for-the-badge&logo=v8&logoColor=4B8BBE)
 
-Si le model API est indisponible, le backend retourne un warning en indiquant que le model API est indisponible et effectue une analyse simple `mockPredict(text)` en fonction du nombre de mots jugés positifs ou negatifs dans le texte.
+</div>
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js (v18+)** installed.
+- A **Supabase Project** (Database + Auth).
+- The **ML Service** should be running (usually on port 5000).
+
+### Installation
+
+1. Navigate to the app directory:
+   ```bash
+   cd backend/app
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   pnpm install
+   ```
+
+### Configuration
+
+Create a `.env` file in the `backend/app` directory:
+```env
+PORT=3000
+FLASK_API_URL=http://localhost:5000
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+```
+
+### Running the Gateway
+
+Start the development server:
+```bash
+npm start
+# or
+node app.js
+```
+The gateway will be available at `http://localhost:3000`.
+
+---
+
+## 📂 API Endpoints
+
+### Authenticated Routes (Requires Bearer Token)
+- `POST /analyze` : Submits text for analysis, saves to history, and returns the result.
+- `GET /history` : Retrieves the user's full analysis history.
+- `PATCH /history/:id` : Updates user feedback (like/dislike) for a specific history item.
+- `DELETE /history/:id` : Removes a specific analysis from the history.
+- `DELETE /history` : Clears the user's entire history.
+
+### Public Routes
+- `GET /health` : Returns the status of the Express gateway.
+- `GET /health/analyzer` : Unified proxy endpoint that returns the status of the Flask ML API.
+
+---
+
+## 🔒 Security Best Practices
+
+- **RLS Enforced**: History is secured via Supabase Row Level Security.
+- **JWT Authentication**: All sensitive endpoints require a valid Supabase JWT.
+- **Modern UUIDs**: Uses native Node `crypto.randomUUID()` for robust identifier generation.
+
+---
+
+*Part of the Efrei WebDev Project*
