@@ -33,13 +33,15 @@ The Sentiment Analyzer is a web application that allows users to input text and 
 
 ### 5. Service Status Monitoring
 **As a user, I want to know the health of the system components, so that I can understand if some features are unavailable.**
-1. **WHEN** the app is running, **THEN** the system SHALL periodically check the status of the Express API, Flask Model API, and Supabase.
+1. **WHEN** the app is running, **THEN** the system SHALL periodically check the status of the Express API, Flask Model API (via the Express proxy), and Supabase.
 2. **WHEN** checking status, **THEN** the system SHALL display real-time indicators (Online/Offline) in the UI.
 
 ### 6. Settings & Memory
-**As a user, I want to configure the app and manage my data.**
-1. **WHEN** the user opens the settings modal, **THEN** they SHALL be able to toggle themes (Dark/Light) and layout aesthetics.
+**As a user, I want to configure the app, manage my data, and access Developer APIs.**
+1. **WHEN** the user opens the settings modal, **THEN** they SHALL be able to toggle themes (Dark/Light).
 2. **WHEN** requested, **THEN** the system SHALL provide an option to clear the entire history for the current user.
+3. **WHEN** opening the Integrations tab, **THEN** the system SHALL provide API documentation and REST API usage examples.
+4. **WHEN** the user needs API access, **THEN** the system SHALL allow generation, masking, and copying of session tokens.
 
 ## Technical Requirements (FDD & State)
 - **Architecture**: MUST follow Feature-Driven Development (FDD) structure for the frontend.

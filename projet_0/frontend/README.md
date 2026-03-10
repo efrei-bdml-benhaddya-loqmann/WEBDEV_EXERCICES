@@ -13,6 +13,7 @@ Built with **React**, **TypeScript**, and **Tailwind CSS 4**, this interface fol
 - **Analysis History**: A responsive sidebar to keep track of your past analyses and revisit them instantly.
 - **Visual Feedback**: Color-coded badges and confidence scores for quick interpretation.
 - **Smart Loading States**: Smooth transitions and indicators while processing results.
+- **Developer Integrations**: Embedded API documentation and access token generation within the Settings portal.
 - **Mobile First**: Fully responsive design that works beautifully on all devices.
 
 ---
@@ -145,9 +146,13 @@ The application strictly follows the **OpenAI Design System**:
 This frontend communicates with an Express.js backend via the following endpoints:
 - `POST /analyze`: Submit text for analysis.
 - `GET /history`: Fetch previous analyses.
+- `PATCH /history/:id`: Update feedback for a specific history item.
 - `DELETE /history/:id`: Remove a specific entry.
 - `DELETE /history`: Clear all history.
-- `GET /health`: Get the heakth of the Express backend
+- `GET /health`: Get the health of the Express backend.
+- `GET /health/analyzer`: Proxy endpoint getting the health of the Flask Model API.
+
+> Note: Access to most of these endpoints requires a **Bearer token**, which can be easily generated directly within the **Integrations & APIs** tab in the application's Settings dialogue.
 
 ---
 

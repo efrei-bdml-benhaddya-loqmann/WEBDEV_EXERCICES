@@ -28,7 +28,7 @@ The frontend follows Feature-Driven Development to ensure scalability and isolat
     - `analysis/`: Input form, result display, and analysis logic.
     - `history/`: Sidebar list, item actions, and persistence logic.
     - `auth/`: Login, signup, and session management.
-    - `settings/`: Theme toggles and account configuration.
+    - `settings/`: Theme toggles, account configuration, Integrations (REST API documentation and token generation).
 - `src/store/`: Zustand stores (`useAppStore.ts`, `useThemeStore.ts`).
 - `src/services/`: API clients and Supabase initialization.
 - `src/components/ui/`: Shared, reusable UI primitives (wrappers around OpenAI SDK).
@@ -54,6 +54,7 @@ Implemented via `authMiddleware` in Express:
 - `PATCH /history/:id`: Updates feedback (positive/negative).
 - `DELETE /history/:id`: Removes a single entry.
 - `DELETE /history`: Wipes user history.
+- `GET /health/analyzer`: Proxies the health-check call to the Flask Model API (`GET /health`).
 
 ## Data Models
 
