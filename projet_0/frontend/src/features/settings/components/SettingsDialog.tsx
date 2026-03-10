@@ -11,6 +11,7 @@ import { DataManagementSettings } from "./views/DataManagementSettings"
 import { SettingsSidebar } from "./SettingsSidebar"
 import type { SettingsDialogProps, SettingsSection } from "@/features/settings/types/settings.types"
 import { GeneralSettings } from "./views/GeneralSettings"
+import { IntegrationsSettings } from "./views/IntegrationsSettings"
 
 // ─── Dialog Shell ─────────────────────────────────────────────────────────────
 
@@ -44,6 +45,7 @@ export function SettingsDialog({ open, onOpenChange, initialSection = "profile" 
                     {activeSection === "profile" && <ProfileSettings />}
                     {activeSection === "data" && <DataManagementSettings />}
                     {activeSection === "general" && <GeneralSettings />}
+                    {activeSection === "integrations" && <IntegrationsSettings />}
                 </main>
             </DialogContent>
         </Dialog>

@@ -98,7 +98,7 @@ export const checkExpressApiStatus = async (): Promise<boolean> => {
 
 export const checkFlaskApiStatus = async (): Promise<FlaskStatus> => {
   try {
-    const response = await fetch('http://localhost:5000/health', {
+    const response = await fetch(`${API_BASE_URL}/health/analyzer`, {
       method: 'GET',
       signal: AbortSignal.timeout(5000),
     });

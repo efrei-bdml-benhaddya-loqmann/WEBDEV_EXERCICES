@@ -111,7 +111,22 @@ app.get('/', (_req, res) => {
 // /health endpoint redirects to /
 app.get('/health', (_req, res) => {
     res.json({ status: 'ok', message: 'Sentiment Analyzer API running' });
-})
+});
+
+// Proxy health check for the ML Analyzer (Flask API)
+app.get('/health/analyzer', async (req, res) => {
+    try {
+        const response = await fetch(`${FLASK_API_URL}/health`);
+        if (response.ok) {
+            const data = await response.json();
+            return res.json(data);
+        } else {
+            return res.status(response.status).json({ status: 'error', message: `Flask API responded with status ${response.status}` });
+        }
+    } catch (err) {
+        return res.status(502).json({ status: 'error', message: 'Flask API unreachable' });
+    }
+});
 
 // All /history and /analyze routes require authentication
 app.use(['/analyze', '/history'], authMiddleware);
