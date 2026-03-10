@@ -1,7 +1,7 @@
 import type { FlaskStatus, SentimentResult } from '../types';
 import { supabase } from './supabase';
 
-const API_BASE_URL = 'http://localhost:3000';
+export const API_BASE_URL = 'http://localhost:3000';
 
 
 // Generic request builder
