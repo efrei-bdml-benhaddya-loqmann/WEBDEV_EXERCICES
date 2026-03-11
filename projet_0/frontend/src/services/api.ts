@@ -124,3 +124,22 @@ export const checkSupabaseStatus = async (): Promise<boolean> => {
     return false;
   }
 };
+
+export const getInferenceMode = async (): Promise<{ mode: 'local' | 'huggingface' }> => {
+  return requestBuilder<{ mode: 'local' | 'huggingface' }>(
+    '/config/inference',
+    {},
+    'Failed to get inference mode'
+  );
+};
+
+export const updateInferenceMode = async (mode: 'local' | 'huggingface'): Promise<{ status: string, mode: string }> => {
+  return requestBuilder<{ status: string, mode: string }>(
+    '/config/inference',
+    {
+      method: 'POST',
+      body: JSON.stringify({ mode }),
+    },
+    'Failed to update inference mode'
+  );
+};

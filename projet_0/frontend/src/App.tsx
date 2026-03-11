@@ -26,9 +26,14 @@ function App() {
     repeatPing,
     fetchHistory,
     verifyStatus,
+    fetchInferenceMode,
     performAnalysis,
     handleScore
   } = useAppStore()
+
+  useEffect(() => {
+    fetchInferenceMode()
+  }, [fetchInferenceMode])
 
   useEffect(() => {
     if (user && !loading) {

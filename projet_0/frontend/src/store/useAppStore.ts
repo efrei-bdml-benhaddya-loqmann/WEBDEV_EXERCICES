@@ -8,9 +8,12 @@ import {
     updateHistoryItem,
     checkExpressApiStatus,
     checkFlaskApiStatus,
-    checkSupabaseStatus
+    checkSupabaseStatus,
+    getInferenceMode,
+    updateInferenceMode
 } from '@/services/api'
 import { delay, getErrorMessage, isMobileScreen } from '@/utils'
+
 
 type AppState = {
     isSidebarOpen: boolean
@@ -24,7 +27,9 @@ type AppState = {
     flaskStatus: FlaskState
     supabaseStatus: ServiceStatus
     history: SentimentResult[]
+    inferenceMode: 'local' | 'huggingface'
 }
+
 
 type AppActions = {
     setIsSidebarOpen: (isOpen: boolean) => void
@@ -44,7 +49,10 @@ type AppActions = {
     handleDeleteHistory: (id: string) => Promise<void>
     handleSelectHistory: (item: SentimentResult) => void
     handleReset: () => void
+    fetchInferenceMode: () => Promise<void>
+    handleSetInferenceMode: (mode: 'local' | 'huggingface') => Promise<void>
 }
+
 
 export const useAppStore = create<AppState & AppActions>()((set, get) => ({
     isSidebarOpen: false,
@@ -58,6 +66,8 @@ export const useAppStore = create<AppState & AppActions>()((set, get) => ({
     flaskStatus: { status: 'checking' },
     supabaseStatus: 'checking',
     history: [] as SentimentResult[],
+    inferenceMode: 'local',
+
 
     setIsSidebarOpen: (isOpen: boolean) => set({ isSidebarOpen: isOpen }),
     setInputText: (text: string) => set({ inputText: text }),
@@ -75,6 +85,24 @@ export const useAppStore = create<AppState & AppActions>()((set, get) => ({
             set({ history: data })
         } catch (err) {
             set({ error: getErrorMessage(err) })
+        }
+    },
+
+    fetchInferenceMode: async () => {
+        try {
+            const data = await getInferenceMode()
+            set({ inferenceMode: data.mode })
+        } catch (err) {
+            console.error('Failed to fetch inference mode', err)
+        }
+    },
+
+    handleSetInferenceMode: async (mode: 'local' | 'huggingface') => {
+        set({ inferenceMode: mode })
+        try {
+            await updateInferenceMode(mode)
+        } catch (err) {
+            console.error('Failed to update inference mode', err)
         }
     },
 

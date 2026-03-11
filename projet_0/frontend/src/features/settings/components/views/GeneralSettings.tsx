@@ -15,7 +15,9 @@ export function GeneralSettings() {
         setRepeatPing,
         expressStatus,
         flaskStatus,
-        supabaseStatus
+        supabaseStatus,
+        inferenceMode,
+        handleSetInferenceMode
     } = useAppStore();
     const pingTimeout = 30000;
 
@@ -104,6 +106,15 @@ export function GeneralSettings() {
                     </ItemContent>
                     <ItemActions>
                         <Switch checked={repeatPing} onCheckedChange={setRepeatPing} />
+                    </ItemActions>
+                </Item>
+                <Item separator={true}>
+                    <ItemContent>
+                        <ItemTitle>Local Inference</ItemTitle>
+                        <ItemDescription>Run sentiment analysis locally instead of using Hugging Face API</ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                        <Switch checked={inferenceMode === 'local'} onCheckedChange={(c) => handleSetInferenceMode(c ? 'local' : 'huggingface')} />
                     </ItemActions>
                 </Item>
                 <Item separator={false}>

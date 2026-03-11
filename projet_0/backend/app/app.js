@@ -128,6 +128,43 @@ app.get('/health/analyzer', async (req, res) => {
     }
 });
 
+// Proxy for the inference mode config
+app.get('/config/inference', async (req, res) => {
+    try {
+        const response = await fetch(`${FLASK_API_URL}/config/inference`);
+        if (response.ok) {
+            const data = await response.json();
+            return res.json(data);
+        } else {
+            return res.status(response.status).json({ error: 'Failed to fetch config from Flask API' });
+        }
+    } catch (err) {
+        return res.status(502).json({ error: 'Flask API unreachable' });
+    }
+});
+
+app.post('/config/inference', async (req, res) => {
+    const { mode } = req.body;
+    if (!mode || !['local', 'huggingface'].includes(mode)) {
+        return res.status(400).json({ error: 'Invalid mode' });
+    }
+    try {
+        const response = await fetch(`${FLASK_API_URL}/config/inference`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode })
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return res.json(data);
+        } else {
+            return res.status(response.status).json({ error: 'Failed to update config on Flask API' });
+        }
+    } catch (err) {
+        return res.status(502).json({ error: 'Flask API unreachable' });
+    }
+});
+
 // All /history and /analyze routes require authentication
 app.use(['/analyze', '/history'], authMiddleware);
 
