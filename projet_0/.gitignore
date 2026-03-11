@@ -1,0 +1,21 @@
+# --- DEPENDENCIES ---
+node_modules/
+**/node_modules/
+.venv/
+**/.venv/
+
+# --- ENVIRONMENT & SECRETS ---
+.env
+.env.local
+.env.*.local
+*.local
+
+# --- CACHE & TEMPORARY ---
+__pycache__/
+*.py[cod]
+.eslint-errors
+*.log
+
+# --- SYSTEM FILES ---
+.DS_Store
+Thumbs.db
