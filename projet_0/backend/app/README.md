@@ -82,6 +82,7 @@ The gateway will be available at `http://localhost:3000`.
 - `DELETE /history` : Clears the user's entire history.
 
 ### Public Routes
+- `GET` & `POST /config/inference` : Proxy endpoint to configure the ML service's inference mode (`local` or `huggingface`).
 - `GET /health` : Returns the status of the Express gateway.
 - `GET /health/analyzer` : Unified proxy endpoint that returns the status of the Flask ML API.
 

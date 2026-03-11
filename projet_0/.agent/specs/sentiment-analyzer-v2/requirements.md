@@ -42,6 +42,7 @@ The Sentiment Analyzer is a web application that allows users to input text and 
 2. **WHEN** requested, **THEN** the system SHALL provide an option to clear the entire history for the current user.
 3. **WHEN** opening the Integrations tab, **THEN** the system SHALL provide API documentation and REST API usage examples.
 4. **WHEN** the user needs API access, **THEN** the system SHALL allow generation, masking, and copying of session tokens.
+5. **WHEN** configuring the analyzer, **THEN** the user or system SHALL be able to select between local inference and HuggingFace API inference modes.
 
 ## Technical Requirements (FDD & State)
 - **Architecture**: MUST follow Feature-Driven Development (FDD) structure for the frontend.

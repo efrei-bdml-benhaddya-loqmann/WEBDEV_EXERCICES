@@ -206,6 +206,25 @@ export function IntegrationsSettings() {
                         <ItemContent>
                             <div className="flex items-center gap-3">
                                 <Badge variant="soft" color="warning">GET</Badge>
+                                <Badge variant="soft" color="discovery">POST</Badge>
+                                <ItemTitle>Configure Inference Model</ItemTitle>
+                            </div>
+                            <ItemDescription className="mt-1">
+                                Get or set the ML model inference mode (<code>local</code> or <code>huggingface</code>). No auth required.
+                            </ItemDescription>
+                            <div className="mt-4 flex flex-col gap-4">
+                                <CodeBlock language="bash">{`curl ${API_BASE_URL}/config/inference`}</CodeBlock>
+                                <CodeBlock language="bash">{`curl -X POST ${API_BASE_URL}/config/inference \\
+  -H "Content-Type: application/json" \\
+  -d '{"mode": "local"}'`}</CodeBlock>
+                            </div>
+                        </ItemContent>
+                    </Item>
+
+                    <Item separator={true}>
+                        <ItemContent>
+                            <div className="flex items-center gap-3">
+                                <Badge variant="soft" color="warning">GET</Badge>
                                 <ItemTitle>Express API Health Check</ItemTitle>
                             </div>
                             <ItemDescription className="mt-1">

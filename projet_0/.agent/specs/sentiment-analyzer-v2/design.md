@@ -55,6 +55,7 @@ Implemented via `authMiddleware` in Express:
 - `DELETE /history/:id`: Removes a single entry.
 - `DELETE /history`: Wipes user history.
 - `GET /health/analyzer`: Proxies the health-check call to the Flask Model API (`GET /health`).
+- `GET` & `POST /config/inference`: Proxies inference mode configuration (`local` or `huggingface`) to the Flask Model API.
 
 ## Data Models
 

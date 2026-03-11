@@ -89,6 +89,16 @@ Analyzes the sentiment of the provided text.
   }
   ```
 
+### `GET` & `POST /config/inference`
+Configures the inference mode. Can be set to `local` (uses local transformers pipeline) or `huggingface` (uses Inference API).
+
+- **POST Request Body**:
+  ```json
+  {
+    "mode": "local"
+  }
+  ```
+
 ### `GET /health`
 Returns the status of the service and the underlying model.
 
