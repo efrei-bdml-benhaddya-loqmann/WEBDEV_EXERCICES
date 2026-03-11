@@ -8,6 +8,7 @@ import { Input } from "@openai/apps-sdk-ui/components/Input";
 import { Copy, Check, Eye, EyeClosed } from "@openai/apps-sdk-ui/components/Icon";
 import { supabase } from "@/services/supabase";
 import { API_BASE_URL } from "@/services/api";
+import { Animate } from "@openai/apps-sdk-ui/components/Transition";
 
 export function IntegrationsSettings() {
     const [token, setToken] = useState<string | null>(null);
@@ -96,7 +97,13 @@ export function IntegrationsSettings() {
                                                     uniform
                                                     onClick={handleCopy}
                                                 >
-                                                    {copied ? <Check className="text-success" /> : <Copy />}
+                                                    <Animate
+                                                        className="w-[var(--button-icon-size)] h-[var(--button-icon-size)]"
+                                                        enter={{ scale: 1, delay: 150, duration: 400 }}
+                                                        exit={{ scale: 0.6, duration: 150 }}
+                                                    >
+                                                        {copied ? <Check key="copied" className="text-success" /> : <Copy key="copy" />}
+                                                    </Animate>
                                                 </Button>
                                             </div>
                                         }

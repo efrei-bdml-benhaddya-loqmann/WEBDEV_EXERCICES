@@ -95,6 +95,7 @@ export function ResultState({
                 onEdit={handleToggleEdit}
                 onRegenerate={() => onRegenerate(result.text)}
                 onScore={(feedback) => onScore(result.id, feedback)}
+                onMore={() => { }}
               />
               <span className="text-md text-secondary ml-auto lg:ml-0">
                 {(result.score * 100).toFixed(0)}%
