@@ -32,10 +32,10 @@ Built with **React**, **TypeScript**, and **Tailwind CSS 4**, this interface fol
 
 </div>
 
-- **State Management**: Zustand (Global State) + React Hooks
+- **State Management**: [Zustand](https://zustand.docs.pmnd.rs/reference/apis/create) (Global State) + React Hooks
 - **Architecture**: [Feature-Driven Architecture](https://dev.to/rufatalv/feature-driven-architecture-with-nextjs-a-better-way-to-structure-your-application-1lph)
 - **UI Integration**: Radix UI Primitives, Tailwind Merge, Class-Variance-Authority, Lucide-React
-- **Database/Baas**: Supabase Client
+- **Database/Baas**: [Supabase](https://supabase.com/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=express&queryGroups=environment&environment=server-client) Client
 
 ---
 
@@ -134,9 +134,14 @@ This project strictly utilizes a **Feature-Driven Architecture** (as described [
 The application strictly follows the **OpenAI Design System**:
 - **Typography**: Uses clean, modern sans-serif fonts.
 - **Colors**: Leverages the `@openai/apps-sdk-ui` palette with dynamic badges with the `soft` variant:
-  - <kbd>success</kbd> for **Positive**
-  - <kbd>danger</kbd> for **Negative**
-  - <kbd>secondary</kbd> for **Neutral**
+  - **Light theme**
+    - <kbd style="background-color: #DAF5E4; color: #079457;">success</kbd> for **Positive**
+    - <kbd style="background-color: #FEE1E0; color: #BA2623;">danger</kbd> for **Negative**
+    - <kbd style="background-color: #ECECEC; color: #0D0D0D;">secondary</kbd> for **Neutral**
+  - **Dark theme**
+    - <kbd style="background-color: #011C0B; color: #04B84C;">success</kbd> for **Positive**
+    - <kbd style="background-color: #280B0A; color: #FA413E;">danger</kbd> for **Negative**
+    - <kbd style="background-color: #1F1F1F; color: #FFFFFF;">secondary</kbd> for **Neutral**
 - **Layout**: A persistent, collapsible sidebar for history and a centered chat area for analysis.
 
 ---
