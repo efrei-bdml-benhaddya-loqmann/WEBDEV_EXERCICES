@@ -6,7 +6,7 @@ Powered by the **HuggingFace Inference API**, this service provides accurate, mu
 
 ---
 
-## ✨ Features
+## Features
 
 - **Multilingual Support**: Leverages `tabularisai/multilingual-sentiment-analysis` to handle various languages.
 - **High Performance**: Uses HuggingFace's Inference infrastructure for rapid processing.
@@ -15,7 +15,7 @@ Powered by the **HuggingFace Inference API**, this service provides accurate, mu
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 <div align="left">
 
@@ -27,7 +27,7 @@ Powered by the **HuggingFace Inference API**, this service provides accurate, mu
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -70,7 +70,7 @@ The service will be available at `http://localhost:5000`.
 
 ---
 
-## 📂 API Endpoints
+## API Endpoints
 
 ### `POST /predict`
 Analyzes the sentiment of the provided text.

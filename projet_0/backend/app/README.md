@@ -6,7 +6,7 @@ Built with **Node.js** and **Express**, this API ensures secure, reliable, and h
 
 ---
 
-## ✨ Features
+## Features
 
 - **Supabase Integration**: Direct communication with Supabase for user authentication (JWT) and persistent history storage.
 - **ML Proxy**: Facilitates and manages requests to the Flask-based ML service.
@@ -16,7 +16,7 @@ Built with **Node.js** and **Express**, this API ensures secure, reliable, and h
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 <div align="left">
 
@@ -29,7 +29,7 @@ Built with **Node.js** and **Express**, this API ensures secure, reliable, and h
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -72,7 +72,7 @@ The gateway will be available at `http://localhost:3000`.
 
 ---
 
-## 📂 API Endpoints
+## API Endpoints
 
 ### Authenticated Routes (Requires Bearer Token)
 - `POST /analyze` : Submits text for analysis, saves to history, and returns the result.
@@ -88,7 +88,7 @@ The gateway will be available at `http://localhost:3000`.
 
 ---
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 - **RLS Enforced**: History is secured via Supabase Row Level Security.
 - **JWT Authentication**: All sensitive endpoints require a valid Supabase JWT.

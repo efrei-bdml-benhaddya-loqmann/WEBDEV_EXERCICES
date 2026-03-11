@@ -1,4 +1,4 @@
-# ✨ Sentiment Analyzer - Full Stack Project
+# Sentiment Analyzer - Full Stack Project
 
 Welcome to the **Sentiment Analyzer** project! This is a modern, high-performance web application designed to analyze the emotional tone of text. It demonstrates a complete full-stack architecture, featuring a real-time React interface, a secure Express gateway, and a specialized Flask ML service.
 
@@ -6,22 +6,22 @@ Designed for a premium, chat-like experience with absolute focus on performance 
 
 ---
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 The project is structured into three main layers, ensuring a clear separation of concerns (SOC):
 
-### [🎨 Frontend (React + TypeScript)](./frontend/README.md)
+### [Frontend (React + TypeScript)](./frontend/README.md)
 The face of the application. A responsive, user-centric interface built with **Vite**, **Tailwind CSS 4**, and **Zustand**. It follows **Feature-Driven Development (FDD)** patterns to keep the codebase maintainable and scalable.
 
-### [🛣️ Backend Gateway (Express.js)](./backend/app/README.md)
+### [Backend Gateway (Express.js)](./backend/app/README.md)
 The orchestration layer. Manages **Supabase Authentication**, handles project persistence (History), and acts as a secure reverse proxy for the ML service. It includes built-in fallbacks for service unavailability.
 
-### [🧠 ML Service (Flask + Python)](./backend/model/README.md)
+### [ML Service (Flask + Python)](./backend/model/README.md)
 The intelligence layer. A dedicated Python service that integrates with the **HuggingFace Inference API** to perform high-precision sentiment analysis using state-of-the-art multilingual models.
 
 ---
 
-## 🛠️ Unified Tech Stack
+## Unified Tech Stack
 
 <div align="left">
 
@@ -35,7 +35,7 @@ The intelligence layer. A dedicated Python service that integrates with the **Hu
 
 ---
 
-## 🚀 Speed Run Setup (Full Project)
+## Speed Run Setup (Full Project)
 
 To run the entire ecosystem locally, follow these steps in separate terminal instances:
 
@@ -64,7 +64,7 @@ npm run dev
 
 ---
 
-## 📂 Project Organization
+## Project Organization
 
 ```text
 projet_0/

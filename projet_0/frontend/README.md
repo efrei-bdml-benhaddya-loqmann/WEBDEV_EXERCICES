@@ -6,7 +6,7 @@ Built with **React**, **TypeScript**, and **Tailwind CSS 4**, this interface fol
 
 ---
 
-## ✨ Features
+## Features
 
 - **Real-time Analysis**: Submit text and receive instant sentiment feedback (Positive, Negative, or Neutral).
 - **Spotless Interface**: A clean, breathing design that focuses on content and clarity.
@@ -18,7 +18,7 @@ Built with **React**, **TypeScript**, and **Tailwind CSS 4**, this interface fol
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 <div align="left">
 
@@ -39,7 +39,7 @@ Built with **React**, **TypeScript**, and **Tailwind CSS 4**, this interface fol
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -79,7 +79,7 @@ npm run build
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 frontend/src/
@@ -129,7 +129,7 @@ This project strictly utilizes a **Feature-Driven Architecture** (as described [
 
 ---
 
-## 🎨 Design & UI
+## Design & UI
 
 The application strictly follows the **OpenAI Design System**:
 - **Typography**: Uses clean, modern sans-serif fonts.
@@ -146,7 +146,7 @@ The application strictly follows the **OpenAI Design System**:
 
 ---
 
-## 🤝 Backend Integration
+## Backend Integration
 
 This frontend communicates with an Express.js backend via the following endpoints:
 - `POST /analyze`: Submit text for analysis.
