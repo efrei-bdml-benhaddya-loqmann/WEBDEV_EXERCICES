@@ -32,9 +32,8 @@ export function SettingsSidebar({ activeSection, setActiveSection, onClose }: Se
                 {settingsSections.map(({ id, label, Icon }) => {
                     const isActive = activeSection === id
                     return (
-                        <>
+                        <div key={id}>
                             <Button
-                                key={id}
                                 onClick={() => setActiveSection(id)}
                                 color="secondary"
                                 variant={isActive ? "soft" : "ghost"}
@@ -46,7 +45,7 @@ export function SettingsSidebar({ activeSection, setActiveSection, onClose }: Se
                                     <span>{label}</span>
                                 </div>
                             </Button>
-                        </>
+                        </div>
                     )
                 })}
             </nav>
