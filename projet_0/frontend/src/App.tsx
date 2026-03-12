@@ -6,9 +6,8 @@ import { InputArea } from './features/analysis/components/InputArea'
 import { AnalysisArea } from './features/analysis/components/AnalysisArea'
 import { useAuth } from './contexts/AuthContext'
 import Login from './features/auth/components/Login'
-import { copyToClipboard } from './utils'
-
 import { useAppStore } from './store/useAppStore'
+import { useAnalysis } from './features/analysis/hooks/useAnalysis'
 
 
 
@@ -18,18 +17,17 @@ function App() {
 
   const {
     setIsSidebarOpen,
-    inputText, setInputText,
-    isSubmitting,
-    submittedText,
-    result,
-    error,
     repeatPing,
     fetchHistory,
     verifyStatus,
     fetchInferenceMode,
-    performAnalysis,
-    handleScore
   } = useAppStore()
+
+  const {
+    submittedText,
+    result,
+    error
+  } = useAnalysis()
 
   useEffect(() => {
     fetchInferenceMode()
@@ -87,27 +85,11 @@ function App() {
         {showHero ? (
           <HeroTitle />
         ) : (
-          <AnalysisArea
-            userText={submittedText}
-            result={result}
-            isLoading={isSubmitting}
-            error={error}
-            onCopy={copyToClipboard}
-            onRegenerate={performAnalysis}
-            onScore={handleScore}
-          />
+          <AnalysisArea />
         )}
 
         <div className="relative z-20 shrink-0 w-full mt-auto">
-          <InputArea
-            text={inputText}
-            setText={setInputText}
-            onSubmit={() => {
-              performAnalysis(inputText)
-              setInputText('')
-            }}
-            isLoading={isSubmitting}
-          />
+          <InputArea />
         </div>
 
         {/* Bottom Mobile Gradient Overlay */}

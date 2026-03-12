@@ -5,23 +5,15 @@ import { ArrowUp } from '@openai/apps-sdk-ui/components/Icon'
 import { LoadingIndicator } from "@openai/apps-sdk-ui/components/Indicator";
 import { Input } from '@openai/apps-sdk-ui/components/Input'
 
-export function InputArea({
-    text,
-    setText,
-    onSubmit,
-    isLoading
-}: {
-    text: string
-    setText: (s: string) => void
-    onSubmit: () => void
-    isLoading: boolean
-}) {
+import { useAnalysis } from '../hooks/useAnalysis'
+
+export function InputArea() {
+    const { inputText, setInputText, isSubmitting, handleFormSubmit } = useAnalysis()
     const formRef = useRef<HTMLFormElement>(null)
 
     const handleSubmit = (e?: SubmitEvent<HTMLFormElement>) => {
         if (e) e.preventDefault()
-        if (!text.trim() || isLoading) return
-        onSubmit()
+        handleFormSubmit()
     }
 
     return (
@@ -32,24 +24,24 @@ export function InputArea({
             >
                 <Input
                     placeholder="Enter text..."
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
                     pill
                     size='3xl'
                     endAdornment={
                         <Button
-                            color={text.trim() ? "primary" : "secondary"}
+                            color={inputText.trim() ? "primary" : "secondary"}
                             variant="solid"
                             pill
                             uniform
                             size="md"
                             iconSize="lg"
-                            disabled={!text.trim() || isLoading}
-                            className={`-mr-3 transition-opacity ${!text.trim() ? 'opacity-40' : 'opacity-100'}`}
+                            disabled={!inputText.trim() || isSubmitting}
+                            className={`-mr-3 transition-opacity ${!inputText.trim() ? 'opacity-40' : 'opacity-100'}`}
                             onClick={() => handleSubmit()}
                             type="button"
                         >
-                            {isLoading ? <LoadingIndicator /> : <ArrowUp />}
+                            {isSubmitting ? <LoadingIndicator /> : <ArrowUp />}
                         </Button>
                     }
                 />
