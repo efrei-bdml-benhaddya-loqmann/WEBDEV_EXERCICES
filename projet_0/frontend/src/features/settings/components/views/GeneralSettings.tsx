@@ -17,9 +17,11 @@ export function GeneralSettings() {
         flaskStatus,
         supabaseStatus,
         inferenceMode,
-        handleSetInferenceMode
+        handleSetInferenceMode,
     } = useAppStore();
     const pingTimeout = 30000;
+
+    const API_BASE_URL = import.meta.env.VITE_EXPRESS_API_URL || 'http://localhost:3000';
 
     const renderBadge = (status: ServiceStatus | 'warning', offlineColor: 'danger' | 'warning' = 'danger') => {
 
@@ -41,7 +43,7 @@ export function GeneralSettings() {
                         variant="soft"
                         color="danger"
                         description={
-                            <>Express API is unreachable.{' '}<TextLink href="http://localhost:3000/health" target="_blank">Ping Server</TextLink></>
+                            <>Express API is unreachable.{' '}<TextLink href={`${API_BASE_URL}/health`} target="_blank">Ping Server</TextLink></>
                         }
                     />
                 )}
@@ -50,7 +52,7 @@ export function GeneralSettings() {
                         variant="soft"
                         color="danger"
                         description={
-                            <>Flask API is unreachable.{' '}<TextLink href="http://localhost:5000/health" target="_blank">Ping Server</TextLink></>
+                            <>Flask API is unreachable.{' '}<TextLink href={`${API_BASE_URL}/health/analyzer`} target="_blank">Ping Server</TextLink></>
                         }
                     />
                 )}
@@ -59,7 +61,7 @@ export function GeneralSettings() {
                         variant="soft"
                         color="warning"
                         description={
-                            <>{flaskStatus.message || 'Flask API is running but reported a warning.'}{' '}<TextLink href="http://localhost:5000/health" target="_blank">Ping Server</TextLink></>
+                            <>{flaskStatus.message || 'Flask API is running but reported a warning.'}{' '}<TextLink href={`${API_BASE_URL}/health/analyzer`} target="_blank">Ping Server</TextLink></>
                         }
                     />
                 )}
