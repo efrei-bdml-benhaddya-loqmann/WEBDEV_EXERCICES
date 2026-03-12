@@ -1,7 +1,10 @@
 import type { FlaskStatus, SentimentResult } from '../types';
 import { supabase } from './supabase';
 
-export const API_BASE_URL = 'http://localhost:3000';
+const API_URL = import.meta.env.EXPRESS_API_URL;
+const API_PORT = import.meta.env.EXPRESS_API_PORT;
+
+export const API_BASE_URL = `${API_URL}:${API_PORT}`;
 
 
 // Generic request builder
