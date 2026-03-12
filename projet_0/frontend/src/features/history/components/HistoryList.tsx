@@ -1,9 +1,9 @@
 import { Delete } from '@openai/apps-sdk-ui/components/Icon'
 import { Button } from '@openai/apps-sdk-ui/components/Button'
-import { useAppStore } from '../../../store/useAppStore'
+import { useHistory } from '../hooks/useHistory'
 
 export function HistoryList() {
-    const { history, handleSelectHistory, handleDeleteHistory } = useAppStore()
+    const { history, handleSelectHistory, handleDeleteHistory } = useHistory()
 
     return (
         <>

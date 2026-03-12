@@ -18,7 +18,6 @@ function App() {
   const {
     setIsSidebarOpen,
     repeatPing,
-    fetchHistory,
     verifyStatus,
     fetchInferenceMode,
   } = useAppStore()
@@ -32,12 +31,6 @@ function App() {
   useEffect(() => {
     fetchInferenceMode()
   }, [fetchInferenceMode])
-
-  useEffect(() => {
-    if (user && !loading) {
-      fetchHistory()
-    }
-  }, [user, loading, result, fetchHistory])
 
   useEffect(() => {
     if (!repeatPing) return
