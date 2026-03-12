@@ -126,7 +126,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Analyze sentiment of a given text and retrieve a confidence score.
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">{`curl -X POST ${API_BASE_URL}/analyze \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer $YOUR_TOKEN" \\
@@ -144,7 +144,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Retrieve the analysis history for the authenticated user.
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">
                                     {`curl ${API_BASE_URL}/history \\
   -H "Authorization: Bearer $YOUR_TOKEN"`}
@@ -162,7 +162,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Delete a specific history entry by its ID.
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">
                                     {`curl -X DELETE ${API_BASE_URL}/history/{id} \\
   -H "Authorization: Bearer $YOUR_TOKEN"`}
@@ -180,7 +180,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Update a specific history entry (e.g., user feedback ratings).
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">
                                     {`curl -X PATCH ${API_BASE_URL}/history/{id} \\
   -H "Content-Type: application/json" \\
@@ -200,7 +200,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Clear all analysis history for the authenticated user.
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">
                                     {`curl -X DELETE ${API_BASE_URL}/history \\
   -H "Authorization: Bearer $YOUR_TOKEN"`}
@@ -219,7 +219,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Get or set the ML model inference mode (<code>local</code> or <code>huggingface</code>). No auth required.
                             </ItemDescription>
-                            <div className="mt-4 flex flex-col gap-4">
+                            <div className="mt-4 flex flex-col gap-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">{`curl ${API_BASE_URL}/config/inference`}</CodeBlock>
                                 <CodeBlock language="bash">{`curl -X POST ${API_BASE_URL}/config/inference \\
   -H "Content-Type: application/json" \\
@@ -237,7 +237,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Check the backend Express API's operational status. No auth required.
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">{`curl ${API_BASE_URL}/health`}</CodeBlock>
                             </div>
                         </ItemContent>
@@ -252,7 +252,7 @@ export function IntegrationsSettings() {
                             <ItemDescription className="mt-1">
                                 Check the ML model API's operational status via the Express backend proxy. No auth required.
                             </ItemDescription>
-                            <div className="mt-4">
+                            <div className="mt-4 w-full overflow-x-auto">
                                 <CodeBlock language="bash">{`curl ${API_BASE_URL}/health/analyzer`}</CodeBlock>
                             </div>
                         </ItemContent>

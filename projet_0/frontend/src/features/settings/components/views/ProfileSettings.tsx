@@ -5,6 +5,7 @@ import { DialogHeader, DialogTitle } from "@/components/ui/Dialog"
 import { updateUserName } from "@/services/supabase"
 import { useState } from "react"
 import { Input } from "@openai/apps-sdk-ui/components/Input"
+import { Check, X } from "@openai/apps-sdk-ui/components/Icon"
 
 export function ProfileSettings() {
     const { user, signOut } = useAuth()
@@ -67,6 +68,7 @@ export function ProfileSettings() {
                         placeholder="Edit text..."
                         maxLength={18}
                         minLength={3}
+                        style={{ maxWidth: "150px" }}
                     />
 
                     <Button
@@ -76,11 +78,13 @@ export function ProfileSettings() {
                         onClick={onSave}
                         disabled={text == value || text?.length < 3 || text?.length > 18}
                     >
-                        Save
+                        <span className="sm:hidden"><Check /></span>
+                        <span className="hidden sm:block">Save</span>
                     </Button>
                     <Button
                         color="primary" variant="soft" pill onClick={onCancel}>
-                        Cancel
+                        <span className="sm:hidden"><X /></span>
+                        <span className="hidden sm:block">Cancel</span>
                     </Button>
                 </div>
             </form>

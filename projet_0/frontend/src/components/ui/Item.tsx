@@ -72,7 +72,7 @@ interface ItemContentProps {
 }
 
 export function ItemContent({ children, className = "" }: ItemContentProps) {
-    return <div className={`flex flex-col gap-0.5 ${className}`}>{children}</div>
+    return <div className={`flex flex-col gap-0.5 min-w-0 ${className}`}>{children}</div>
 }
 
 // ─── ItemTitle ────────────────────────────────────────────────────────────────
