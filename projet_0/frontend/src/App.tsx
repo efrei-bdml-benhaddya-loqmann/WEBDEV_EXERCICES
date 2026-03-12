@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { SidebarMenuMobile } from '@openai/apps-sdk-ui/components/Icon'
 import { Sidebar } from './components/layout/Sidebar'
 import { MainContent, HeroTitle } from './components/layout/MainContent'
@@ -7,20 +6,12 @@ import { AnalysisArea } from './features/analysis/components/AnalysisArea'
 import { useAuth } from './contexts/AuthContext'
 import Login from './features/auth/components/Login'
 import { useAppStore } from './store/useAppStore'
+import { useSettings } from './features/settings/hooks/useSettings'
 import { useAnalysis } from './features/analysis/hooks/useAnalysis'
-
-
-
 
 function App() {
   const { user, loading } = useAuth()
-
-  const {
-    setIsSidebarOpen,
-    repeatPing,
-    verifyStatus,
-    fetchInferenceMode,
-  } = useAppStore()
+  const { setIsSidebarOpen } = useAppStore()
 
   const {
     submittedText,
@@ -28,16 +19,8 @@ function App() {
     error
   } = useAnalysis()
 
-  useEffect(() => {
-    fetchInferenceMode()
-  }, [fetchInferenceMode])
-
-  useEffect(() => {
-    if (!repeatPing) return
-    verifyStatus()
-    const intervalId = setInterval(verifyStatus, 30000)
-    return () => clearInterval(intervalId)
-  }, [repeatPing, verifyStatus])
+  // Initialize background settings tasks (monitoring, inference mode)
+  useSettings()
 
   if (loading) {
     return (
@@ -65,12 +48,12 @@ function App() {
         {/* Mobile Header */}
         <div className="lg:hidden flex items-center gap-3 p-4 bg-transparent shrink-0 relative z-20">
           <button
-            className="flex items-center justify-center w-10 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)] hover:opacity-80 transition-opacity"
+            className="flex items-center justify-center w-10 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-100)] dark:border dark:border-[var(--gray-150)] hover:opacity-80 transition-opacity"
             onClick={() => setIsSidebarOpen(true)}
           >
             <SidebarMenuMobile className="size-5 text-primary dark:text-primary" />
           </button>
-          <div className="flex items-center px-4 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-200)] dark:border dark:border-[var(--gray-150)]">
+          <div className="flex items-center px-4 h-10 rounded-full shadow-sm bg-white dark:bg-[var(--gray-100)] dark:border dark:border-[var(--gray-150)]">
             <span className="font-semibold text-sm text-primary dark:text-primary">Sentiment Analyzer</span>
           </div>
         </div>

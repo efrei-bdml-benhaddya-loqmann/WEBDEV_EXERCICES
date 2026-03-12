@@ -5,9 +5,8 @@ import { Alert } from "@openai/apps-sdk-ui/components/Alert";
 import { Badge } from "@openai/apps-sdk-ui/components/Badge";
 import { Switch } from "@openai/apps-sdk-ui/components/Switch";
 import { TextLink } from "@openai/apps-sdk-ui/components/TextLink";
-import { useAppStore } from "@/store/useAppStore";
+import { useSettings } from "../../hooks/useSettings";
 import type { ServiceStatus } from "@/types";
-
 
 export function GeneralSettings() {
     const {
@@ -18,7 +17,7 @@ export function GeneralSettings() {
         supabaseStatus,
         inferenceMode,
         handleSetInferenceMode,
-    } = useAppStore();
+    } = useSettings();
     const pingTimeout = 30000;
 
     const API_BASE_URL = import.meta.env.VITE_EXPRESS_API_URL || 'http://localhost:3000';
