@@ -40,7 +40,7 @@ export function IntegrationsSettings() {
             </DialogHeader>
 
             <div className="flex flex-col gap-6 py-4">
-                <div className="px-4 md:px-6 flex flex-col gap-8">
+                <div className="px-6 flex flex-col gap-8">
                     <section>
                         <h3 className="text-lg mb-2 text-primary">Introduction</h3>
                         <p className="text-sm text-secondary leading-relaxed">
