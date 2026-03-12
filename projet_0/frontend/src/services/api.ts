@@ -1,9 +1,13 @@
 import type { FlaskStatus, SentimentResult } from '../types';
 import { supabase } from './supabase';
 
-const API_URL = import.meta.env.EXPRESS_API_URL;
+const expressApiURL = import.meta.env.VITE_EXPRESS_API_URL;
 
-export const API_BASE_URL = `${API_URL}`;
+if (!expressApiURL) {
+  throw new Error('Missing Express environment variables');
+}
+
+export const API_BASE_URL = expressApiURL;
 
 
 // Generic request builder

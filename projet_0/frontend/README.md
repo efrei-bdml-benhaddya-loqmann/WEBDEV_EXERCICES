@@ -60,6 +60,15 @@ Ensure you have **Node.js** (v18+) and a package manager (**npm**, **pnpm**, or 
    bun install
    ```
 
+### Environment
+
+Create or copy the `.env.local.example` file to a `.env.local` file in the root of the frontend directory and add the following variables:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_EXPRESS_API_URL=your_express_api_url
+```
+
 ### Development
 
 Start the development server:
